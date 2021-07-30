@@ -1,10 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="static/cropped-ico-32x32.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
+
     <title>Admin panel</title>
-</head>
-<body>
-    Тут будет сайдбар и кнопки
-</body>
+  </head>
+
+  <body>
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <img src="static/cropped-ico-32x32.png" class="me-2">
+        <span class="fs-3">BoisRouge</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link active d-flex" aria-current="page">
+            <i class="material-icons-outlined me-2">language</i>
+            <span class="my-auto">Перевод</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link link-dark d-flex">
+            <i class="material-icons-outlined me-2">event</i>
+            <span class="my-auto">Новости</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link link-dark d-flex">
+            <i class="material-icons-outlined me-2">store</i>
+            <span class="my-auto">Продукты</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link link-dark d-flex">
+            <i class="material-icons-outlined me-2">style</i>
+            <span class="my-auto">Сорта дерева</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link link-dark d-flex">
+            <i class="material-icons-outlined me-2">camera</i>
+            <span class="my-auto">Галерея</span>
+          </a>
+        </li>
+      </ul>
+      <hr>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
 </html>
