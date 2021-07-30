@@ -6,65 +6,59 @@
 
     <link rel="icon" href="static/cropped-ico-32x32.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
 
     <title>Admin panel</title>
   </head>
 
   <body>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <div class="bg-light p-3" style="height: 100vh">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <img src="static/cropped-ico-32x32.png" class="me-2">
         <span class="fs-3">BoisRouge</span>
       </a>
-      <hr>
-      <ul class="nav nav-tabs flex-column mb-auto" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a href="#translate" class="nav-link active d-flex" id="translate-tab" data-toggle="tab" role="tab" aria-controls="translate" aria-selected="true">
+      <hr style="height: 1px; margin-down: 0px;">
+
+      <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link link-dark d-flex" id="nav-translate-tab" data-bs-toggle="tab" data-bs-target="#nav-translate" type="button" role="tab" aria-controls="nav-translate" aria-selected="true">
             <i class="material-icons-outlined me-2">language</i>
             <span class="my-auto">Перевод</span>
-          </a>
-        </li>
-        <li>
-          <a href="#news" class="nav-link link-dark d-flex" id="news-tab" data-toggle="tab" role="tab" aria-controls="news" aria-selected="false">
+          </button >
+
+          <button class="nav-link link-dark d-flex" id="nav-news-tab" data-bs-toggle="tab" data-bs-target="#nav-news" type="button" role="tab" aria-controls="nav-news" aria-selected="false">
             <i class="material-icons-outlined me-2">event</i>
             <span class="my-auto">Новости</span>
-          </a>
-        </li>
-        <li>
-          <a href="#products" class="nav-link link-dark d-flex" id="products-tab" data-toggle="tab" role="tab" aria-controls="products" aria-selected="false">
+          </button>
+
+          <button class="nav-link link-dark d-flex" id="nav-products-tab" data-bs-toggle="tab" data-bs-target="#nav-products" type="button" role="tab" aria-controls="nav-products" aria-selected="false">
             <i class="material-icons-outlined me-2">store</i>
             <span class="my-auto">Продукты</span>
-          </a>
-        </li>
-        <li>
-          <a href="#sorts" class="nav-link link-dark d-flex" id="sorts-tab" data-toggle="tab" role="tab" aria-controls="sorts" aria-selected="false">
+          </button>
+
+          <button class="nav-link link-dark d-flex" id="nav-sorts-tab" data-bs-toggle="tab" data-bs-target="#nav-sorts" type="button" role="tab" aria-controls="nav-sorts" aria-selected="false">
             <i class="material-icons-outlined me-2">style</i>
             <span class="my-auto">Сорта дерева</span>
-          </a>
-        </li>
-        <li>
-          <a href="#gallery" class="nav-link link-dark d-flex" id="gallery-tab" data-toggle="tab" role="tab" aria-controls="gallery" aria-selected="false">
+          </button>
+
+          <button class="nav-link link-dark d-flex" id="nav-gallery-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery" type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">
             <i class="material-icons-outlined me-2">camera</i>
             <span class="my-auto">Галерея</span>
-          </a>
-        </li>
-      </ul>
-
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="translate" role="tabpanel" aria-labelledby="translate-tab"></div>
-        <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab"></div>
-        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab"></div>
-        <div class="tab-pane fade" id="sorts" role="tabpanel" aria-labelledby="sorts-tab"></div>
-        <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab"></div>
+          </button>
+        </div>
+      <hr style="height: 400px;/*высота*/ width: 1px;/*толщина*/">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="nav-translate" role="tabpanel" aria-labelledby="nav-translate-tab">Перевод</div>
+        <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">Новости</div>
+        <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">Продукты</div>
+        <div class="tab-pane fade" id="nav-sorts" role="tabpanel" aria-labelledby="nav-sorts-tab">Сорта дерева</div>
+        <div class="tab-pane fade" id="nav-gallery" role="tabpanel" aria-labelledby="nav-gallery-tab">Галерея</div>
       </div>
-      <hr>
+      </div>
     </div>
 
-    <script src="/examples/libs/jquery/jquery-3.4.1.min.js"></script>
-    <script src="/examples/libs/bootstrap-4/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+    </body>
 </html>
