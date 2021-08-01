@@ -1,78 +1,173 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="static/cropped-ico-32x32.png">
+  <link rel="icon" href="static/cropped-ico-32x32.png">
 
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
+  <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}"/>
 
-    <title>Admin panel</title>
-  </head>
+  <title>Admin panel</title>
+</head>
 
-  <body>
-    <div class="bg-light p-3" style="height: 100vh">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <img src="static/cropped-ico-32x32.png" class="me-2">
-        <span class="fs-3">BoisRouge</span>
-      </a>
-<!--      <hr style="height: 1px; margin-bottom: 0px;">-->
-      <hr>
-      <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="border: 1px solid gray;">
-          <button class="nav-link link-dark d-flex" id="nav-translate-tab" data-bs-toggle="tab" data-bs-target="#nav-translate" type="button" role="tab" aria-controls="nav-translate" aria-selected="true">
-            <i class="material-icons-outlined me-2">language</i>
-            <span class="my-auto">Перевод</span>
-          </button >
+<body>
+<div class="bg-light p-3" style="height: 100vh">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <img src="static/cropped-ico-32x32.png" class="me-2">
+    <span class="fs-3">BoisRouge</span>
+  </a>
+  <!--      <hr style="height: 1px; margin-bottom: 0px;">-->
+  <hr>
+  <div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical"
+         style="border: 1px solid gray;">
+      <button class="nav-link link-dark d-flex" id="nav-translate-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-translate" type="button" role="tab" aria-controls="nav-translate"
+              aria-selected="true">
+        <i class="material-icons-outlined me-2">language</i>
+        <span class="my-auto">Перевод</span>
+      </button>
 
-          <button class="nav-link link-dark d-flex" id="nav-news-tab" data-bs-toggle="tab" data-bs-target="#nav-news" type="button" role="tab" aria-controls="nav-news" aria-selected="false">
-            <i class="material-icons-outlined me-2">event</i>
-            <span class="my-auto">Новости</span>
-          </button>
+      <button class="nav-link link-dark d-flex" id="nav-news-tab" data-bs-toggle="tab" data-bs-target="#nav-news"
+              type="button" role="tab" aria-controls="nav-news" aria-selected="false">
+        <i class="material-icons-outlined me-2">event</i>
+        <span class="my-auto">Новости</span>
+      </button>
 
-          <button class="nav-link link-dark d-flex" id="nav-products-tab" data-bs-toggle="tab" data-bs-target="#nav-products" type="button" role="tab" aria-controls="nav-products" aria-selected="false">
-            <i class="material-icons-outlined me-2">store</i>
-            <span class="my-auto">Продукты</span>
-          </button>
+      <button class="nav-link link-dark d-flex" id="nav-products-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-products" type="button" role="tab" aria-controls="nav-products"
+              aria-selected="false">
+        <i class="material-icons-outlined me-2">store</i>
+        <span class="my-auto">Продукты</span>
+      </button>
 
-          <button class="nav-link link-dark d-flex" id="nav-sorts-tab" data-bs-toggle="tab" data-bs-target="#nav-sorts" type="button" role="tab" aria-controls="nav-sorts" aria-selected="false">
-            <i class="material-icons-outlined me-2">style</i>
-            <span class="my-auto">Сорта дерева</span>
-          </button>
+      <button class="nav-link link-dark d-flex" id="nav-sorts-tab" data-bs-toggle="tab" data-bs-target="#nav-sorts"
+              type="button" role="tab" aria-controls="nav-sorts" aria-selected="false">
+        <i class="material-icons-outlined me-2">style</i>
+        <span class="my-auto">Сорта дерева</span>
+      </button>
 
-          <button class="nav-link link-dark d-flex" id="nav-gallery-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery" type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">
-            <i class="material-icons-outlined me-2">camera</i>
-            <span class="my-auto">Галерея</span>
-          </button>
-        </div>
+      <button class="nav-link link-dark d-flex" id="nav-gallery-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery"
+              type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">
+        <i class="material-icons-outlined me-2">camera</i>
+        <span class="my-auto">Галерея</span>
+      </button>
+    </div>
 
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade" id="nav-translate" role="tabpanel" aria-labelledby="nav-translate-tab">Перевод</div>
-        <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="nav-translate" role="tabpanel" aria-labelledby="nav-translate-tab">Перевод</div>
+      <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
 
-          Новости
+        <h1 class="display-6">Добавить новость</h1>
 
-        </div>
-        <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">Продукты</div>
-        <div class="tab-pane fade" id="nav-sorts" role="tabpanel" aria-labelledby="nav-sorts-tab">Сорта дерева</div>
-        <div class="tab-pane fade" id="nav-gallery" role="tabpanel" aria-labelledby="nav-gallery-tab">
+        <form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Заголовок</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-sm">
+          </div>
 
-          <h1 class="display-6">Добавить фотографию в галерею</h1>
-          <form>
-            <div class="mb-3">
-              <input class = "form-control" type="file" id="files" name="files[]"  multiple />
-              <ul id="list"></ul>
-            </div>
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-            </div>
-          </form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Краткое описание</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default">
+          </div>
 
-          <script>
+          <div class="form-outline mb-3">
+            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
+          </div>
+
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">
+
+        <h1 class="display-6">Добавить продукт</h1>
+        <form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Название</span>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Другое поле</span>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-outline mb-3">
+            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
+            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
+            <ul id="photo_list"></ul>
+          </div>
+
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="nav-sorts" role="tabpanel" aria-labelledby="nav-sorts-tab">
+
+        <h1 class="display-6">Добавить сорт дерева</h1>
+        <form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Название</span>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-outline mb-3">
+            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
+            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg"/>
+          </div>
+
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+          </div>
+        </form>
+
+      </div>
+
+
+      <div class="tab-pane fade" id="nav-gallery" role="tabpanel" aria-labelledby="nav-gallery-tab">
+
+        <h1 class="display-6">Добавить фотографию в галерею</h1>
+        <form>
+          <div class="mb-3">
+            <input class="form-control" type="file" id="files" name="files[]" accept="image/png, image/gif, image/jpeg"
+                   multiple/>
+            <ul id="list"></ul>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+          </div>
+        </form>
+
+        <script>
               function showFile(e) {
               var files = e.target.files;
               for (var i = 0, f; f = files[i]; i++) {
@@ -92,12 +187,13 @@
             }
 
             document.getElementById('files').addEventListener('change', showFile, false);
-          </script>
 
-        </div>
-      </div>
+        </script>
+
       </div>
     </div>
+  </div>
+</div>
 
-    </body>
+</body>
 </html>
