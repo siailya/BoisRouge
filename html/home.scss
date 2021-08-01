@@ -1,0 +1,277 @@
+.home-top-section{
+  padding-top: 250px;
+  background: url("home-top-back.jpg") no-repeat;
+  background-position-x: center;
+  background-position-y: 0%;
+  background-size: cover;
+  min-height: 100vh;
+  box-shadow: 0px 10px 19px 3px rgba(0, 0, 0, 0.25);
+  transition: all .3s ease;
+}
+
+#homeSectionInner{
+  transition: all .3s ease;
+}
+
+.home-top-title{
+  font-size: 54px;
+  z-index: 1000;
+  color: white;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 992px){
+  .home-top-title{
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .home-top-title{
+    font-size: 30px;
+  }
+
+  .home-top-section{
+    padding-top: 180px;
+  }
+}
+
+@media screen and (max-width: 576px){
+  .home-top-title{
+    font-size: 26px;
+  }
+}
+
+.about-company{
+  padding-top: 30px;
+}
+
+.home-header{
+  span{
+    position: relative;
+    top: 55px;
+    left: 35px;
+    font-weight: 600;
+    font-size: 72px;
+    opacity: 0.05;
+    z-index: -1;
+    transition: all .3s ease;
+  }
+  @media screen and (max-width: 768px){
+    span{
+      display: none!important;
+    }
+  }
+  h2{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+  }
+  div{
+    width: 120px;
+    border-bottom: 4px var(--green) solid;
+  }
+}
+
+.company-desc{
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 15px;
+}
+
+.go-to-gallery{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20% 15% 1rem;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 62%);
+  z-index: 1;
+
+  a{
+    color: white;
+  }
+  a:hover{
+    color: white;
+  }
+}
+
+.about-carousel{
+  height: 30vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1200px){
+  .about-carousel{
+    height: 38vh;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .about-carousel{
+    height: 38vh;
+  }
+}
+
+@media screen and (min-width: 1400px){
+  .about-carousel{
+    height: 43vh;
+  }
+}
+
+.services{
+  margin-top: 30px;
+}
+
+.services-description{
+  font-size: 18px;
+}
+
+.service-card{
+  aspect-ratio: 1 / 1;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  filter: grayscale(1);
+  text-align: center;
+  transition: all .3s ease;
+
+  .service-title{
+    color: white;
+    font-size: 36px;
+    font-weight: 600;
+  }
+  .service-description{
+    color: white;
+    height: 0;
+    overflow: hidden;
+    transition: all .3s ease;
+  }
+  a{
+    color: white;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .service-title{
+    font-size: 30px!important;
+  }
+}
+
+@supports not (aspect-ratio: 1) {
+  .service-card {
+    column-count: 1;
+  }
+
+  .service-card::before {
+    content: "";
+    float: left;
+    padding-bottom: calc(100% / (100 / 100));
+  }
+}
+
+#serviceCard-0{
+  background: url("logs.jpg") no-repeat;
+  background-size: cover;
+}
+
+#serviceCard-1{
+  background: url("sawn.jpg") no-repeat;
+  background-size: cover;
+}
+
+#serviceCard-2{
+  background: url("decking.jpg") no-repeat;
+  background-size: cover;
+}
+
+.service-more{
+  padding: 0;
+  transition: all .3s ease;
+  i{
+    width: 0;
+    overflow: hidden;
+    transition: all .3s ease;
+  }
+}
+
+.service-more:hover{
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-color);
+}
+
+.service-more.more{
+  border: 1px white solid;
+  padding: 8px 12px;
+  border-radius: 5px;
+  i{
+    width: 24px;
+  }
+}
+
+.species{
+  margin-top: 30px;
+}
+
+.species-description{
+  font-size: 18px;
+}
+
+.specie-item{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #2C180E;
+  border-radius: 500px;
+  text-align: center;
+  display: flex;
+  color: white;
+  font-size: 24px;
+  padding: 10px;
+  transition: all .3s ease;
+}
+
+@media screen and (max-width: 1200px) {
+  .specie-item{
+    font-size: 20px;
+  }
+}
+
+.specie-item:hover{
+  transform: scale(1.1);
+}
+
+@supports not (aspect-ratio: 1) {
+  .specie-item {
+    column-count: 1;
+  }
+
+  .specie-item::before {
+    content: "";
+    float: left;
+    padding-bottom: calc(100% / (100 / 100));
+  }
+}
+
+.specie-more{
+  background: var(--green);
+  text-decoration: none;
+  span{
+    font-size: 16px;
+    i{
+      font-size: 32px;
+    }
+  }
+}
+
+.specie-more:hover{
+  background: var(--light-green);
+  color: white;
+}
+
+.contacts{
+  margin-top: 30px;
+}

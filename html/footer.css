@@ -1,0 +1,27 @@
+footer {
+  background: var(--text-color);
+  color: white;
+  padding: 30px 0;
+}
+
+footer .menu-item {
+  color: white;
+  font-size: 18px;
+}
+footer .our-products span {
+  font-size: 18px;
+  font-weight: 500;
+}
+footer input {
+  border-color: white;
+  color: white;
+}
+footer label {
+  font-size: 12px;
+}
+footer .subscribe span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=footer.css.map */
