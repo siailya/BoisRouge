@@ -19,8 +19,8 @@
   <title>Admin panel</title>
 </head>
 
-<body>
-<div class="bg-light p-3" style="height: 100vh">
+<body class="bg-light p-3">
+<div style="height: 100vh">
   <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
     <img src="static/cropped-ico-32x32.png" class="me-2">
     <span class="fs-3">BoisRouge</span>
@@ -50,6 +50,13 @@
         <span class="my-auto">Продукты</span>
       </button>
 
+      <button class="nav-link link-dark d-flex" id="nav-specifies-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-specifies" type="button" role="tab" aria-controls="nav-specifies"
+              aria-selected="false">
+        <i class="material-icons-outlined me-2">article</i>
+        <span class="my-auto">Характеристики</span>
+      </button>
+
       <button class="nav-link link-dark d-flex" id="nav-sorts-tab" data-bs-toggle="tab" data-bs-target="#nav-sorts"
               type="button" role="tab" aria-controls="nav-sorts" aria-selected="false">
         <i class="material-icons-outlined me-2">style</i>
@@ -66,35 +73,135 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade" id="nav-translate" role="tabpanel" aria-labelledby="nav-translate-tab">Перевод</div>
       <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
+        <form action="add_new" method="post" enctype="multipart/form-data">
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (RU)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_ru">
+            </div>
 
-        <h1 class="display-6">Добавить новость</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_ru">
+            </div>
 
-        <form>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Заголовок</span>
-            <input type="text" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-sm">
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_ru"></textarea>
+            </div>
           </div>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text">Краткое описание</span>
-            <input type="text" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (EN)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_en">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_en">
+            </div>
+
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_en"></textarea>
+            </div>
           </div>
 
-          <div class="form-outline mb-3">
-            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
-            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (CN)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_cn">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_cn">
+            </div>
+
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_cn"></textarea>
+            </div>
           </div>
+
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (VT)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_vt">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_vt">
+            </div>
+
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_vt"></textarea>
+            </div>
+          </div>
+
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (DE)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_de">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_de">
+            </div>
+
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_de"></textarea>
+            </div>
+          </div>
+
+          <div style="display: inline-block; vertical-align: top;">
+            <h1 class="display-6">Добавить новость (FR)</h1>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Заголовок</span>
+              <input type="text" class="form-control" name="new_header_fr">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Краткое описание</span>
+              <input type="text" class="form-control" name="new_short_description_fr">
+            </div>
+
+            <div class="form-outline mb-3">
+              <span class="input-group-text"
+                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>
+              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"
+                        name="new_description_fr"></textarea>
+            </div>
+          </div>
+
 
           <div class="mb-3">
-            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
+            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" name="new_photos"
+                   style="width: 500px;" multiple/>
           </div>
-
           <div class="mb-3">
             <button type="submit" class="btn btn-primary mb-2">Добавить</button>
           </div>
-
         </form>
       </div>
       <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">
@@ -119,6 +226,20 @@
           <div class="mb-3">
             <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
             <ul id="photo_list"></ul>
+          </div>
+
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="nav-specifies" role="tabpanel" aria-labelledby="nav-specifies-tab">
+        <h1 class="display-6">Добавить характеристику</h1>
+        <form action="add_specifies">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Название</span>
+            <input type="text" class="form-control" name="specification_name">
           </div>
 
           <div class="mb-3">
@@ -187,6 +308,8 @@
             }
 
             document.getElementById('files').addEventListener('change', showFile, false);
+
+
 
         </script>
 
