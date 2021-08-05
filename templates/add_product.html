@@ -1,0 +1,30 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<h1 class="display-6">Добавить продукт</h1>
+<form>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Название</span>
+    <input type="text" class="form-control">
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Другое поле</span>
+    <input type="text" class="form-control">
+  </div>
+
+  <div class="form-outline mb-3">
+    <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
+    <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
+    <ul id="photo_list"></ul>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+  </div>
+</form>
+{% endblock %}

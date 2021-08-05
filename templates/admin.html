@@ -20,321 +20,98 @@
 </head>
 
 <body class="bg-light p-3">
-<div style="height: 100vh">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-    <img src="static/cropped-ico-32x32.png" class="me-2">
-    <span class="fs-3">BoisRouge</span>
-  </a>
-  <!--      <hr style="height: 1px; margin-bottom: 0px;">-->
-  <hr>
-  <div class="d-flex align-items-start">
-    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical"
-         style="border: 1px solid gray;">
-      <button class="nav-link link-dark d-flex" id="nav-translate-tab" data-bs-toggle="tab"
-              data-bs-target="#nav-translate" type="button" role="tab" aria-controls="nav-translate"
-              aria-selected="true">
-        <i class="material-icons-outlined me-2">language</i>
-        <span class="my-auto">Перевод</span>
-      </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Главная</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Новости
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_new">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
-      <button class="nav-link link-dark d-flex" id="nav-news-tab" data-bs-toggle="tab" data-bs-target="#nav-news"
-              type="button" role="tab" aria-controls="nav-news" aria-selected="false">
-        <i class="material-icons-outlined me-2">event</i>
-        <span class="my-auto">Новости</span>
-      </button>
-
-      <button class="nav-link link-dark d-flex" id="nav-products-tab" data-bs-toggle="tab"
-              data-bs-target="#nav-products" type="button" role="tab" aria-controls="nav-products"
-              aria-selected="false">
-        <i class="material-icons-outlined me-2">store</i>
-        <span class="my-auto">Продукты</span>
-      </button>
-
-      <button class="nav-link link-dark d-flex" id="nav-specifies-tab" data-bs-toggle="tab"
-              data-bs-target="#nav-specifies" type="button" role="tab" aria-controls="nav-specifies"
-              aria-selected="false">
-        <i class="material-icons-outlined me-2">article</i>
-        <span class="my-auto">Характеристики</span>
-      </button>
-
-      <button class="nav-link link-dark d-flex" id="nav-sorts-tab" data-bs-toggle="tab" data-bs-target="#nav-sorts"
-              type="button" role="tab" aria-controls="nav-sorts" aria-selected="false">
-        <i class="material-icons-outlined me-2">style</i>
-        <span class="my-auto">Сорта дерева</span>
-      </button>
-
-      <button class="nav-link link-dark d-flex" id="nav-gallery-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery"
-              type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">
-        <i class="material-icons-outlined me-2">camera</i>
-        <span class="my-auto">Галерея</span>
-      </button>
-    </div>
-
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade" id="nav-translate" role="tabpanel" aria-labelledby="nav-translate-tab">Перевод</div>
-      <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
-        <form action="" method="post" novalidate enctype="multipart/form-data">
-          {{news_form.hidden_tag()}}
-            <div class="row">
-              <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-                <h1 class="add-news-header">Добавить новость (RU)</h1>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">{{news_form.ru_header.label}}</span>
-                  {{news_form.ru_header(class="form-control")}}
-                  {% if news_form.ru_header.errors %}
-                      <div class="invalid-feedback d-block">
-                        {{ news_form.ru_header.errors[0] }}
-                      </div>
-                  {% endif %}
-                </div>
-
-                <div class="input-group mb-3">
-                  <span class="input-group-text">{{news_form.ru_description.label}}</span>
-                  {{ news_form.ru_description(class="form-control") }}
-                  {% if news_form.ru_description.errors %}
-                      <div class="invalid-feedback is-invalid">
-                        {{ news_form.ru_description.errors }}
-                      </div>
-                  {% endif %}
-                </div>
-
-                <div class="form-outline mb-3">
-                  <span class="input-group-text"
-                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{news_form.ru_text.label}}</span>
-                  {{ news_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-                  {% if news_form.ru_text.errors %}
-                      <div class="invalid-feedback is-invalid">
-                        {{ news_form.ru_text.errors }}
-                      </div>
-                  {% endif %}
-                </div>
-              </div>
-
-              <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-                <h2 class="add-news-header">Добавить новость (EN)</h2>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">{{news_form.en_header.label}}</span>
-                  {{news_form.en_header(class="form-control")}}
-                </div>
-
-                <div class="input-group mb-3">
-                  <span class="input-group-text">{{news_form.en_description.label}}</span>
-                    {{ news_form.en_description(class="form-control") }}
-                </div>
-
-                <div class="form-outline mb-3">
-                  <span class="input-group-text"
-                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{news_form.en_text.label}}</span>
-                    {{ news_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-                </div>
-              </div>
-            </div>
-
-{#          <div style="display: inline-block; vertical-align: top;">#}
-{#            <h1 class="display-6">Добавить новость (CN)</h1>#}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Заголовок</span>#}
-{#              <input type="text" class="form-control" name="new_header_cn">#}
-{#            </div>#}
-{##}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Краткое описание</span>#}
-{#              <input type="text" class="form-control" name="new_short_description_cn">#}
-{#            </div>#}
-{##}
-{#            <div class="form-outline mb-3">#}
-{#              <span class="input-group-text"#}
-{#                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>#}
-{#              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"#}
-{#                        name="new_description_cn"></textarea>#}
-{#            </div>#}
-{#          </div>#}
-{##}
-{#          <div style="display: inline-block; vertical-align: top;">#}
-{#            <h1 class="display-6">Добавить новость (VT)</h1>#}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Заголовок</span>#}
-{#              <input type="text" class="form-control" name="new_header_vt">#}
-{#            </div>#}
-{##}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Краткое описание</span>#}
-{#              <input type="text" class="form-control" name="new_short_description_vt">#}
-{#            </div>#}
-{##}
-{#            <div class="form-outline mb-3">#}
-{#              <span class="input-group-text"#}
-{#                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>#}
-{#              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"#}
-{#                        name="new_description_vt"></textarea>#}
-{#            </div>#}
-{#          </div>#}
-{##}
-{#          <div style="display: inline-block; vertical-align: top;">#}
-{#            <h1 class="display-6">Добавить новость (DE)</h1>#}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Заголовок</span>#}
-{#              <input type="text" class="form-control" name="new_header_de">#}
-{#            </div>#}
-{##}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Краткое описание</span>#}
-{#              <input type="text" class="form-control" name="new_short_description_de">#}
-{#            </div>#}
-{##}
-{#            <div class="form-outline mb-3">#}
-{#              <span class="input-group-text"#}
-{#                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>#}
-{#              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"#}
-{#                        name="new_description_de"></textarea>#}
-{#            </div>#}
-{#          </div>#}
-{##}
-{#          <div style="display: inline-block; vertical-align: top;">#}
-{#            <h1 class="display-6">Добавить новость (FR)</h1>#}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Заголовок</span>#}
-{#              <input type="text" class="form-control" name="new_header_fr">#}
-{#            </div>#}
-{##}
-{#            <div class="input-group mb-3">#}
-{#              <span class="input-group-text">Краткое описание</span>#}
-{#              <input type="text" class="form-control" name="new_short_description_fr">#}
-{#            </div>#}
-{##}
-{#            <div class="form-outline mb-3">#}
-{#              <span class="input-group-text"#}
-{#                    style="border-radius: 5px 5px 0 0; border-bottom: none">Текст новости</span>#}
-{#              <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"#}
-{#                        name="new_description_fr"></textarea>#}
-{#            </div>#}
-{#          </div>#}
-{##}
-          <div class="mb-3">
-{#            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" name="new_photos" style="width: 500px;" multiple/>#}
-              {{ news_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
-          </div>
-
-          <div class="mb-3">
-              {{ news_form.submit(class="btn btn-primary mb-2") }}
-{#            <button type="submit" class="btn btn-primary mb-2">Добавить</button>#}
-          </div>
-        </form>
-      </div>
-
-      <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">
-
-        <h1 class="display-6">Добавить продукт</h1>
-        <form>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Название</span>
-            <input type="text" class="form-control">
-          </div>
-
-          <div class="input-group mb-3">
-            <span class="input-group-text">Другое поле</span>
-            <input type="text" class="form-control">
-          </div>
-
-          <div class="form-outline mb-3">
-            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
-            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
-          </div>
-
-          <div class="mb-3">
-            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
-            <ul id="photo_list"></ul>
-          </div>
-
-          <div class="mb-3">
-            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-          </div>
-        </form>
-      </div>
-
-      <div class="tab-pane fade" id="nav-specifies" role="tabpanel" aria-labelledby="nav-specifies-tab">
-        <h1 class="display-6">Добавить характеристику</h1>
-        <form action="add_specifies">
-          <div class="input-group mb-3">
-            <span class="input-group-text">Название</span>
-            <input type="text" class="form-control" name="specification_name">
-          </div>
-
-          <div class="mb-3">
-            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-          </div>
-        </form>
-      </div>
-
-      <div class="tab-pane fade" id="nav-sorts" role="tabpanel" aria-labelledby="nav-sorts-tab">
-
-        <h1 class="display-6">Добавить сорт дерева</h1>
-        <form>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Название</span>
-            <input type="text" class="form-control">
-          </div>
-
-          <div class="form-outline mb-3">
-            <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
-            <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
-          </div>
-
-          <div class="mb-3">
-            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg"/>
-          </div>
-
-          <div class="mb-3">
-            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-          </div>
-        </form>
-
-      </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Галерея
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_photo">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
 
-      <div class="tab-pane fade" id="nav-gallery" role="tabpanel" aria-labelledby="nav-gallery-tab">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Доски
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
-        <h1 class="display-6">Добавить фотографию в галерею</h1>
-        <form>
-          <div class="mb-3">
-            <input class="form-control" type="file" id="files" name="files[]" accept="image/png, image/gif, image/jpeg"
-                   multiple/>
-            <ul id="list"></ul>
-          </div>
-          <div class="mb-3">
-            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-          </div>
-        </form>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Бревна
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
-        <script>
-              function showFile(e) {
-              var files = e.target.files;
-              for (var i = 0, f; f = files[i]; i++) {
-                if (!f.type.match('image.*')) continue;
-                var fr = new FileReader();
-                fr.onload = (function(theFile) {
-                  return function(e) {
-                    var li = document.createElement('li');
-                    li.innerHTML = "<img src='" + e.target.result + "' class='img-thumbnail' style='width: 30vh' />";
-                    li.innerHTML += "<input type='text'>"
-                    document.getElementById('list').insertBefore(li, null);
-                  };
-                })(f);
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Изделия
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
-                fr.readAsDataURL(f);
-              }
-            }
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Сорта
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="#">Изменить</a></li>
+            <li><a class="dropdown-item" href="#">Удалить</a></li>
+          </ul>
+        </li>
 
-            document.getElementById('files').addEventListener('change', showFile, false);
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Контакты<span class="sr-only"></span></a>
+        </li>
 
-
-
-        </script>
-
-      </div>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Запросы<span class="sr-only"></span></a>
+        </li>
+      </ul>
     </div>
   </div>
+</nav>
+<hr>
+<div class="container">
+  {% block content %}
+    Я очень крутой а вы кеки
+  {% endblock %}
 </div>
-
 </body>
 </html>

@@ -8,26 +8,26 @@ class NewsForm(FlaskForm):
     ru_description = StringField("Описание (ru)", validators=[DataRequired("Введите описание на русском языке")])
     ru_text = TextAreaField("Текст (ru)", validators=[DataRequired("Введите текст новости на русском языке")])
 
-    en_header = StringField("Заголовок (en) ", validators=[DataRequired("Введите заголовок на русском языке")])
-    en_description = StringField("Описание (en)", validators=[DataRequired("Введите описание на русском языке")])
-    en_text = TextAreaField("Текст (en)", validators=[DataRequired("Введите текст новости на русском языке")])
+    en_header = StringField("Заголовок (en) ", validators=[DataRequired("Введите заголовок на английском языке")])
+    en_description = StringField("Описание (en)", validators=[DataRequired("Введите описание на английском языке")])
+    en_text = TextAreaField("Текст (en)", validators=[DataRequired("Введите текст новости на английском языке")])
 
-    de_header = StringField("Заголовок (de) ")
-    de_description = StringField("Описание (de)")
-    de_text = TextAreaField("Текст (de)")
+    de_header = StringField("Заголовок (de) ", validators=[DataRequired("Введите заголовок на немецком языке")])
+    de_description = StringField("Описание (de)", validators=[DataRequired("Введите описание на немецком языке")])
+    de_text = TextAreaField("Текст (de)", validators=[DataRequired("Введите текст новости на немецком языке")])
 
-    cn_header = StringField("Заголовок (cn) ")
-    cn_description = StringField("Описание (cn)")
-    cn_text = TextAreaField("Текст (cn)")
+    cn_header = StringField("Заголовок (cn) ", validators=[DataRequired("Введите заголовок на китайском языке")])
+    cn_description = StringField("Описание (cn)", validators=[DataRequired("Введите описание на китайском языке")])
+    cn_text = TextAreaField("Текст (cn)", validators=[DataRequired("Введите текст новости на китайском языке")])
 
-    vt_header = StringField("Заголовок (vt) ")
-    vt_description = StringField("Описание (vt)")
-    vt_text = TextAreaField("Текст (vt)")
+    vt_header = StringField("Заголовок (vt) ", validators=[DataRequired("Введите заголовок на вьетнамском языке")])
+    vt_description = StringField("Описание (vt)", validators=[DataRequired("Введите описание на вьетнамском языке")])
+    vt_text = TextAreaField("Текст (vt)", validators=[DataRequired("Введите текст новости на вьетнамском языке")])
 
-    fr_header = StringField("Заголовок (fr) ")
-    fr_description = StringField("Описание (fr)")
-    fr_text = TextAreaField("Текст (fr)")
+    fr_header = StringField("Заголовок (fr) ", validators=[DataRequired("Введите заголовок на французском языке")])
+    fr_description = StringField("Описание (fr)", validators=[DataRequired("Введите описание на французском языке")])
+    fr_text = TextAreaField("Текст (fr)", validators=[DataRequired("Введите текст новости на французском языке")])
 
-    pictures = FileField("Фото к новости")
+    pictures = FileField("Фотография")
 
     submit = SubmitField("Submit")

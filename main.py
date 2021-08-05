@@ -1,7 +1,6 @@
 from flask import Flask, request, redirect
 from flask import render_template
 from flask_mongoengine import MongoEngine
-import models
 from news_form import NewsForm
 
 UPLOAD_FOLDER = "news_photo"
@@ -17,42 +16,33 @@ db = MongoEngine(app)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
-    news_form = NewsForm()
-
-    print(news_form.validate_on_submit())
-    print(news_form.data)
-
-    print(news_form.ru_description.errors)
-    print(news_form.ru_header.errors)
-    print(news_form.ru_text.errors)
-
-    return render_template("admin.html", news_form=news_form)
-
-
-@app.route('/add_specifies', methods=["GET", "POST"])
-def add_specifies():
-    print(request.args)
     return render_template("admin.html")
 
 
 @app.route('/add_new', methods=["GET", "POST"])
 def add_new():
-    print(request.form)
-
+    news_form = NewsForm()
+    print(news_form.validate_on_submit())
     if request.method == "POST":
-        pass
-    #     text_ru = models.NewText(header="Русский заголовок",
-    #                              brief_description="Русское краткое",
-    #                              description="Русское описание")
-    #     form = request.form
-    #     new = models.New(text_ru=text_ru, **form).save()
-    #     print("new", new)
-    #     print(request.files.getlist("new_photos"))
-    #     print("photo")
-
+        form = request.data
+        print(form)
+        print(request.form)
+        print(request.files)
     else:
         print("GET")
-    return redirect("/", code=302)
+    return render_template("add_new.html", news_form=news_form)
+
+
+@app.route('/add_photo', methods=["GET", "POST"])
+def add_photo():
+    print(request.args)
+    return render_template("add_photo.html")
+
+
+@app.route('/add_product', methods=["GET", "POST"])
+def add_product():
+    print(request.args)
+    return render_template("add_product.html")
 
 
 app.run(debug=True)
