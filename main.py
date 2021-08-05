@@ -2,7 +2,7 @@ from flask import Flask, request, redirect
 from flask import render_template
 from flask_mongoengine import MongoEngine
 import models
-import os
+
 
 UPLOAD_FOLDER = "news_photo"
 
@@ -28,9 +28,15 @@ def add_specifies():
 @app.route('/add_new', methods=["GET", "POST"])
 def add_new():
     if request.method == "POST":
+        text_ru = models.NewText(header="Русский заголовок",
+                                 brief_description="Русское краткое",
+                                 description="Русское описание")
+        form = request.form
+        new = models.New(text_ru=text_ru, **form).save()
+        print("new", new)
         print(request.files.getlist("new_photos"))
         print("photo")
-        form = request.form
+
     else:
         print("GET")
     return redirect("/", code=302)
