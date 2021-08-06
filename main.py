@@ -26,6 +26,7 @@ def index():
 def add_new():
     news_form = NewsForm()
     if request.method == "POST":
+        photo_hash = ""
         photo = request.files["pictures"]
         if photo:
             files = os.listdir("static/news_photo")
