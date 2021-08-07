@@ -71,6 +71,14 @@ def add_new():
     return render_template("add_new.html", news_form=news_form)
 
 
+@app.route('/edit_new', methods=["GET", "POST"])
+def edit_new():
+    news = client[db_name]["news"]
+    photos = client[db_name]["photos"]
+
+    return render_template("edit_new.html", news=news, photos=photos)
+
+
 @app.route('/add_photo', methods=["GET", "POST"])
 def add_photo():
     print(request.args)

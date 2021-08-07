@@ -1,0 +1,16 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+  <div class="row">
+    {% for new in news.find() %}
+      <div class="col-12 col-md-4" style="padding: 20px;">
+        <div style="text-align: center; position	: relative; border: 1px solid gray; border-radius: 5px 5px 5px 5px; padding: 5px; margin: auto; background-color: lightgray">
+          <div
+              style="color: black; font-size: 26px; background-color: lightgray; opacity: 0.7; border-radius: 5px 5px 5px 5px;">{{ new.ru_header }}</div>
+          <img src='static/news_photo/{{ photos.find({"hash": new.photo_hash})[0].path }}' alt="{{ new.ru_header }}"
+               style="height: 30vh; -webkit-filter: brightness(90%);" class="img-thumbnail"/>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
