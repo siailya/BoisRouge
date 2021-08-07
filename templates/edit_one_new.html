@@ -1,0 +1,222 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ news_form.hidden_tag() }}
+    <div class="row">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h1 class="add-news-header">Изменить новость (RU)</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.ru_header.label }}</span>
+          {{ news_form.ru_header(class="form-control", value = new["ru_header"]) }}
+          {% if news_form.ru_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.ru_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.ru_description.label }}</span>
+          {{ news_form.ru_description(class="form-control", value = new["ru_description"]) }}
+          {% if news_form.ru_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.ru_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.ru_text.label }}</span>
+          {{ news_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["ru_text"]) }}
+          {% if news_form.ru_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.ru_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h2 class="add-news-header">Изменить новость (EN)</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.en_header.label }}</span>
+          {{ news_form.en_header(class="form-control", value = new["en_header"]) }}
+          {% if news_form.en_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.en_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.en_description.label }}</span>
+          {{ news_form.en_description(class="form-control", value = new["en_description"]) }}
+          {% if news_form.en_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.en_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.en_text.label }}</span>
+          {{ news_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["en_text"]) }}
+          {% if news_form.en_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.en_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h2 class="add-news-header">Изменить новость (CN)</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.cn_header.label }}</span>
+          {{ news_form.cn_header(class="form-control", value = new["cn_header"]) }}
+          {% if news_form.cn_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.cn_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.cn_description.label }}</span>
+          {{ news_form.cn_description(class="form-control", value = new["cn_description"]) }}
+          {% if news_form.cn_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.cn_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.cn_text.label }}</span>
+          {{ news_form.cn_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["cn_text"]) }}
+          {% if news_form.cn_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.cn_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h2 class="add-news-header">Изменить новость (DE)</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.de_header.label }}</span>
+          {{ news_form.de_header(class="form-control", value = new["de_header"]) }}
+          {% if news_form.de_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.de_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.de_description.label }}</span>
+          {{ news_form.de_description(class="form-control", value = new["de_description"]) }}
+          {% if news_form.de_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.de_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.de_text.label }}</span>
+          {{ news_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["de_text"]) }}
+          {% if news_form.de_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.de_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h2 class="add-news-header">Изменить новость (VT)</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.vt_header.label }}</span>
+          {{ news_form.vt_header(class="form-control", value = new["vt_header"]) }}
+          {% if news_form.vt_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.vt_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.vt_description.label }}</span>
+          {{ news_form.vt_description(class="form-control", value = new["vt_description"]) }}
+          {% if news_form.vt_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.vt_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.vt_text.label }}</span>
+          {{ news_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["vt_text"]) }}
+          {% if news_form.vt_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.vt_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h2 class="add-news-header">Изменить новость (FR)</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.fr_header.label }}</span>
+          {{ news_form.fr_header(class="form-control", value = new["fr_header"]) }}
+          {% if news_form.fr_header.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.fr_header.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ news_form.fr_description.label }}</span>
+          {{ news_form.fr_description(class="form-control", value = new["fr_description"]) }}
+          {% if news_form.fr_description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.fr_description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.fr_text.label }}</span>
+          {{ news_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["fr_text"]) }}
+          {% if news_form.fr_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ news_form.fr_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {#            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" name="new_photos" style="width: 500px;" multiple/>#}
+      {{ news_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+    </div>
+
+    <div class="mb-3">
+      {{ news_form.submit(class="btn btn-primary mb-2") }}
+      {#            <button type="submit" class="btn btn-primary mb-2">Добавить</button>#}
+    </div>
+  </form>
+{% endblock %}
