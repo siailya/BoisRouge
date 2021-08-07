@@ -30,4 +30,4 @@ class NewsForm(FlaskForm):
 
     pictures = FileField("Фотография")
 
-    submit = SubmitField("Submit")
+    submit = SubmitField("Подтвердить")

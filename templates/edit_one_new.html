@@ -165,7 +165,7 @@
         <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.vt_text.label }}</span>
-          {{ news_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px", value = new["vt_text"]) }}
+          {{ news_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px")}}
           {% if news_form.vt_text.errors %}
             <div class="invalid-feedback d-block">
               {{ news_form.vt_text.errors[0] }}
@@ -210,13 +210,31 @@
     </div>
 
     <div class="mb-3">
-      {#            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" name="new_photos" style="width: 500px;" multiple/>#}
-      {{ news_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+      {{ news_form.pictures(class="form-control", accept="image/png, image/jpeg", style="width: 500px") }}
     </div>
 
     <div class="mb-3">
-      {{ news_form.submit(class="btn btn-primary mb-2") }}
-      {#            <button type="submit" class="btn btn-primary mb-2">Добавить</button>#}
+      {{ news_form.submit(class="btn btn-primary btn-lg mb-2") }}
+      <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#delete" style="background-color: red !important">
+        Удалить новость
+      </button>
+      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Вы действительно хотите удалить новость?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+              <button type="submit" class="btn btn-primary" name="delete">Да</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 {% endblock %}

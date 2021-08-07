@@ -75,7 +75,7 @@ def add_new():
 
     else:
         print("GET")
-    return render_template("add_new.html", news_form=news_form)
+    return redirect("/edit_new", code=302)
 
 
 @app.route('/edit_new', methods=["GET", "POST"])
@@ -92,6 +92,9 @@ def edit_one_new(id):
     new = news.find({"_id": ObjectId(id)})[0]
     photos = client[db_name]["photos"]
     if request.method == "POST":
+        if "delete" in request.form:
+            news.remove({"_id": ObjectId(id)})
+            return redirect("/edit_new", code=302)
         photo_hash = ""
         photo = request.files["pictures"]
         if photo:
@@ -140,6 +143,12 @@ def edit_one_new(id):
                                   "fr_text": new_form["fr_text"],
                                   "photo_hash": photo_hash}})
         return redirect("/edit_new", code=302)
+    news_form.ru_text.data = new["ru_text"]
+    news_form.en_text.data = new["en_text"]
+    news_form.cn_text.data = new["cn_text"]
+    news_form.de_text.data = new["de_text"]
+    news_form.fr_text.data = new["fr_text"]
+    news_form.vt_text.data = new["vt_text"]
     return render_template("edit_one_new.html", new=new, news_form=news_form)
 
 
