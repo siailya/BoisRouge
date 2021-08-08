@@ -102,8 +102,9 @@ def add_new():
                          "fr_header": new_form["fr_header"],
                          "fr_description": new_form["fr_description"],
                          "fr_text": new_form["fr_text"],
-
+                         # TODO: Локаль CN везде поменять на ZH
                          "photo_path": photo_name})
+    # TODO: Добавить новости поля date и num_id (нумерация начинается с 1)
     # FIXME: В строке выше поменял photo_hash на photo_name чтобы был путь фотки, а не хэш
     return render_template("add_new.html", news_form=news_form)
 
