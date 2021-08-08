@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
 from news_form import NewsForm
@@ -16,26 +16,23 @@ client = MongoClient("mongodb+srv://Bois:Rouge@boisrouge.aephg.mongodb.net/myFir
 db_name = "DataBase"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["SECRET_KEY"] = "86F27F78E9AA221425B98B46F337A"
-app.config["LANGUAGES"] = ['en', 'ru']
+app.config["LANGUAGES"] = ['en', 'ru', "zh"]
 
 babel = Babel(app)
 db = MongoEngine(app)
 
-user_language = None
-
 
 @babel.localeselector
 def get_locale():
-    global user_language
-
+    print(session)
     params_lang = request.args.get('lang')
     if params_lang and params_lang.lower() in app.config["LANGUAGES"]:
-        user_language = request.args.get('lang')
+        session["lang"] = request.args.get('lang')
         return request.args.get('lang')
-    elif user_language and user_language in app.config["LANGUAGES"]:
-        return user_language
+    elif session.get("lang"):
+        return session["lang"]
     else:
-        user_language = request.accept_languages.best_match(app.config['LANGUAGES'])
+        session["lang"] = request.accept_languages.best_match(app.config['LANGUAGES'])
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
@@ -50,6 +47,7 @@ def add_new():
     if news_form.validate_on_submit():
         # TODO: Вынеси хеширование фотки в отдульную функцию, а то как-то много дублирующегося кода)))
         photo_hash = ""
+        photo_name = ""
         photo = request.files["pictures"]
         if photo:
             files = os.listdir("static/news_photo")
@@ -105,7 +103,8 @@ def add_new():
                          "fr_description": new_form["fr_description"],
                          "fr_text": new_form["fr_text"],
 
-                         "photo_hash": photo_hash})
+                         "photo_path": photo_name})
+    # FIXME: В строке выше поменял photo_hash на photo_name чтобы был путь фотки, а не хэш
     return render_template("add_new.html", news_form=news_form)
 
 
@@ -201,7 +200,52 @@ def add_product():
 
 @app.route("/home", methods=["GET"])
 def home():
-    return render_template("index.html", title="Главная", user_language=user_language)
+    return render_template("index.html", title="Главная")
+
+
+@app.route("/news", methods=["GET"])
+def news():
+    locale = get_locale().lower()
+    news = list(client[db_name]["news"].find())
+    locale_news = []
+
+    for n in news:
+        if not n.get("photo_path"):
+            locale_news.append({
+                "_id": str(n["_id"]),
+                "picture": n.get("photo_hash"),
+                "header": n[locale + "_header"],
+                "description": n[locale + "_description"],
+                "text": n[locale + "_text"]
+            })
+        else:
+            locale_news.append({
+                "_id": str(n["_id"]),
+                "picture": n.get("photo_path"),
+                "header": n[locale + "_header"],
+                "description": n[locale + "_description"],
+                "text": n[locale + "_text"]
+            })
+
+    print(locale_news)
+    return render_template("news.html", title="Новости", news=locale_news)
+
+
+@app.route("/news/<nid>", methods=["GET"])
+def new_item(nid):
+    locale = get_locale().lower()
+    if locale == "zh":
+        locale = "cn"
+
+    news_item = list(client[db_name]["news"].find({"_id": ObjectId(nid)}))[0]
+    locale_news_item = {
+        "picture": news_item["photo_path"],
+        "header": news_item[locale + "_header"],
+        "description": news_item[locale + "_description"],
+        "text": news_item[locale + "_text"]
+    }
+
+    return render_template("news_item.html", news_item=locale_news_item)
 
 
 app.run(debug=True)

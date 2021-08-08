@@ -1,6 +1,6 @@
 .home-top-section {
   padding-top: 250px;
-  background: url("home-top-back.jpg") no-repeat;
+  background: url("../img/home-top-back.jpg") no-repeat;
   background-position-x: center;
   background-position-y: 0%;
   background-size: cover;
@@ -163,17 +163,17 @@
   }
 }
 #serviceCard-0 {
-  background: url("logs.jpg") no-repeat;
+  background: url("../img/products/logs.jpg") no-repeat;
   background-size: cover;
 }
 
 #serviceCard-1 {
-  background: url("sawn.jpg") no-repeat;
+  background: url("../img/products/sawn.jpg") no-repeat;
   background-size: cover;
 }
 
 #serviceCard-2 {
-  background: url("decking.jpg") no-repeat;
+  background: url("../img/products/decking.jpg") no-repeat;
   background-size: cover;
 }
 

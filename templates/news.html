@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/news.css') }}">
+{% endblock %}
+
+{% block title %}{{_("Новости | BoisRouge")}}{% endblock %}
+
+{% block news_active %}active{% endblock %}
+{% block news_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container news-view">
+        <main class="news-about text-center">
+            <h1 class="fw-bold">{{_("Новости BoisRouge")}}</h1>
+            <article>{{_("Узнавайте первыми обо всех новостях BoisRouge!")}}</article>
+        </main>
+        <section class="news-list row mt-5">
+            {% for news_item in news %}
+            <div class="col-12 col-md-6 col-lg-4 mb-3">
+                <a href="/news/{{ news_item._id }}" class="news-item d-block cursor-pointer">
+                    <div class="p-3">
+                        <h4 class="news-title text-center">
+                            {% if news_item.header|length > 50 %}
+                                {{ news_item.header[:50] }}...
+                            {% else %}
+                                {{ news_item.header }}
+                            {% endif %}
+                        </h4>
+                        <p class="news-description text-center">
+                            {{news_item.description}}
+                        </p>
+                        <article class="news-text">
+                            {% if news_item.text|length > 150 %}
+                                {{news_item.text[:150]}}...
+                            {% else %}
+                                {{news_item.text}}
+                            {% endif %}
+                        </article>
+                        <div class="news-date text-end mt-3">
+                            {{ news_item.date }}
+                        </div>
+                    </div>
+                    <img src="../static/news_photo/{{news_item.picture}}" class="news-photo" alt="">
+                    <div class="news-item-overlay position-absolute d-flex" id="news-item-overlay-{{ loop.index0 }}">
+                        <div class="m-auto d-flex text-center">
+                            <span class="my-auto">
+                                {{ _("Читать новость") }}
+                            </span>
+                            <span class="material-icons-outlined ms-2 my-auto">
+                                arrow_forward
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="../static/scripts/news.js"></script>
+{% endblock %}

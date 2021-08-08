@@ -42,14 +42,9 @@
               {% endif %}
           </div>
 
-{#              TODO: Сделать картинку в самой новости#}
-          {% if photos.find({"hash": new.photo_hash})[0] is defined %}
-          <img src='static/news_photo/{{ photos.find({"hash": new.photo_hash})[0].path }}' alt="{{ new.ru_header }}"
+{#              FIXME: Сделал тут фотку из самой новости вместо поиска по коллекции всех фото#}
+          <img src='static/news_photo/{{ new.photo_path }}' alt="{{ new.ru_header }}"
                style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail mt-auto"/>
-          {% else %}
-          <img src='' alt="{{ new.ru_header }}"
-               style="height: 30vh; -webkit-filter: brightness(90%);" class="img-thumbnail mt-auto"/>
-          {% endif %}
 {#        TODO: Добавить дату для новости#}
           <p class="text-end news-date mt-2">
               {{ new.date }}

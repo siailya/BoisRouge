@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+
+    {% block styles %}
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold" id="mobileMenuLabel">{{_("Меню")}}</h5>
+        <button type="button" class="btn-close text-reset no-outline" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <button class="btn-no-back d-flex mobile-language collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                data-bs-target="#collapseLanguages"
+                aria-controls="collapseLanguages">
+            <span class="material-icons-outlined my-auto me-1">language</span>
+            <span>{{_("Сменить язык")}}</span>
+            <i class="material-icons-outlined my-auto">expand_more</i>
+        </button>
+        <div class="collapse mt-3" id="collapseLanguages">
+            <a href="?lang=ru" class="d-flex language-item">
+                <img src="{{ url_for('static', filename='img/locales/ru.png') }}" class="me-1" alt="">Русский
+            </a>
+            <a href="?lang=en" class="d-flex mt-2 language-item">
+                <img src="{{ url_for('static', filename='img/locales/us.png') }}" class="me-1" alt="">English
+            </a>
+            <a href="?lang=fr" class="d-flex mt-2 language-item">
+                <img src="{{ url_for('static', filename='img/locales/fr.png') }}" class="me-1" alt="">Français
+            </a>
+            <a href="?lang=zh" class="d-flex mt-2 language-item">
+                <img src="{{ url_for('static', filename='img/locales/cn.png') }}" class="me-1" alt="">Chinese
+            </a>
+            <a href="?lang=vt" class="d-flex mt-2 language-item">
+                <img src="{{ url_for('static', filename='img/locales/vn.png') }}" class="me-1" alt="">Việt nam
+            </a>
+            <a href="?lang=de" class="d-flex mt-2 language-item">
+                <img src="{{ url_for('static', filename='img/locales/de.png') }}" class="me-1" alt="">Deutsch
+            </a>
+        </div>
+        <div class="menu-items mt-3 d-flex flex-column">
+            <a href="#" class="menu-item mt-1 {% block home_active_mobile %}{% endblock %}"><span>{{_("Главная")}}</span></a>
+            <a href="#" class="menu-item mt-1 {% block news_active_mobile %}{% endblock %}"><span>{{_("Новости")}}</span></a>
+            <a href="#" class="menu-item mt-1 {% block gallery_active_mobile %}{% endblock %}"><span>{{_("Галерея")}}</span></a>
+            <a href="#" class="menu-item mt-1 {% block services_active_mobile %}{% endblock %}"><span>{{_("Услуги")}}</span></a>
+            <div class="menu-item flex-column d-flex cursor-pointer">
+                <a href="#" class="ps-2 menu-item">{{_("Продукция")}}</a>
+                <a href="#" class="ps-2 menu-item">{{_("Сорта древесины")}}</a>
+            </div>
+            <a href="#" class="menu-item mt-1 {% block contacts_active_mobile %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
+        </div>
+    </div>
+</div>
+
+<header class="nav-header">
+    <div class="container d-flex justify-content-between">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="header-logo" width="125">
+        <div class="header-menu d-none d-lg-flex my-auto">
+            <a href="#" class="menu-item {% block home_active %}{% endblock %}"><span>{{_("Главная")}}</span></a>
+            <a href="#" class="menu-item {% block news_active %}{% endblock %}"><span>{{_("Новости")}}</span></a>
+            <a href="#" class="menu-item {% block gallery_active%}{% endblock %}"><span>{{_("Галерея")}}</span></a>
+            <div class="menu-item cursor-pointer {% block services_active%}{% endblock %}" id="servicesDropdownToggle">
+                <span class="btn-no-back d-flex">
+                    <span>{{_("Услуги")}}</span>
+                    <i class="material-icons-outlined my-auto">expand_more</i>
+                </span>
+                <div id="servicesDropdown" class="services-dropdown d-flex flex-column">
+                    <a href="#" class="menu-item">{{_("Продукция")}}</a>
+                    <a href="#" class="menu-item mt-1">{{_("Сорта древесины")}}</a>
+                </div>
+            </div>
+            <a href="#" class="menu-item {% block contacts_active %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
+        </div>
+        <div class="d-none d-lg-flex">
+            <div class="language-change my-auto" id="languageDropdownToggle">
+                <div class="d-flex cursor-pointer py-2">
+                    <span class="my-auto me-1">
+                        {{_("Ru")}}
+                    </span>
+                    <span class="material-icons-outlined my-auto">language</span>
+                    <i class="material-icons-outlined my-auto">expand_more</i>
+                </div>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="?lang=ru" class="d-flex language-item">
+                        <img src="{{ url_for('static', filename='img/locales/ru.png') }}" class="me-1" alt="">Русский
+                    </a>
+                    <a href="?lang=en" class="d-flex mt-2 language-item">
+                        <img src="{{ url_for('static', filename='img/locales/us.png') }}" class="me-1" alt="">English
+                    </a>
+                    <a href="?lang=fr" class="d-flex mt-2 language-item">
+                        <img src="{{ url_for('static', filename='img/locales/fr.png') }}" class="me-1" alt="">Français
+                    </a>
+                    <a href="?lang=zh" class="d-flex mt-2 language-item">
+                        <img src="{{ url_for('static', filename='img/locales/cn.png') }}" class="me-1" alt="">Chinese
+                    </a>
+                    <a href="?lang=vt" class="d-flex mt-2 language-item">
+                        <img src="{{ url_for('static', filename='img/locales/vn.png') }}" class="me-1" alt="">Việt nam
+                    </a>
+                    <a href="?lang=de" class="d-flex mt-2 language-item">
+                        <img src="{{ url_for('static', filename='img/locales/de.png') }}" class="me-1" alt="">Deutsch
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button
+                class="btn-no-back material-icons-outlined mobile-menu-toggle my-auto d-block d-lg-none"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#mobileMenu"
+                aria-controls="mobileMenu"
+        >
+            menu
+        </button>
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                <img src="{{ url_for('static', filename='img/white_logo.png') }}" class="w-75" alt="">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 mt-3 mt-lg-0">
+                <div class="menu-items d-flex flex-column">
+                    <a href="#" class="menu-item"><span>{{_("Главная")}}</span></a>
+                    <a href="#" class="menu-item mt-1"><span>{{_("Новости")}}</span></a>
+                    <a href="#" class="menu-item mt-1"><span>{{_("Галерея")}}</span></a>
+                    <a href="#" class="menu-item mt-1"><span>{{_("Услуги")}}</span></a>
+                    <a href="#" class="menu-item mt-1"><span>{{_("Контакты")}}</span></a>
+                </div>
+            </div>
+            <div class="our-products col-12 col-md-6 mt-3 mt-lg-0 col-lg-3">
+                <span>{{_("Наши продукты")}}</span>
+                <ul>
+                    <li>{{_("Круглый лес")}}</li>
+                    <li>{{_("Пиломатериал")}}</li>
+                    <li>{{_("Настил")}}</li>
+                </ul>
+            </div>
+            <div class="subscribe col-12 col-md-6 mt-3 mt-lg-0 col-lg-4">
+                <span>{{_("Будем на связи!")}}</span>
+                <div class="mt-2 d-flex flex-column">
+                    <label>{{_("Имя")}}</label>
+                    <input type="text">
+                </div>
+                <div class="mt-2 d-flex flex-column">
+                    <label>{{_("Почта")}}</label>
+                    <input type="text">
+                </div>
+                <button class="mt-3 submit-button">{{_("Отправить")}}</button>
+            </div>
+        </div>
+        <hr>
+        © BoiseRouge, 2021
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='scripts/header.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

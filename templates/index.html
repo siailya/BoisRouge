@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+{% endblock %}
+
+{% block title %}{{_("Главная | BoisRouge")}}{% endblock %}
+
+{% block home_active %}active{% endblock %}
+{% block home_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <main class="home-top-section">
+        <div class="container text-center text-md-start" id="homeSectionInner">
+            <h1 class="home-top-title">
+                BOIS ROUGE <br>
+                {{_("ЛЕСО&shy;ПРОМЫШЛЕННАЯ")}} <br>
+                {{_("КОМПАНИЯ")}}
+            </h1>
+            <button class="green-button text-uppercase mt-3">
+                {{_("Свяжитесь с нами!")}}
+            </button>
+        </div>
+        <div class="mouse-and-arrows text-center pb-3">
+            <div class="mouse-icon">
+                <div class="mouse-scroll">
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <i class="material-icons-outlined mx-auto text-white fs-20">keyboard_arrow_down</i>
+                <i class="material-icons-outlined mx-auto text-white fs-20">keyboard_arrow_down</i>
+            </div>
+        </div>
+    </main>
+
+    <section class="about-company">
+        <div class="container">
+            <div class="home-header">
+                <span data-nth="1">{{_("О компании")}}</span>
+                <h2>{{_("О компании")}}</h2>
+                <div class="ms-5"></div>
+            </div>
+            <div class="row mt-3 mt-lg-5">
+                <div class="col-12 col-lg-6 d-flex flex-column">
+                    {{_("Являясь одной из самых распространённых в мире сельскохозяйственных культур, рис занимает
+                            главенствующую позицию в национальной кухне сотен народов. В России до XIX века рис называли
+                            «сарацинское зерно». Более половины населения Земли питаются в основном именно рисом")}}
+                    <br>
+                    <span class="mt-auto company-desc">
+                    {{_("Жизнь в большом городе зачастую накладывает на людей очень много обязательств, которые многим мешают планировать свое время. Поэтому времени катастрофически не хватает на все")}}
+                </span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div id="aboutCarousel" class="mt-4 mt-lg-0 carousel slide about-carousel" data-bs-ride="carousel">
+                        <div class="go-to-gallery">
+                            <a href="#">{{_("Перейти в галерею")}}</a>
+                        </div>
+                        <div class="carousel-inner" style="height: 100%">
+                            <div class="carousel-item active" style="height: 100%">
+                                <img src="../static/img/wood1.jpg" style="object-fit: cover; height: 100%" class="d-block w-100"
+                                     alt="...">
+                            </div>
+                            <div class="carousel-item" style="height: 100%">
+                                <img src="../static/img/wood2.jpg" style="object-fit: cover; height: 100%" class="d-block w-100"
+                                     alt="...">
+                            </div>
+                            <div class="carousel-item" style="height: 100%">
+                                <img src="../static/img/img.png" style="object-fit: cover; height: 100%" class="d-block w-100"
+                                     alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="home-header">
+                <span data-nth="2">{{_("Наши услуги")}}</span>
+                <h2>{{_("Наши услуги")}}</h2>
+                <div class="ms-2"></div>
+            </div>
+
+            <div class="text-center services-description mt-5">
+                {{_("В 1654 году казаки Богдана Хмельницкого, поднявшие восстание против Польши, присягнули на верность
+                        московскому царю Алексею. Этот акт привёл к русско-польской войне, в результате которой Киев, Смоленск и
+                        значительная часть Приднепровья попадает под власть Москвы")}}
+            </div>
+
+            <div class="services row justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                    <div class="service-card" id="serviceCard-0">
+                        <div class="service-title mt-auto">
+                            {{_("Круглый лес")}}
+                        </div>
+                        <div class="service-description mb-auto" id="service-description-0">
+                            {{_("Круглый лес множества пород древесины")}}
+                        </div>
+                        <a class="service-more mx-auto d-flex cursor-pointer">
+                            {{_("Узнать больше")}}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                    <div class="service-card" id="serviceCard-1">
+                        <div class="service-title mt-auto">
+                            {{_("Пиломатериал")}}
+                        </div>
+                        <div class="service-description mb-auto" id="service-description-1">
+                            {{_("Круглый лес множества пород древесины")}}
+                        </div>
+                        <a class="service-more mx-auto d-flex cursor-pointer">
+                            {{_("Узнать больше")}}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                    <div class="service-card" id="serviceCard-2">
+                        <div class="service-title mt-auto">
+                            {{_("Настил")}}
+                        </div>
+                        <div class="service-description mb-auto" id="service-description-2">
+                            {{_("Круглый лес множества пород древесины")}}
+                        </div>
+                        <a class="service-more mx-auto d-flex cursor-pointer">
+                            {{_("Узнать больше")}}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="species">
+        <div class="container">
+            <div class="home-header">
+                <span data-nth="6">{{_("Сорта древесины")}}</span>
+                <h2>{{_("Сорта древесины")}}</h2>
+                <div></div>
+            </div>
+
+            <div class="text-center species-description mt-5">
+                {{_("Почти сразу после этого на юге возникла Галицкая митрополия, а затем Литовская, существовавшие
+                        впоследствии с перерывами.")}}
+            </div>
+
+            <div class="row justify-content-center mt-5">
+                <div class="col-6 col-md-4 col-lg-2 mt-3 mt-lg-0">
+                    <div class="specie-item"
+                         style="background: url('../static/img/species/Azobe.png')">
+                    <span class="m-auto">
+                        Azobe
+                    </span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mt-3 mt-lg-0">
+                    <div class="specie-item"
+                         style="background: url('../static/img/species/Sapeli.jpg')">
+                    <span class="m-auto">
+                        Sapeli
+                    </span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mt-3 mt-lg-0">
+                    <div class="specie-item"
+                         style="background: url('../static/img/species/Mukulungu.jpg')">
+                    <span class="m-auto">
+                        Mukulungu
+                    </span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mt-3 mt-lg-0">
+                    <div class="specie-item"
+                         style="background: url('../static/img/species/Iroko.png')">
+                    <span class="m-auto">
+                        Iroko
+                    </span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mt-3 mt-lg-0">
+                    <a href="#" class="specie-item specie-more">
+                    <span class="m-auto d-flex flex-column">
+                        <i class="material-icons-outlined mx-auto">arrow_forward</i>
+                        {{_("Узнать больше")}}
+                    </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts pb-5">
+        <div class="container">
+            <div class="home-header">
+                <span data-nth="8">{{_("Связь с нами")}}</span>
+                <h2>{{_("Связь с нами")}}</h2>
+                <div class="ms-5"></div>
+            </div>
+
+            <div class="text-center mt-5">
+                <h2>{{_("Оставьте свои контакты!")}}</h2>
+                <span>{{_("И мы свяжемся с Вами в ближайшее время!")}}</span>
+            </div>
+            <form action="" class="mt-5">
+                <div class="row">
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Имя")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Фамилия")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Номер телефона")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Почта")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-8 mt-3">
+                        <label>{{_("Дополнительная информация")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="submit-button">{{_("Отправить")}}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="../static/scripts/home.js"></script>
+{% endblock %}

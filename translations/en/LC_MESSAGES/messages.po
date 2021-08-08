@@ -1,0 +1,220 @@
+# English translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-08-08 11:06+0300\n"
+"PO-Revision-Date: 2021-08-05 21:19+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: templates/base.html:23
+msgid "Меню"
+msgstr "Menu"
+
+#: templates/base.html:35
+msgid "Сменить язык"
+msgstr "Change language"
+
+#: templates/base.html:59 templates/base.html:76 templates/base.html:145
+msgid "Главная"
+msgstr "Home"
+
+#: templates/base.html:60 templates/base.html:77 templates/base.html:146
+msgid "Новости"
+msgstr "News"
+
+#: templates/base.html:61 templates/base.html:78 templates/base.html:147
+msgid "Галерея"
+msgstr "Gallery"
+
+#: templates/base.html:62 templates/base.html:81 templates/base.html:148
+msgid "Услуги"
+msgstr "Services"
+
+#: templates/base.html:64 templates/base.html:85
+msgid "Продукция"
+msgstr "Products"
+
+#: templates/base.html:65 templates/base.html:86 templates/index.html:154
+#: templates/index.html:155
+msgid "Сорта древесины"
+msgstr "Wood species"
+
+#: templates/base.html:67 templates/base.html:89 templates/base.html:149
+msgid "Контакты"
+msgstr "Contacts"
+
+#: templates/base.html:95
+msgid "Ru"
+msgstr "En"
+
+#: templates/base.html:153
+msgid "Наши продукты"
+msgstr "Our products"
+
+#: templates/base.html:155 templates/index.html:106
+msgid "Круглый лес"
+msgstr "Logs"
+
+#: templates/base.html:156 templates/index.html:121
+msgid "Пиломатериал"
+msgstr "Sawn"
+
+#: templates/base.html:157 templates/index.html:136
+msgid "Настил"
+msgstr "Decking"
+
+#: templates/base.html:161
+msgid "Будем на связи!"
+msgstr "Let will be in touch"
+
+#: templates/base.html:163 templates/index.html:224
+msgid "Имя"
+msgstr "Name"
+
+#: templates/base.html:167 templates/index.html:238
+msgid "Почта"
+msgstr "Email"
+
+#: templates/base.html:170 templates/index.html:248
+msgid "Отправить"
+msgstr "Submit"
+
+#: templates/index.html:7
+msgid "Главная | BoisRouge"
+msgstr "Home | BoisRouge"
+
+#: templates/index.html:17
+msgid "ЛЕСО&shy;ПРОМЫШЛЕННАЯ"
+msgstr "TIMBER"
+
+#: templates/index.html:18
+msgid "КОМПАНИЯ"
+msgstr "COMPANY"
+
+#: templates/index.html:21
+msgid "Свяжитесь с нами!"
+msgstr "Contact us"
+
+#: templates/index.html:39 templates/index.html:40
+msgid "О компании"
+msgstr "About company"
+
+#: templates/index.html:45
+#, fuzzy
+msgid ""
+"Являясь одной из самых распространённых в мире сельскохозяйственных "
+"культур, рис занимает\n"
+"                            главенствующую позицию в национальной кухне "
+"сотен народов. В России до XIX века рис называли\n"
+"                            «сарацинское зерно». Более половины населения"
+" Земли питаются в основном именно рисом"
+msgstr ""
+"Clemens, peritus caniss acceleratrix manifestum de dexter, azureus vita. "
+"Rhubarb combines greatly with tangy peanut butter. Fuga de lotus "
+"agripeta, magicae parma!Competition neuter lura est.Toruss sunt eras de "
+"mirabilis domina.Gutless, warm golds awkwardly view a stormy, rough "
+"bucaneer.Remember: toasted cucumber tastes best when dryed in a frying "
+"pan rubed with butterscotch."
+
+#: templates/index.html:50
+msgid ""
+"Жизнь в большом городе зачастую накладывает на людей очень много "
+"обязательств, которые многим мешают планировать свое время. Поэтому "
+"времени катастрофически не хватает на все"
+msgstr ""
+"Hilotae velums, tanquam velox danista.Boreas de bassus candidatus, "
+"fallere olla! Ubi est gratis nix?When the guru of mineral realizes the "
+"politics of the seeker, the energy will know power."
+
+#: templates/index.html:56
+msgid "Перейти в галерею"
+msgstr "Go to gallery"
+
+#: templates/index.html:91 templates/index.html:92
+msgid "Наши услуги"
+msgstr "Our services"
+
+#: templates/index.html:97
+msgid ""
+"В 1654 году казаки Богдана Хмельницкого, поднявшие восстание против "
+"Польши, присягнули на верность\n"
+"                        московскому царю Алексею. Этот акт привёл к "
+"русско-польской войне, в результате которой Киев, Смоленск и\n"
+"                        значительная часть Приднепровья попадает под "
+"власть Москвы"
+msgstr ""
+"Elevatuss volare in chremisa!Eheu, vigil!Orgias trabem in moscua! Neuter "
+"racanas ducunt ad calceus. A falsis, guttus velox frondator.With cracker "
+"crumps drink whipped cream. Klingons are the collectives of the lunar "
+"mineral.A falsis, historia flavum domina."
+
+#: templates/index.html:109 templates/index.html:124 templates/index.html:139
+msgid "Круглый лес множества пород древесины"
+msgstr "Logs of many types of wood"
+
+#: templates/index.html:112 templates/index.html:127 templates/index.html:142
+#: templates/index.html:201
+msgid "Узнать больше"
+msgstr "Learn more"
+
+#: templates/index.html:160
+msgid ""
+"Почти сразу после этого на юге возникла Галицкая митрополия, а затем "
+"Литовская, существовавшие\n"
+"                        впоследствии с перерывами."
+msgstr ""
+"Cur elevatus congregabo? Byssuss velum!Avocado tastes best with anchovy "
+"essence and lots of chipotle chile powder."
+
+#: templates/index.html:212 templates/index.html:213
+msgid "Связь с нами"
+msgstr "Contact us"
+
+#: templates/index.html:218
+msgid "Оставьте свои контакты!"
+msgstr "Leave your contacts!"
+
+#: templates/index.html:219
+msgid "И мы свяжемся с Вами в ближайшее время!"
+msgstr "And we will contact ysu soon!"
+
+#: templates/index.html:228
+msgid "Фамилия"
+msgstr "Surname"
+
+#: templates/index.html:232
+msgid "Номер телефона"
+msgstr "Phone"
+
+#: templates/index.html:242
+msgid "Дополнительная информация"
+msgstr "Additive info"
+
+#: templates/news.html:7
+msgid "Новости | BoisRouge"
+msgstr "News | BoisRouge"
+
+#: templates/news.html:15
+msgid "Новости BoisRouge"
+msgstr "News BoisRouge"
+
+#: templates/news.html:16
+msgid "Узнавайте первыми обо всех новостях BoisRouge!"
+msgstr "Be the first to know about all the news of BoisRouge!"
+
+#: templates/news.html:48
+msgid "Читать новость"
+msgstr "Read news"
+
