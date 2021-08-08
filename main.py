@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 import datetime
 import hashlib
 import os
+from flask_babel import Babel
 
 BLOCK_SIZE = 65536
 UPLOAD_FOLDER = "news_photo"
@@ -15,7 +16,27 @@ client = MongoClient("mongodb+srv://Bois:Rouge@boisrouge.aephg.mongodb.net/myFir
 db_name = "DataBase"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["SECRET_KEY"] = "86F27F78E9AA221425B98B46F337A"
+app.config["LANGUAGES"] = ['en', 'ru']
+
+babel = Babel(app)
 db = MongoEngine(app)
+
+user_language = None
+
+
+@babel.localeselector
+def get_locale():
+    global user_language
+
+    params_lang = request.args.get('lang')
+    if params_lang and params_lang.lower() in app.config["LANGUAGES"]:
+        user_language = request.args.get('lang')
+        return request.args.get('lang')
+    elif user_language and user_language in app.config["LANGUAGES"]:
+        return user_language
+    else:
+        user_language = request.accept_languages.best_match(app.config['LANGUAGES'])
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -27,6 +48,7 @@ def index():
 def add_new():
     news_form = NewsForm()
     if news_form.validate_on_submit():
+        # TODO: Вынеси хеширование фотки в отдульную функцию, а то как-то много дублирующегося кода)))
         photo_hash = ""
         photo = request.files["pictures"]
         if photo:
@@ -59,26 +81,40 @@ def add_new():
 
         news = client[db_name]["news"]
         new_form = request.form
-        news.insert_one({"ru_header": new_form["ru_header"], "ru_description": new_form["ru_description"],
+        news.insert_one({"ru_header": new_form["ru_header"],
+                         "ru_description": new_form["ru_description"],
                          "ru_text": new_form["ru_text"],
-                         "en_header": new_form["en_header"], "en_description": new_form["en_description"],
+
+                         "en_header": new_form["en_header"],
+                         "en_description": new_form["en_description"],
                          "en_text": new_form["en_text"],
-                         "cn_header": new_form["cn_header"], "cn_description": new_form["cn_description"],
+
+                         "cn_header": new_form["cn_header"],
+                         "cn_description": new_form["cn_description"],
                          "cn_text": new_form["cn_text"],
-                         "de_header": new_form["de_header"], "de_description": new_form["de_description"],
+
+                         "de_header": new_form["de_header"],
+                         "de_description": new_form["de_description"],
                          "de_text": new_form["de_text"],
-                         "vt_header": new_form["vt_header"], "vt_description": new_form["vt_description"],
+
+                         "vt_header": new_form["vt_header"],
+                         "vt_description": new_form["vt_description"],
                          "vt_text": new_form["vt_text"],
-                         "fr_header": new_form["fr_header"], "fr_description": new_form["fr_description"],
+
+                         "fr_header": new_form["fr_header"],
+                         "fr_description": new_form["fr_description"],
                          "fr_text": new_form["fr_text"],
+
                          "photo_hash": photo_hash})
     return render_template("add_new.html", news_form=news_form)
 
 
 @app.route('/edit_new', methods=["GET", "POST"])
 def edit_new():
+    # TODO: Сделать обратную сортировку навостей, чтобы в начале была последняя добавленная
     news = client[db_name]["news"]
     photos = client[db_name]["photos"]
+    # TODO: Отдавать в шаблон ТОЛЬКО новости (картинку записывать как путь, а не хэш)
     return render_template("edit_new.html", news=news, photos=photos)
 
 
@@ -92,6 +128,8 @@ def edit_one_new(id):
         if "delete" in request.form:
             news.remove({"_id": ObjectId(id)})
             return redirect("/edit_new", code=302)
+
+        # TODO: Вынеси хеширование фотки в отдульную функцию, а то как-то много дублирующегося кода)))
         photo_hash = ""
         photo = request.files["pictures"]
         if photo:
@@ -159,6 +197,11 @@ def add_photo():
 def add_product():
     print(request.args)
     return render_template("add_product.html")
+
+
+@app.route("/home", methods=["GET"])
+def home():
+    return render_template("index.html", title="Главная", user_language=user_language)
 
 
 app.run(debug=True)

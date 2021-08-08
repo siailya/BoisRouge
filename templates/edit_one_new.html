@@ -209,13 +209,19 @@
       </div>
     </div>
 
+    <div class="mt-4 mb-2">Текущее фото:</div>
+    <div class="current-photo img-thumbnail col-12 col-lg-4">
+{#        TODO: Вставить текущую фотку#}
+    </div>
+
+    <div class="mt-3 mb-2">Изменить фото:</div>
     <div class="mb-3">
       {{ news_form.pictures(class="form-control", accept="image/png, image/jpeg", style="width: 500px") }}
     </div>
 
     <div class="mb-3">
-      {{ news_form.submit(class="btn btn-primary btn-lg mb-2") }}
-      <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#delete" style="background-color: red !important">
+      {{ news_form.submit(class="btn btn-success btn-md mb-2") }}
+      <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
         Удалить новость
       </button>
       <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">

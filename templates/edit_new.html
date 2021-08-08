@@ -1,20 +1,60 @@
 {% extends 'admin.html' %}
 
 {% block content %}
+  <div class="d-flex mb-5">
+      <a href="/add_new" class="ms-auto add-new-btn">
+          <button class="btn btn-success d-flex">
+              Добавить новость <span class="material-icons-outlined ms-2 my-auto">add</span>
+          </button>
+      </a>
+  </div>
+
   <div class="row">
     {% for new in news.find() %}
-      <div class="col-12 col-md-4" style="padding: 20px;">
-        <div onclick="location.href='/edit_new/{{ new._id }}';" style="cursor: pointer; text-align: center; position	: relative; border: 1px solid gray; border-radius: 5px 5px 5px 5px; padding: 5px; margin: auto; background-color: lightgray">
+      <div class="col-12 col-md-6 col-lg-4 mb-3" style="">
+        <a href="/edit_new/{{ new._id }}" class="d-flex flex-column card"
+             style="
+             color: black;
+             cursor: pointer;
+             text-align: center;
+             position: relative;
+             border-radius: 5px 5px 5px 5px;
+             text-decoration: none;
+             padding: 5px;
+             margin: auto;
+             height: 100%;"
+        >
           <div
-              style="color: black; font-size: 26px; background-color: lightgray; opacity: 0.7; border-radius: 5px 5px 5px 5px;">{{ new.ru_header }}</div>
+              style="color: black; font-size: 18px; border-radius: 5px 5px 5px 5px;"
+          >
+              {% if new.ru_header|length > 55 %}
+                {{ new.ru_header[:55] }}...
+              {% else %}
+                {{ new.ru_header }}
+              {% endif %}
+          </div>
+
+          <div class="new-text text-start p-3">
+              {% if new.ru_text|length > 140 %}
+                {{ new.ru_text[:140] }}...
+              {% else %}
+                {{ new.ru_text }}
+              {% endif %}
+          </div>
+
+{#              TODO: Сделать картинку в самой новости#}
           {% if photos.find({"hash": new.photo_hash})[0] is defined %}
           <img src='static/news_photo/{{ photos.find({"hash": new.photo_hash})[0].path }}' alt="{{ new.ru_header }}"
-               style="height: 30vh; -webkit-filter: brightness(90%);" class="img-thumbnail"/>
+               style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail mt-auto"/>
           {% else %}
           <img src='' alt="{{ new.ru_header }}"
-               style="height: 30vh; -webkit-filter: brightness(90%);" class="img-thumbnail"/>
+               style="height: 30vh; -webkit-filter: brightness(90%);" class="img-thumbnail mt-auto"/>
           {% endif %}
-        </div>
+{#        TODO: Добавить дату для новости#}
+          <p class="text-end news-date mt-2">
+              {{ new.date }}
+          </p>
+        </a>
       </div>
     {% endfor %}
   </div>

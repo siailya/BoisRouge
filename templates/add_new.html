@@ -215,8 +215,11 @@
     </div>
 
     <div class="mb-3">
-      {{ news_form.submit(class="btn btn-primary mb-2") }}
+      {{ news_form.submit(class="btn btn-success") }}
       {#            <button type="submit" class="btn btn-primary mb-2">Добавить</button>#}
+        <a href="/edit_new">
+            <button class="btn btn-danger" type="button">Отменить</button>
+        </a>
     </div>
   </form>
 {% endblock %}
