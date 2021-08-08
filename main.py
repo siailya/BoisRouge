@@ -26,7 +26,7 @@ def index():
 @app.route('/add_new', methods=["GET", "POST"])
 def add_new():
     news_form = NewsForm()
-    if request.method == "POST":
+    if news_form.validate_on_submit():
         photo_hash = ""
         photo = request.files["pictures"]
         if photo:
@@ -72,10 +72,7 @@ def add_new():
                          "fr_header": new_form["fr_header"], "fr_description": new_form["fr_description"],
                          "fr_text": new_form["fr_text"],
                          "photo_hash": photo_hash})
-
-    else:
-        print("GET")
-    return redirect("/edit_new", code=302)
+    return render_template("add_new.html", news_form=news_form)
 
 
 @app.route('/edit_new', methods=["GET", "POST"])
@@ -91,7 +88,7 @@ def edit_one_new(id):
     news = client[db_name]["news"]
     new = news.find({"_id": ObjectId(id)})[0]
     photos = client[db_name]["photos"]
-    if request.method == "POST":
+    if news_form.validate_on_submit():
         if "delete" in request.form:
             news.remove({"_id": ObjectId(id)})
             return redirect("/edit_new", code=302)
