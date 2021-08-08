@@ -73,34 +73,34 @@
       </div>
 
       <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-        <h2 class="add-news-header">Добавить новость (CN)</h2>
+        <h2 class="add-news-header">Добавить новость (ZH)</h2>
         <div class="input-group mb-3">
-          <span class="input-group-text">{{ news_form.cn_header.label }}</span>
-          {{ news_form.cn_header(class="form-control") }}
-          {% if news_form.cn_header.errors %}
+          <span class="input-group-text">{{ news_form.zh_header.label }}</span>
+          {{ news_form.zh_header(class="form-control") }}
+          {% if news_form.zh_header.errors %}
             <div class="invalid-feedback d-block">
-              {{ news_form.cn_header.errors[0] }}
+              {{ news_form.zh_header.errors[0] }}
             </div>
           {% endif %}
         </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text">{{ news_form.cn_description.label }}</span>
-          {{ news_form.cn_description(class="form-control") }}
-          {% if news_form.cn_description.errors %}
+          <span class="input-group-text">{{ news_form.zh_description.label }}</span>
+          {{ news_form.zh_description(class="form-control") }}
+          {% if news_form.zh_description.errors %}
             <div class="invalid-feedback d-block">
-              {{ news_form.cn_description.errors[0] }}
+              {{ news_form.zh_description.errors[0] }}
             </div>
           {% endif %}
         </div>
 
         <div class="form-outline mb-3">
                   <span class="input-group-text"
-                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.cn_text.label }}</span>
-          {{ news_form.cn_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-          {% if news_form.cn_text.errors %}
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ news_form.zh_text.label }}</span>
+          {{ news_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if news_form.zh_text.errors %}
             <div class="invalid-feedback d-block">
-              {{ news_form.cn_text.errors[0] }}
+              {{ news_form.zh_text.errors[0] }}
             </div>
           {% endif %}
         </div>

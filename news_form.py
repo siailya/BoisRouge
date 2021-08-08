@@ -16,9 +16,9 @@ class NewsForm(FlaskForm):
     de_description = StringField("Описание (de)", validators=[DataRequired("Введите описание на немецком языке")])
     de_text = TextAreaField("Текст (de)", validators=[DataRequired("Введите текст новости на немецком языке")])
 
-    cn_header = StringField("Заголовок (cn) ", validators=[DataRequired("Введите заголовок на китайском языке")])
-    cn_description = StringField("Описание (cn)", validators=[DataRequired("Введите описание на китайском языке")])
-    cn_text = TextAreaField("Текст (cn)", validators=[DataRequired("Введите текст новости на китайском языке")])
+    zh_header = StringField("Заголовок (zh) ", validators=[DataRequired("Введите заголовок на китайском языке")])
+    zh_description = StringField("Описание (zh)", validators=[DataRequired("Введите описание на китайском языке")])
+    zh_text = TextAreaField("Текст (zh)", validators=[DataRequired("Введите текст новости на китайском языке")])
     # TODO: Локаль CN везде поменять на ZH
     vt_header = StringField("Заголовок (vt) ", validators=[DataRequired("Введите заголовок на вьетнамском языке")])
     vt_description = StringField("Описание (vt)", validators=[DataRequired("Введите описание на вьетнамском языке")])

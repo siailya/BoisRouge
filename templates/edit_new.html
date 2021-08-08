@@ -2,18 +2,18 @@
 
 {% block content %}
   <div class="d-flex mb-5">
-      <a href="/add_new" class="ms-auto add-new-btn">
-          <button class="btn btn-success d-flex">
-              Добавить новость <span class="material-icons-outlined ms-2 my-auto">add</span>
-          </button>
-      </a>
+    <a href="/add_new" class="ms-auto add-new-btn">
+      <button class="btn btn-success d-flex">
+        Добавить новость <span class="material-icons-outlined ms-2 my-auto">add</span>
+      </button>
+    </a>
   </div>
 
   <div class="row">
-    {% for new in news.find() %}
+    {% for new in news %}
       <div class="col-12 col-md-6 col-lg-4 mb-3" style="">
         <a href="/edit_new/{{ new._id }}" class="d-flex flex-column card"
-             style="
+           style="
              color: black;
              cursor: pointer;
              text-align: center;
@@ -27,27 +27,25 @@
           <div
               style="color: black; font-size: 18px; border-radius: 5px 5px 5px 5px;"
           >
-              {% if new.ru_header|length > 55 %}
-                {{ new.ru_header[:55] }}...
-              {% else %}
-                {{ new.ru_header }}
-              {% endif %}
+            {% if new.ru_header|length > 55 %}
+              {{ new.ru_header[:55] }}...
+            {% else %}
+              {{ new.ru_header }}
+            {% endif %}
           </div>
 
           <div class="new-text text-start p-3">
-              {% if new.ru_text|length > 140 %}
-                {{ new.ru_text[:140] }}...
-              {% else %}
-                {{ new.ru_text }}
-              {% endif %}
+            {% if new.ru_text|length > 140 %}
+              {{ new.ru_text[:140] }}...
+            {% else %}
+              {{ new.ru_text }}
+            {% endif %}
           </div>
 
-{#              FIXME: Сделал тут фотку из самой новости вместо поиска по коллекции всех фото#}
           <img src='static/news_photo/{{ new.photo_path }}' alt="{{ new.ru_header }}"
                style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail mt-auto"/>
-{#        TODO: Добавить дату для новости#}
           <p class="text-end news-date mt-2">
-              {{ new.date }}
+            {{ new.date }}
           </p>
         </a>
       </div>
