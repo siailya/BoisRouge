@@ -1,0 +1,32 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+  <h1 class="display-6">Контакты</h1>
+  <form>
+    <div class="mb-3">
+      <div class="container">
+        <div id="list">
+
+        </div>
+      </div>
+      <input type="button" class="btn-success" id="add_contact" name="add_contact" value="Добавить контакт"
+             onclick="makeField()"/>
+    </div>
+  </form>
+
+  <script>
+      function makeField() {
+          var div = document.createElement('div');
+          div.style.display = "flex"
+          div.innerHTML = "<select class='form-select form-select-lg mb-3 me-3' style='width: 20vw'> " +
+              "<option>Телефон</option> " +
+              "<option>Почта</option>" +
+              "<option>Социальная сеть</option>" +
+              "</select>";
+          div.innerHTML += "<input class='form-control form-control-lg mb-3' type='text'>"
+          document.getElementById('list').insertBefore(div, null);
+      }
+
+      document.getElementById('files').addEventListener('change', showFile, false);
+  </script>
+{% endblock %}

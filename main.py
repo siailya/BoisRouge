@@ -193,4 +193,9 @@ def new_item(nid):
     return render_template("news_item.html", news_item=locale_news_item)
 
 
+@app.route('/contacts', methods=["GET", "POST"])
+def contacts():
+    return render_template("contacts.html")
+
+
 app.run(debug=True)
