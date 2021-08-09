@@ -13,19 +13,54 @@
     <section class="container news-item-view">
         <h1 class="text-center fw-bold">{{ news_item.header }}</h1>
         <h4 class="mt-2 text-center">{{ news_item.description }}</h4>
+        <p class="text-end">{{ news_item.date }}</p>
         <article class="mt-4">{{ news_item.text }}</article>
         <div class="row mt-5 px-2">
             <img class="col-12 news-item-picture p-0 col-md-8 offset-md-2 col-lg-6 offset-lg-3" src="../static/news_photo/{{ news_item.picture }}" alt="">
         </div>
-        <div class="d-flex justify-content-between mb-5 mt-5">
-            <a class="prev-news d-flex">
+        <div class="d-flex mb-5 mt-5">
+            {% if news_item.nid > 1 %}
+            <a href="/news/{{ news_item.nid - 1 }}" class="prev-news me-auto d-flex">
                 <span class="material-icons-outlined me-2 my-auto">keyboard_backspace</span>
                 <span class=" my-auto">{{_("Предыдущая новость")}}</span>
             </a>
-            <a class="next-news d-flex text-end">
+            {% endif %}
+
+            {% if news_item.nid != news_count %}
+            <a href="/news/{{ news_item.nid + 1 }}" class="next-news d-flex ms-auto text-end">
                 <span class=" my-auto">{{_("Следующая новость")}}</span>
                 <span class="material-icons-outlined ms-2 my-auto">arrow_right_alt</span>
             </a>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="see-other mb-5 container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <a href="#" class="see-other-card d-block text-center">
+                    <div class="see-other-header">
+                        Читать все новости
+                    </div>
+                    <span class="material-icons-outlined mt-3">article</span>
+                </a>
+            </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="see-other-card d-block text-center">
+                    <div class="see-other-header">
+                        Связаться с нами
+                    </div>
+                    <span class="material-icons-outlined mt-3">local_phone</span>
+                </a>
+            </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="see-other-card d-block text-center">
+                    <div class="see-other-header">
+                        Узнать о продуктах
+                    </div>
+                    <span class="material-icons-outlined mt-3">category</span>
+                </a>
+            </div>
         </div>
     </section>
 {% endblock %}
