@@ -2,31 +2,50 @@
 
 {% block content %}
   <h1 class="display-6">Контакты</h1>
-  <form>
-    <div class="mb-3">
-      <div class="container">
-        <div id="list">
-
-        </div>
+  <form method="post" novalidate enctype="multipart/form-data">
+    <div id="parentId">
+      <div style="display: flex">
+          <select name="type[1]" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
+            <option value="text">Почта</option>
+            <option value="int">Телефон</option>
+            <option value="float">Социальная сеть</option>
+          </select>
+          <input name="url[1]" class="form-control form-control-lg mb-3" type='text'/>
+          <a style="color:green;" onclick="return addField()" href="#"><i class="material-icons-outlined" style="font-size: 5vh">add_circle_outline</i></a>
+          <a style="color:red;" onclick="return deleteField(this)" href="#"><i class="material-icons-outlined" style="font-size: 5vh">cancel</i></a>
       </div>
-      <input type="button" class="btn-success" id="add_contact" name="add_contact" value="Добавить контакт"
-             onclick="makeField()"/>
     </div>
+  <div class="mb-3">
+      {{ contact_form.submit(class="btn btn-success") }}
+  </div>
   </form>
 
   <script>
-      function makeField() {
-          var div = document.createElement('div');
-          div.style.display = "flex"
-          div.innerHTML = "<select class='form-select form-select-lg mb-3 me-3' style='width: 20vw'> " +
-              "<option>Телефон</option> " +
-              "<option>Почта</option>" +
-              "<option>Социальная сеть</option>" +
-              "</select>";
-          div.innerHTML += "<input class='form-control form-control-lg mb-3' type='text'>"
-          document.getElementById('list').insertBefore(div, null);
+      var countOfFields = 1;
+      var curFieldNameId = 1;
+      function deleteField(a) {
+          if (countOfFields > 1) {
+              var contDiv = a.parentNode;
+              contDiv.parentNode.removeChild(contDiv);
+              countOfFields--;
+          }
+          return false;
       }
 
-      document.getElementById('files').addEventListener('change', showFile, false);
+      function addField() {
+          countOfFields++;
+          curFieldNameId++;
+          var div = document.createElement("div");
+          div.style.display = "flex"
+          div.innerHTML = "<select name='type[" + curFieldNameId + "]' class='form-select form-select-lg mb-3 me-3' style='width: 20vw'>" +
+              "<option value='e-mail'>Почта</option>" +
+              "<option value='phone'>Телефон</option>" +
+              "<option value='social_network'>Социальная сеть</option></select>" +
+              "<input name=\"url[" + curFieldNameId + "]\" class='form-control form-control-lg mb-3' type='text' /> " +
+              "<a style='color:green;' onclick='return addField()' href='#'><i class='material-icons-outlined' style='font-size: 5vh'>add_circle_outline</i></a>" +
+              "<a style='color:red;' onclick='return deleteField(this)' href='#'><i class='material-icons-outlined' style='font-size: 5vh'>cancel</i></a>";
+          document.getElementById("parentId").appendChild(div);
+          return false;
+      }
   </script>
 {% endblock %}

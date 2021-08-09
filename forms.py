@@ -19,7 +19,7 @@ class NewsForm(FlaskForm):
     zh_header = StringField("Заголовок (zh) ", validators=[DataRequired("Введите заголовок на китайском языке")])
     zh_description = StringField("Описание (zh)", validators=[DataRequired("Введите описание на китайском языке")])
     zh_text = TextAreaField("Текст (zh)", validators=[DataRequired("Введите текст новости на китайском языке")])
-    # TODO: Локаль CN везде поменять на ZH
+
     vt_header = StringField("Заголовок (vt) ", validators=[DataRequired("Введите заголовок на вьетнамском языке")])
     vt_description = StringField("Описание (vt)", validators=[DataRequired("Введите описание на вьетнамском языке")])
     vt_text = TextAreaField("Текст (vt)", validators=[DataRequired("Введите текст новости на вьетнамском языке")])
@@ -30,4 +30,8 @@ class NewsForm(FlaskForm):
 
     pictures = FileField("Фотография")
 
+    submit = SubmitField("Подтвердить")
+
+
+class ContactForm(FlaskForm):
     submit = SubmitField("Подтвердить")
