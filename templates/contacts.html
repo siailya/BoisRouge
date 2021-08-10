@@ -4,25 +4,45 @@
   <h1 class="display-6">Контакты</h1>
   <form method="post" novalidate enctype="multipart/form-data">
     <div id="parentId">
-      <div style="display: flex">
-          <select name="type[1]" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
-            <option value="text">Почта</option>
-            <option value="int">Телефон</option>
-            <option value="float">Социальная сеть</option>
+      {% for contact in contacts %}
+        <div style="display: flex">
+          <select name="13" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
+            {% if contact["type"] == "e-mail" %}
+              <option value="e-mail" selected>Почта</option>
+            {% else %}
+              <option value="e-mail">Почта</option>
+            {% endif %}
+
+            {% if contact["type"] == "phone" %}
+              <option value="phone" selected>Телефон</option>
+            {% else %}
+              <option value="phone">Телефон</option>
+            {% endif %}
+
+            {% if contact["type"] == "social_network" %}
+              <option value="social_network" selected>Социальная сеть</option>
+            {% else %}
+              <option value="social_network">Социальная сеть</option>
+            {% endif %}
           </select>
-          <input name="url[1]" class="form-control form-control-lg mb-3" type='text'/>
-          <a style="color:green;" onclick="return addField()" href="#"><i class="material-icons-outlined" style="font-size: 5vh">add_circle_outline</i></a>
-          <a style="color:red;" onclick="return deleteField(this)" href="#"><i class="material-icons-outlined" style="font-size: 5vh">cancel</i></a>
-      </div>
+          <input name="13" class="form-control form-control-lg mb-3" type="text" value={{ contact["value"] }}>
+          <input name="14" type="text" style="visibility: hidden; width: 0"/>
+          <a style="color:red;" onclick="return deleteField(this)" href='#'><i class='material-icons-outlined'
+                                                                               style='font-size: 5vh'>cancel</i></a>
+        </div>
+      {% endfor %}
     </div>
-  <div class="mb-3">
-      {{ contact_form.submit(class="btn btn-success") }}
-  </div>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary btn-success btn-lg mb-2">Подтвердить</button>
+      <button class="btn btn-outline-secondary" onclick="return addField()">Добавить контакт</button>
+    </div>
   </form>
 
   <script>
       var countOfFields = 1;
       var curFieldNameId = 1;
+
+
       function deleteField(a) {
           if (countOfFields > 1) {
               var contDiv = a.parentNode;
@@ -41,8 +61,8 @@
               "<option value='e-mail'>Почта</option>" +
               "<option value='phone'>Телефон</option>" +
               "<option value='social_network'>Социальная сеть</option></select>" +
-              "<input name=\"url[" + curFieldNameId + "]\" class='form-control form-control-lg mb-3' type='text' /> " +
-              "<a style='color:green;' onclick='return addField()' href='#'><i class='material-icons-outlined' style='font-size: 5vh'>add_circle_outline</i></a>" +
+              "<input name=\"url[" + curFieldNameId + "]\" class='form-control form-control-lg mb-3' type='text'/> " +
+              "<input name=\"id[" + curFieldNameId + "]\" type='text' style='visibility: hidden; width: 0' /> " +
               "<a style='color:red;' onclick='return deleteField(this)' href='#'><i class='material-icons-outlined' style='font-size: 5vh'>cancel</i></a>";
           document.getElementById("parentId").appendChild(div);
           return false;

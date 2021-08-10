@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, session
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
-from forms import NewsForm, ContactForm
+from forms import NewsForm
 from bson.objectid import ObjectId
 from processing import *
 from flask_babel import Babel
@@ -195,8 +195,24 @@ def new_item(nid):
 
 @app.route('/contacts', methods=["GET", "POST"])
 def contacts():
-    contact_form = ContactForm()
-    return render_template("contacts.html", contact_form=contact_form)
+    contacts = client[db_name]["contacts"]
+    count = contacts.count_documents({})
+    if request.method == "POST":
+        contact_form = request.form
+        contact_type = ""
+        action = 2
+        for i in contact_form:
+            if action == 2:
+                contact_type = contact_form[i]
+            elif action == 1:
+                pass
+                # contacts.insert_one({"type": contact_type,
+                #                      "value": contact_form[i]})
+            if not action:
+                action = 3
+            action -= 1
+    contacts = contacts.find()
+    return render_template("contacts.html", count=count, contacts=contacts)
 
 
 app.run(debug=True)
