@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "client/base.html" %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/news.css') }}">
@@ -10,7 +10,7 @@
 {% block news_active_mobile %}active{% endblock %}
 
 {% block content %}
-    <div class="container news-view">
+    <div class="container news-view mb-5">
         <main class="news-about text-center">
             <h1 class="fw-bold">{{_("Новости BoisRouge")}}</h1>
             <article>{{_("Узнавайте первыми обо всех новостях BoisRouge!")}}</article>
