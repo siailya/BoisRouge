@@ -29,3 +29,8 @@ button.active {
 .add-new-btn{
     text-decoration: none;
 }
+
+.form-control:focus, .form-select:focus {
+    border-color: #4ca24a!important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 123, 41,.2) !important;
+}
