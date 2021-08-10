@@ -6,7 +6,7 @@
     <div id="parentId">
       {% for contact in contacts %}
         <div style="display: flex">
-          <select name="13" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
+          <select name="type" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
             {% if contact["type"] == "e-mail" %}
               <option value="e-mail" selected>Почта</option>
             {% else %}
@@ -25,44 +25,35 @@
               <option value="social_network">Социальная сеть</option>
             {% endif %}
           </select>
-          <input name="13" class="form-control form-control-lg mb-3" type="text" value={{ contact["value"] }}>
-          <input name="14" type="text" style="visibility: hidden; width: 0"/>
+          <input name="value" class="form-control form-control-lg mb-3" type="text" value={{ contact["value"] }}>
+          <input name="id" type="text" style="visibility: hidden; width: 0" value="{{ contact["_id"] }}"/>
           <a style="color:red;" onclick="return deleteField(this)" href='#'><i class='material-icons-outlined'
                                                                                style='font-size: 5vh'>cancel</i></a>
         </div>
       {% endfor %}
     </div>
     <div class="mb-3">
-      <button type="submit" class="btn btn-primary btn-success btn-lg mb-2">Подтвердить</button>
+      {{ contact_form.submit(class="btn btn-primary btn-success btn-lg mb-2") }}
       <button class="btn btn-outline-secondary" onclick="return addField()">Добавить контакт</button>
     </div>
   </form>
 
   <script>
-      var countOfFields = 1;
-      var curFieldNameId = 1;
-
-
       function deleteField(a) {
-          if (countOfFields > 1) {
-              var contDiv = a.parentNode;
-              contDiv.parentNode.removeChild(contDiv);
-              countOfFields--;
-          }
+          var contDiv = a.parentNode;
+          contDiv.parentNode.removeChild(contDiv);
           return false;
       }
 
       function addField() {
-          countOfFields++;
-          curFieldNameId++;
           var div = document.createElement("div");
           div.style.display = "flex"
-          div.innerHTML = "<select name='type[" + curFieldNameId + "]' class='form-select form-select-lg mb-3 me-3' style='width: 20vw'>" +
+          div.innerHTML = "<select name='type' class='form-select form-select-lg mb-3 me-3' style='width: 20vw'>" +
               "<option value='e-mail'>Почта</option>" +
               "<option value='phone'>Телефон</option>" +
               "<option value='social_network'>Социальная сеть</option></select>" +
-              "<input name=\"url[" + curFieldNameId + "]\" class='form-control form-control-lg mb-3' type='text'/> " +
-              "<input name=\"id[" + curFieldNameId + "]\" type='text' style='visibility: hidden; width: 0' /> " +
+              "<input name='value' class='form-control form-control-lg mb-3' type='text'/> " +
+              "<input name='id' type='text' style='visibility: hidden; width: 0' /> " +
               "<a style='color:red;' onclick='return deleteField(this)' href='#'><i class='material-icons-outlined' style='font-size: 5vh'>cancel</i></a>";
           document.getElementById("parentId").appendChild(div);
           return false;

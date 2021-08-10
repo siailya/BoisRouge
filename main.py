@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, session
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
-from forms import NewsForm
+from forms import NewsForm, ContactsForm
 from bson.objectid import ObjectId
 from processing import *
 from flask_babel import Babel
@@ -195,24 +195,23 @@ def new_item(nid):
 
 @app.route('/contacts', methods=["GET", "POST"])
 def contacts():
+    contact_form = ContactsForm()
     contacts = client[db_name]["contacts"]
-    count = contacts.count_documents({})
     if request.method == "POST":
-        contact_form = request.form
-        contact_type = ""
-        action = 2
-        for i in contact_form:
-            if action == 2:
-                contact_type = contact_form[i]
-            elif action == 1:
-                pass
-                # contacts.insert_one({"type": contact_type,
-                #                      "value": contact_form[i]})
-            if not action:
-                action = 3
-            action -= 1
+        ids = request.form.getlist("id")
+        types = request.form.getlist("type")
+        values = request.form.getlist("value")
+        print(ids, types, values, end="\n")
+        for i in range(len(ids)):
+            if ids[i]:
+                contacts.update_one({"_id": ObjectId(ids[i])},
+                                    {"$set": {"type": types[i], "value": values[i]}})
+            else:
+                last_id = contacts.insert_one({"type": types[i], "value": values[i]})
+                ids.append(last_id.inserted_id)
+        contacts.delete_many({"_id": {"$nin": list(map(ObjectId, [id for id in ids if id]))}})
     contacts = contacts.find()
-    return render_template("contacts.html", count=count, contacts=contacts)
+    return render_template("contacts.html", contact_form=contact_form, contacts=contacts)
 
 
 app.run(debug=True)
