@@ -34,3 +34,24 @@ button.active {
     border-color: #4ca24a!important;
     box-shadow: 0 0 0 0.25rem rgba(13, 123, 41,.2) !important;
 }
+
+.quick-card{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .3s ease;
+    color: #111111;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.quick-card span{
+    font-size: 42px;
+    color: #4ca24a;
+}
+
+.quick-card:hover{
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+    transform: scale(1.01);
+    color: #235833;
+}

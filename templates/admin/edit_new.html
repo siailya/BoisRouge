@@ -12,7 +12,7 @@
   <div class="row">
     {% for new in news %}
       <div class="col-12 col-md-6 col-lg-4 mb-3" style="">
-        <a href="/edit_new/{{ new._id }}" class="d-flex flex-column card"
+        <a href="edit_new/{{ new._id }}" class="d-flex flex-column card"
            style="
              color: black;
              cursor: pointer;
@@ -42,7 +42,7 @@
             {% endif %}
           </div>
 
-          <img src='static/news_photo/{{ new.photo_path }}' alt="{{ new.ru_header }}"
+          <img src='{{ url_for("static", filename="/news_photo/" + new.photo_path) }}' alt="{{ new.ru_header }}"
                style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail mt-auto"/>
           <p class="text-end news-date mt-2">
             {{ new.date }}

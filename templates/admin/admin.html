@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="{{ url_for('static', filename='/favicon.ico') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
   <link
       href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
@@ -22,7 +22,7 @@
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Главная</a>
+    <a class="navbar-brand" href="/admin">Главная</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
       <span class="navbar-toggler-icon"></span>
@@ -34,8 +34,8 @@
             Новости
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_new">Добавить</a></li>
-            <li><a class="dropdown-item" href="/edit_new">Изменить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_new">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/edit_new">Изменить</a></li>
           </ul>
         </li>
 
@@ -44,7 +44,7 @@
             Галерея
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_photo">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_photo">Добавить</a></li>
             <li><a class="dropdown-item" href="#">Изменить</a></li>
             <li><a class="dropdown-item" href="#">Удалить</a></li>
           </ul>
@@ -56,7 +56,7 @@
             Доски
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_product">Добавить</a></li>
             <li><a class="dropdown-item" href="#">Изменить</a></li>
             <li><a class="dropdown-item" href="#">Удалить</a></li>
           </ul>
@@ -67,7 +67,7 @@
             Бревна
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_product">Добавить</a></li>
             <li><a class="dropdown-item" href="#">Изменить</a></li>
             <li><a class="dropdown-item" href="#">Удалить</a></li>
           </ul>
@@ -78,7 +78,7 @@
             Изделия
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_product">Добавить</a></li>
             <li><a class="dropdown-item" href="#">Изменить</a></li>
             <li><a class="dropdown-item" href="#">Удалить</a></li>
           </ul>
@@ -89,14 +89,14 @@
             Сорта
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/add_product">Добавить</a></li>
+            <li><a class="dropdown-item" href="/admin/add_product">Добавить</a></li>
             <li><a class="dropdown-item" href="#">Изменить</a></li>
             <li><a class="dropdown-item" href="#">Удалить</a></li>
           </ul>
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link" href="/contacts">Контакты<span class="sr-only"></span></a>
+          <a class="nav-link" href="/admin/contacts">Контакты<span class="sr-only"></span></a>
         </li>
 
         <li class="nav-item active">

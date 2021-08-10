@@ -39,7 +39,8 @@ def get_locale():
 
 @app.route('/admin', methods=["GET", "POST"])
 def admin_index():
-    return render_template("admin/admin.html")
+    # return render_template("admin/admin.html")
+    return render_template("admin/shortcuts.html")
 
 
 @app.route('/admin/add_new', methods=["GET", "POST"])
@@ -160,9 +161,29 @@ def add_product():
     return render_template("admin/add_product.html")
 
 
+@app.route('/admin/contacts', methods=["GET", "POST"])
+def contacts():
+    contact_form = ContactsForm()
+    contacts = client[db_name]["contacts"]
+    if request.method == "POST":
+        ids = request.form.getlist("id")
+        types = request.form.getlist("type")
+        values = request.form.getlist("value")
+        for i in range(len(ids)):
+            if ids[i]:
+                contacts.update_one({"_id": ObjectId(ids[i])},
+                                    {"$set": {"type": types[i], "value": values[i]}})
+            else:
+                last_id = contacts.insert_one({"type": types[i], "value": values[i]})
+                ids.append(last_id.inserted_id)
+        contacts.delete_many({"_id": {"$nin": list(map(ObjectId, [id for id in ids if id]))}})
+    contacts = contacts.find()
+    return render_template("admin/contacts.html", contact_form=contact_form, contacts=contacts)
+
+
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("client/index.html", title="Главная")
+    return render_template("client/index.html")
 
 
 @app.route("/news", methods=["GET"])
@@ -212,26 +233,6 @@ def new_item(nid):
     print(news_count)
 
     return render_template("client/news_item.html", news_item=locale_news_item, news_count=news_count)
-
-
-@app.route('/admin/contacts', methods=["GET", "POST"])
-def contacts():
-    contact_form = ContactsForm()
-    contacts = client[db_name]["contacts"]
-    if request.method == "POST":
-        ids = request.form.getlist("id")
-        types = request.form.getlist("type")
-        values = request.form.getlist("value")
-        for i in range(len(ids)):
-            if ids[i]:
-                contacts.update_one({"_id": ObjectId(ids[i])},
-                                    {"$set": {"type": types[i], "value": values[i]}})
-            else:
-                last_id = contacts.insert_one({"type": types[i], "value": values[i]})
-                ids.append(last_id.inserted_id)
-        contacts.delete_many({"_id": {"$nin": list(map(ObjectId, [id for id in ids if id]))}})
-    contacts = contacts.find()
-    return render_template("admin/contacts.html", contact_form=contact_form, contacts=contacts)
 
 
 @app.post("/api/footer_form")

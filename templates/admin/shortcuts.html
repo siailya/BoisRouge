@@ -1,5 +1,31 @@
 {% extends 'admin/admin.html' %}
 
 {% block content %}
-  <h1>Быстрые действия:</h1>
+    <h2 class="text-center">Быстрые действия</h2>
+
+    <div class="row mt-4">
+        <div class="col-12 col-md-4">
+            <a class="quick-card d-block text-center">
+                Смотреть заявки
+                <br>
+                <span class="material-icons-outlined mt-3">manage_accounts</span>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <a href="admin/add_photo" class="quick-card d-block text-center">
+                Загрузить фото в галерею
+                <br>
+                <span class="material-icons-outlined mt-3">photo_camera</span>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <a href="admin/add_new" class="quick-card d-block text-center">
+                Создать новость
+                <br>
+                <span class="material-icons-outlined mt-3">feed</span>
+            </a>
+        </div>
+    </div>
 {% endblock %}
