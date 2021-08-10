@@ -4,7 +4,7 @@ import pymongo
 from flask import Flask, request, render_template, redirect, session, g
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
-from forms import NewsForm, ContactsForm
+from forms import *
 from bson.objectid import ObjectId
 from processing import *
 from flask_babel import Babel
@@ -52,7 +52,7 @@ def add_new():
         photo_name = ""
         photo = request.files["pictures"]
         if photo:
-            photo_name = save_photo(photo, client)
+            photo_name = save_photo(photo, client, False, "")
 
         news = client[db_name]["news"]
         new_form = request.form
@@ -86,8 +86,7 @@ def add_new():
                          "photo_path": photo_name,
                          "date": datetime.now().strftime('%d-%m-%Y'),
                          "num_id": num_id})
-        return redirect("/edit_new", 301)
-
+        return redirect("../admin/edit_new", 301)
     return render_template("admin/add_new.html", news_form=news_form)
 
 
@@ -109,7 +108,7 @@ def edit_one_new(id):
 
         photo = request.files["pictures"]
         if photo:
-            photo_name = save_photo(photo, client)
+            photo_name = save_photo(photo, client, False, "")
         else:
             photo_name = news.find_one({"_id": ObjectId(id)})["photo_path"]
         news = client[db_name]["news"]
@@ -155,8 +154,30 @@ def edit_one_new(id):
 
 @app.route('/admin/add_photo', methods=["GET", "POST"])
 def add_photo():
-    print(request.args)
-    return render_template("admin/add_photo.html")
+    photo_form = PhotosForm()
+    if request.method == "POST":
+        files = photo_form["files"].data
+        descriptions = request.form.getlist("description")
+        for i in range(len(files)):
+            print(files[i])
+            photo_name = save_photo(files[i], client, True, descriptions[i])
+            print(photo_name)
+        return redirect("../admin/edit_photo", 301)
+    return render_template("admin/add_photo.html", photo_form=photo_form)
+
+
+@app.route('/admin/edit_photo', methods=["GET", "POST"])
+def edit_photo():
+    photos = client[db_name]["photos"].find().sort("date", -1)
+    return render_template("admin/edit_photo.html", photos=photos)
+
+
+@app.route('/admin/edit_photo/<photo_id>', methods=["GET", "POST"])
+def edit_one_photo(photo_id):
+    photo_form = PhotosForm()
+    photos = client[db_name]["photos"]
+    photo = photos.find({"_id": ObjectId(photo_id)})[0]
+    return render_template("admin/edit_one_photo.html", photo=photo, photo_form=photo_form)
 
 
 @app.route('/admin/add_product', methods=["GET", "POST"])

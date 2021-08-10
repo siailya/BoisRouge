@@ -35,3 +35,9 @@ class NewsForm(FlaskForm):
 
 class ContactsForm(FlaskForm):
     submit = SubmitField("Подтвердить")
+
+
+class PhotosForm(FlaskForm):
+    files = MultipleFileField("Фотографии")
+
+    submit = SubmitField("Подтвердить")

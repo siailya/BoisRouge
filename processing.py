@@ -7,7 +7,7 @@ BLOCK_SIZE = 65536
 db_name = "DataBase"
 
 
-def save_photo(photo, client):
+def save_photo(photo, client, isGallery, description):
     files = os.listdir("static/news_photo")
     photo_num = 1
     while True:
@@ -28,8 +28,8 @@ def save_photo(photo, client):
             if photos.count_documents({"hash": photo_hash}) == 0:
                 now = datetime.datetime.now()
                 photos.insert_one({"hash": photo_hash, "path": photo_name,
-                                   "date": now.strftime('%d-%m-%Y %H:%M:%S'), "isGallery": False,
-                                   "galleryHidden": False})
+                                   "date": now.strftime('%d-%m-%Y %H:%M:%S'), "isGallery": isGallery,
+                                   "galleryHidden": False, "description": description})
             else:
                 os.remove(f"static/news_photo/{photo_name}")
             return photos.find_one({"hash": photo_hash})["path"]

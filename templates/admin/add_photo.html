@@ -1,37 +1,36 @@
 {% extends 'admin/admin.html' %}
 
 {% block content %}
-<h1 class="display-6">Добавить фотографию в галерею</h1>
-<form>
-  <div class="mb-3">
-    <input class="form-control" type="file" id="files" name="files[]" accept="image/png, image/gif, image/jpeg"
-           multiple/>
-    <ul id="list"></ul>
-  </div>
-  <div class="mb-3">
-    <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-  </div>
-</form>
+  <h1 class="display-6">Добавить фотографию в галерею</h1>
+  <form method="post" novalidate enctype="multipart/form-data">
+    <div class="mb-3">
+      {{ photo_form.files(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+      <ul id="list"></ul>
+    </div>
+    <div class="mb-3">
+      {{ photo_form.submit(class="btn btn-success") }}
+    </div>
+  </form>
 
-<script>
-    function showFile(e) {
-        var files = e.target.files;
-        for (var i = 0, f; f = files[i]; i++) {
-            if (!f.type.match('image.*')) continue;
-            var fr = new FileReader();
-            fr.onload = (function (theFile) {
-                return function (e) {
-                    var li = document.createElement('li');
-                    li.innerHTML = "<img src='" + e.target.result + "' class='img-thumbnail' style='width: 30vh' />";
-                    li.innerHTML += "<input type='text'>"
-                    document.getElementById('list').insertBefore(li, null);
-                };
-            })(f);
+  <script>
+      function showFile(e) {
+          var files = e.target.files;
+          for (var i = 0, f; f = files[i]; i++) {
+              if (!f.type.match('image.*')) continue;
+              var fr = new FileReader();
+              fr.onload = (function (theFile) {
+                  return function (e) {
+                      var li = document.createElement('li');
+                      li.innerHTML = "<img src='" + e.target.result + "' class='img-thumbnail mb-3' style='width: 30vh' />";
+                      li.innerHTML += "<input type='text' name='description'>"
+                      document.getElementById('list').insertBefore(li, null);
+                  };
+              })(f);
 
-            fr.readAsDataURL(f);
-        }
-    }
+              fr.readAsDataURL(f);
+          }
+      }
 
-    document.getElementById('files').addEventListener('change', showFile, false);
-</script>
+      document.getElementById('files').addEventListener('change', showFile, false);
+  </script>
 {% endblock %}
