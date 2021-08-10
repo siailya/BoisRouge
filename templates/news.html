@@ -18,7 +18,7 @@
         <section class="news-list row mt-5">
             {% for news_item in news %}
             <div class="col-12 col-md-6 col-lg-4 mb-3">
-                <a href="/news/{{ news_item._id }}" class="news-item d-block cursor-pointer">
+                <a href="/news/{{ news_item.nid }}" class="news-item d-flex flex-column cursor-pointer">
                     <div class="p-3">
                         <h4 class="news-title text-center">
                             {% if news_item.header|length > 50 %}

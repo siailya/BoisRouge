@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session, g
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
 from forms import NewsForm, ContactsForm
@@ -157,7 +157,7 @@ def news():
     for n in news:
         if not n.get("photo_path"):
             locale_news.append({
-                "_id": str(n["_id"]),
+                "nid": str(n["num_id"]),
                 "picture": n.get("photo_hash"),
                 "header": n[locale + "_header"],
                 "description": n[locale + "_description"],
@@ -165,7 +165,7 @@ def news():
             })
         else:
             locale_news.append({
-                "_id": str(n["_id"]),
+                "nid": str(n["num_id"]),
                 "picture": n.get("photo_path"),
                 "header": n[locale + "_header"],
                 "description": n[locale + "_description"],
@@ -179,18 +179,22 @@ def news():
 @app.route("/news/<nid>", methods=["GET"])
 def new_item(nid):
     locale = get_locale().lower()
-    if locale == "zh":
-        locale = "zh"
 
-    news_item = list(client[db_name]["news"].find({"_id": ObjectId(nid)}))[0]
+    news_item = list(client[db_name]["news"].find({"num_id": int(nid)}))[0]
+    print(news_item)
     locale_news_item = {
+        "nid": int(news_item["num_id"]),
         "picture": news_item["photo_path"],
         "header": news_item[locale + "_header"],
+        "date": news_item["date"],
         "description": news_item[locale + "_description"],
         "text": news_item[locale + "_text"]
     }
 
-    return render_template("news_item.html", news_item=locale_news_item)
+    news_count = client[db_name]["news"].count()
+    print(news_count)
+
+    return render_template("news_item.html", news_item=locale_news_item, news_count=news_count)
 
 
 @app.route('/contacts', methods=["GET", "POST"])
@@ -212,6 +216,13 @@ def contacts():
         contacts.delete_many({"_id": {"$nin": list(map(ObjectId, [id for id in ids if id]))}})
     contacts = contacts.find()
     return render_template("contacts.html", contact_form=contact_form, contacts=contacts)
+
+
+@app.post("/api/footer_form")
+def footer_form():
+    name, email = request.json.values()
+    print(name, email)
+    return "123"
 
 
 app.run(debug=True)
