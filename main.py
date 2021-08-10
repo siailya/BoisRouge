@@ -205,7 +205,6 @@ def contacts():
         ids = request.form.getlist("id")
         types = request.form.getlist("type")
         values = request.form.getlist("value")
-        print(ids, types, values, end="\n")
         for i in range(len(ids)):
             if ids[i]:
                 contacts.update_one({"_id": ObjectId(ids[i])},
