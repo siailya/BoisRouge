@@ -20,14 +20,14 @@
         </div>
         <div class="d-flex mb-5 mt-5">
             {% if news_item.nid > 1 %}
-            <a href="/news/{{ news_item.nid - 1 }}" class="prev-news me-auto d-flex">
+            <a href="/read_news/{{ news_item.nid - 1 }}" class="prev-news me-auto d-flex">
                 <span class="material-icons-outlined me-2 my-auto">keyboard_backspace</span>
                 <span class=" my-auto">{{_("Предыдущая новость")}}</span>
             </a>
             {% endif %}
 
             {% if news_item.nid != news_count %}
-            <a href="/news/{{ news_item.nid + 1 }}" class="next-news d-flex ms-auto text-end">
+            <a href="/read_news/{{ news_item.nid + 1 }}" class="next-news d-flex ms-auto text-end">
                 <span class=" my-auto">{{_("Следующая новость")}}</span>
                 <span class="material-icons-outlined ms-2 my-auto">arrow_right_alt</span>
             </a>

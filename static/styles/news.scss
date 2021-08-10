@@ -90,3 +90,22 @@
     color: inherit;
   }
 }
+
+.news-date{
+  font-size: 12px;
+}
+
+.news-page{
+  padding: 4px 8px;
+  text-decoration: none;
+  color: #111111;
+}
+
+.news-prev, .news-next{
+  text-decoration: none;
+  color: #111111;
+}
+
+.news-page.active-page{
+  border: 1px solid var(--green);
+}

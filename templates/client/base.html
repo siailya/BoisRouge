@@ -56,15 +56,15 @@
             </a>
         </div>
         <div class="menu-items mt-3 d-flex flex-column">
-            <a href="#" class="menu-item mt-1 {% block home_active_mobile %}{% endblock %}"><span>{{_("Главная")}}</span></a>
-            <a href="#" class="menu-item mt-1 {% block news_active_mobile %}{% endblock %}"><span>{{_("Новости")}}</span></a>
-            <a href="#" class="menu-item mt-1 {% block gallery_active_mobile %}{% endblock %}"><span>{{_("Галерея")}}</span></a>
-            <a href="#" class="menu-item mt-1 {% block services_active_mobile %}{% endblock %}"><span>{{_("Услуги")}}</span></a>
+            <a href="/" class="menu-item mt-1 {% block home_active_mobile %}{% endblock %}"><span>{{_("Главная")}}</span></a>
+            <a href="/news" class="menu-item mt-1 {% block news_active_mobile %}{% endblock %}"><span>{{_("Новости")}}</span></a>
+            <a href="/gallery" class="menu-item mt-1 {% block gallery_active_mobile %}{% endblock %}"><span>{{_("Галерея")}}</span></a>
+            <a href="/services" class="menu-item mt-1 {% block services_active_mobile %}{% endblock %}"><span>{{_("Услуги")}}</span></a>
             <div class="menu-item flex-column d-flex cursor-pointer">
-                <a href="#" class="ps-2 menu-item">{{_("Продукция")}}</a>
-                <a href="#" class="ps-2 menu-item">{{_("Сорта древесины")}}</a>
+                <a href="/products" class="ps-2 menu-item">{{_("Продукция")}}</a>
+                <a href="/wood_species" class="ps-2 menu-item">{{_("Сорта древесины")}}</a>
             </div>
-            <a href="#" class="menu-item mt-1 {% block contacts_active_mobile %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
+            <a href="/contacts" class="menu-item mt-1 {% block contacts_active_mobile %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
         </div>
     </div>
 </div>
@@ -73,20 +73,20 @@
     <div class="container d-flex justify-content-between">
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="header-logo" width="125">
         <div class="header-menu d-none d-lg-flex my-auto">
-            <a href="#" class="menu-item {% block home_active %}{% endblock %}"><span>{{_("Главная")}}</span></a>
-            <a href="#" class="menu-item {% block news_active %}{% endblock %}"><span>{{_("Новости")}}</span></a>
-            <a href="#" class="menu-item {% block gallery_active%}{% endblock %}"><span>{{_("Галерея")}}</span></a>
-            <div class="menu-item cursor-pointer {% block services_active%}{% endblock %}" id="servicesDropdownToggle">
+            <a href="/" class="menu-item {% block home_active %}{% endblock %}"><span>{{_("Главная")}}</span></a>
+            <a href="/news" class="menu-item {% block news_active %}{% endblock %}"><span>{{_("Новости")}}</span></a>
+            <a href="/gallery" class="menu-item {% block gallery_active%}{% endblock %}"><span>{{_("Галерея")}}</span></a>
+            <div class="cursor-pointer" id="servicesDropdownToggle">
                 <span class="btn-no-back d-flex">
-                    <span>{{_("Услуги")}}</span>
+                    <a href="/services" class="menu-item me-0 {% block services_active%}{% endblock %}">{{_("Услуги")}}</a>
                     <i class="material-icons-outlined my-auto">expand_more</i>
                 </span>
                 <div id="servicesDropdown" class="services-dropdown d-flex flex-column">
-                    <a href="#" class="menu-item">{{_("Продукция")}}</a>
-                    <a href="#" class="menu-item mt-1">{{_("Сорта древесины")}}</a>
+                    <a href="/products" class="menu-item">{{_("Продукция")}}</a>
+                    <a href="/wood_species" class="menu-item mt-1">{{_("Сорта древесины")}}</a>
                 </div>
             </div>
-            <a href="#" class="menu-item {% block contacts_active %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
+            <a href="/contacts" class="menu-item {% block contacts_active %}{% endblock %}"><span>{{_("Контакты")}}</span></a>
         </div>
         <div class="d-none d-lg-flex">
             <div class="language-change my-auto" id="languageDropdownToggle">
@@ -142,11 +142,11 @@
             </div>
             <div class="col-12 col-md-6 col-lg-2 mt-3 mt-lg-0">
                 <div class="menu-items d-flex flex-column">
-                    <a href="#" class="menu-item"><span>{{_("Главная")}}</span></a>
-                    <a href="#" class="menu-item mt-1"><span>{{_("Новости")}}</span></a>
-                    <a href="#" class="menu-item mt-1"><span>{{_("Галерея")}}</span></a>
-                    <a href="#" class="menu-item mt-1"><span>{{_("Услуги")}}</span></a>
-                    <a href="#" class="menu-item mt-1"><span>{{_("Контакты")}}</span></a>
+                    <a href="/" class="menu-item"><span>{{_("Главная")}}</span></a>
+                    <a href="/news" class="menu-item mt-1"><span>{{_("Новости")}}</span></a>
+                    <a href="/gallery" class="menu-item mt-1"><span>{{_("Галерея")}}</span></a>
+                    <a href="/services" class="menu-item mt-1"><span>{{_("Услуги")}}</span></a>
+                    <a href="/contacts" class="menu-item mt-1"><span>{{_("Контакты")}}</span></a>
                 </div>
             </div>
             <div class="our-products col-12 col-md-6 mt-3 mt-lg-0 col-lg-3">

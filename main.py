@@ -1,3 +1,6 @@
+from math import ceil
+
+import pymongo
 from flask import Flask, request, render_template, redirect, session, g
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
@@ -25,7 +28,6 @@ db = MongoEngine(app)
 
 @babel.localeselector
 def get_locale():
-    print(session)
     params_lang = request.args.get('lang')
     if params_lang and params_lang.lower() in app.config["LANGUAGES"]:
         session["lang"] = request.args.get('lang')
@@ -84,6 +86,8 @@ def add_new():
                          "photo_path": photo_name,
                          "date": datetime.now().strftime('%d-%m-%Y'),
                          "num_id": num_id})
+        return redirect("/edit_new", 301)
+
     return render_template("admin/add_new.html", news_form=news_form)
 
 
@@ -137,7 +141,7 @@ def edit_one_new(id):
 
                                   "photo_path": photo_name}})
 
-        return redirect("/edit_new", code=302)
+        return redirect("/admin/edit_new", code=302)
 
     news_form.ru_text.data = new["ru_text"]
     news_form.en_text.data = new["en_text"]
@@ -186,16 +190,33 @@ def index():
     return render_template("client/index.html")
 
 
-@app.route("/news", methods=["GET"])
-def news():
+@app.route("/news")
+@app.route("/news/<page>", methods=["GET"])
+def news(page=None):
+    NEWS_ON_PAGE = 10
+
+    if (page is None) or (page == 1):
+        page = 1
+
+    news = list(
+        client[db_name]["news"].find({}, limit=NEWS_ON_PAGE, skip=int(page) * NEWS_ON_PAGE - NEWS_ON_PAGE).sort(
+            [("num_id", pymongo.DESCENDING)]))
+
+    news_count = client[db_name]["news"].count()
+    news_pages = ceil(news_count / NEWS_ON_PAGE)
+
+    print(news_count)
+    print(news_count // NEWS_ON_PAGE)
+    print(news_count % NEWS_ON_PAGE)
+
     locale = get_locale().lower()
-    news = list(client[db_name]["news"].find())
     locale_news = []
 
     for n in news:
         if not n.get("photo_path"):
             locale_news.append({
                 "nid": str(n["num_id"]),
+                "date": n["date"],
                 "picture": n.get("photo_hash"),
                 "header": n[locale + "_header"],
                 "description": n[locale + "_description"],
@@ -204,17 +225,18 @@ def news():
         else:
             locale_news.append({
                 "nid": str(n["num_id"]),
+                "date": n["date"],
                 "picture": n.get("photo_path"),
                 "header": n[locale + "_header"],
                 "description": n[locale + "_description"],
                 "text": n[locale + "_text"]
             })
 
-    print(locale_news)
-    return render_template("client/news.html", title="Новости", news=locale_news)
+    return render_template("client/news.html", title="Новости", news=locale_news, count=news_count, pages=news_pages,
+                           current_page=page)
 
 
-@app.route("/news/<nid>", methods=["GET"])
+@app.route("/read_news/<nid>", methods=["GET"])
 def new_item(nid):
     locale = get_locale().lower()
 

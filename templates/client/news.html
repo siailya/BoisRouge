@@ -18,7 +18,7 @@
         <section class="news-list row mt-5">
             {% for news_item in news %}
             <div class="col-12 col-md-6 col-lg-4 mb-3">
-                <a href="/news/{{ news_item.nid }}" class="news-item d-flex flex-column cursor-pointer">
+                <a href="/read_news/{{ news_item.nid }}" class="news-item d-flex flex-column cursor-pointer">
                     <div class="p-3">
                         <h4 class="news-title text-center">
                             {% if news_item.header|length > 50 %}
@@ -55,6 +55,35 @@
                 </a>
             </div>
             {% endfor %}
+
+            {% if news|length < 1 %}
+                <h3 class="text-center">Кажется, ничего не нашлось...</h3>
+            {% endif %}
+
+            {% if pages|int > 1 %}
+                <div class="d-flex">
+                    <div class="news-pagination d-flex mt-4 ms-auto">
+                        {% if current_page|int != 1 %}
+                        <a href="/news/{{ current_page|int - 1 }}" class="news-prev d-flex">
+                            <span class="material-icons-outlined my-auto">chevron_left</span>
+                        </a>
+                        {% endif %}
+
+                        {% for i in range(1, pages + 1) %}
+                            {% if (i <= 2) or ((i + 1) >= pages) or (i == current_page|int)%}
+                                <a class="news-page {% if i == current_page|int %}active-page{% endif %}" href="/news/{{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+
+                        {% if current_page|int != pages|int and pages|int > 1 %}
+                        <a href="/news/{{ current_page|int + 1 }}" class="news-next d-flex">
+                            <span class="material-icons-outlined my-auto">chevron_right</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         </section>
     </div>
 {% endblock %}
