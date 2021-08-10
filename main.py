@@ -176,8 +176,21 @@ def edit_photo():
 def edit_one_photo(photo_id):
     photo_form = PhotosForm()
     photos = client[db_name]["photos"]
-    photo = photos.find({"_id": ObjectId(photo_id)})[0]
-    return render_template("admin/edit_one_photo.html", photo=photo, photo_form=photo_form)
+    if request.method == "GET":
+        photo = photos.find({"_id": ObjectId(photo_id)})[0]
+        return render_template("admin/edit_one_photo.html", photo=photo, photo_form=photo_form,
+                               description=photo["description"])
+    elif request.method == "POST":
+        p_form = request.form
+        galleryHidden = False
+        if "galleryHidden" in p_form:
+            galleryHidden = True
+            print(request.form, photo_id)
+
+        photos.update_one({"_id": ObjectId(photo_id)},
+                        {"$set": {"description": p_form["description"],
+                                  "galleryHidden": galleryHidden}})
+        return redirect("/admin/edit_photo", code=302)
 
 
 @app.route('/admin/add_product', methods=["GET", "POST"])

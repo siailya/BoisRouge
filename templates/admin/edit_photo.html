@@ -2,16 +2,20 @@
 
 {% block content %}
   <div class="d-flex mb-5">
-    <a href="/add_new" class="ms-auto add-new-btn">
+    <a href="/admin/add_photo" class="ms-auto add-new-btn">
       <button class="btn btn-success d-flex">
-        Добавить новость <span class="material-icons-outlined ms-2 my-auto">add</span>
+        Добавить фото <span class="material-icons-outlined ms-2 my-auto">add</span>
       </button>
     </a>
   </div>
 
   <div class="row">
     {% for photo in photos %}
+      {% if photo.galleryHidden %}
+      <div class="col-12 col-md-6 col-lg-4 mb-3" style="opacity: .6;">
+      {% else %}
       <div class="col-12 col-md-6 col-lg-4 mb-3" style="">
+      {% endif %}
         <a href="edit_photo/{{ photo._id }}" class="d-flex flex-column card"
            style="
              color: black;
