@@ -1,0 +1,46 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+  <div class="d-flex mb-5">
+    <a href="/admin/add_wood_type" class="ms-auto add-new-btn">
+      <button class="btn btn-success d-flex">
+        Добавить породу дерева <span class="material-icons-outlined ms-2 my-auto">add</span>
+      </button>
+    </a>
+  </div>
+
+  <div class="row">
+    {% for wood_type in wood_types %}
+      <div class="col-12 col-md-6 col-lg-4 mb-3" style="">
+        <a href="edit_wood_type/{{ wood_type._id }}" class="d-flex flex-column card"
+           style="
+               color: black;
+               cursor: pointer;
+               text-align: center;
+               position: relative;
+               border-radius: 5px 5px 5px 5px;
+               text-decoration: none;
+               padding: 5px;
+               margin: auto;
+               height: 100%;"
+        >
+          <div
+              style="color: black; font-size: 18px; border-radius: 5px 5px 5px 5px;"
+          >
+          </div>
+
+          <img src='{{ url_for("static", filename="/news_photo/" + wood_type.path) }}' alt=""
+               style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail"/>
+
+          <div class="new-text text-start mt-auto p-3">
+            {% if wood_type.title|length > 140 %}
+              {{ wood_type.title[:140] }}...
+            {% else %}
+              {{ wood_type.title }}
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

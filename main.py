@@ -199,6 +199,45 @@ def add_product():
     return render_template("admin/add_product.html")
 
 
+@app.route('/admin/add_wood_type', methods=["GET", "POST"])
+def add_wood_type():
+    wood_type_form = WoodTypeForm()
+    if request.method == "POST":
+        title = request.form.get("title")
+        descriptions = request.form.get("description")
+        files = wood_type_form["files"].data[0]
+        wood_types = client[db_name]["wood_types"]
+        wood_types.insert_one({"title": title,
+                               "description": descriptions,
+                               "path": save_photo(files, client, False, "")})
+        return redirect("../admin/edit_wood_type", 301)
+    return render_template("admin/add_wood_type.html", wood_type_form=wood_type_form)
+
+
+@app.route('/admin/edit_wood_type', methods=["GET", "POST"])
+def edit_wood_type():
+    wood_types = client[db_name]["wood_types"].find()
+    return render_template("admin/edit_wood_type.html", wood_types=wood_types)
+
+
+@app.route('/admin/edit_wood_type/<photo_id>', methods=["GET", "POST"])
+def edit_one_wood_type(photo_id):
+    wood_type_form = WoodTypeForm()
+    wood_types = client[db_name]["wood_types"]
+    if request.method == "GET":
+        wood_type = wood_types.find({"_id": ObjectId(photo_id)})[0]
+        return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)
+    elif request.method == "POST":
+        t_form = request.form
+        if "delete" in t_form:
+            wood_types.remove({"_id": ObjectId(photo_id)})
+            return redirect("/admin/edit_wood_type", code=302)
+        wood_types.update_one({"_id": ObjectId(photo_id)},
+                              {"$set": {"title": t_form["title"],
+                                        "description": t_form["description"]}})
+        return redirect("/admin/edit_wood_type", code=302)
+
+
 @app.route('/admin/contacts', methods=["GET", "POST"])
 def contacts():
     contact_form = ContactsForm()
@@ -297,8 +336,10 @@ def photos_gallery(page=None):
     video_page = request.args.get("videoPage")
     active = request.args.get("active")
 
-    photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False}, {"path": 1, "date": 1, "description": 1}))
-    return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page, active=active)
+    photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False},
+                                                 {"path": 1, "date": 1, "description": 1}))
+    return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page,
+                           active=active)
 
 
 @app.post("/api/footer_form")

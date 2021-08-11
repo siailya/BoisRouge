@@ -1,0 +1,41 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <h1 class="add-news-header">Добавить породу древесины</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ wood_type_form.title.label }}</span>
+          {{ wood_type_form.title(class="form-control") }}
+          {% if wood_type_form.title.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_type_form.title.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ wood_type_form.description.label }}</span>
+          {{ wood_type_form.description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_type_form.description.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_type_form.description.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {{ wood_type_form.files(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+    </div>
+
+    <div class="mb-3">
+      {{ wood_type_form.submit(class="btn btn-success") }}
+      <a href="/admin/edit_wood_type">
+        <button class="btn btn-danger" type="button">Отменить</button>
+      </a>
+    </div>
+  </form>
+{% endblock %}

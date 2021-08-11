@@ -41,3 +41,13 @@ class PhotosForm(FlaskForm):
     files = MultipleFileField("Фотографии")
 
     submit = SubmitField("Подтвердить")
+
+
+class WoodTypeForm(FlaskForm):
+    title = StringField("Название ", validators=[DataRequired("Введите название породы")])
+
+    description = TextAreaField("Описание", validators=[DataRequired("Введите описание")])
+
+    files = MultipleFileField("Фотографии")
+
+    submit = SubmitField("Подтвердить")
