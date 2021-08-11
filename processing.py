@@ -28,7 +28,7 @@ def save_photo(photo, client, isGallery, description):
             if photos.count_documents({"hash": photo_hash}) == 0:
                 now = datetime.datetime.now()
                 photos.insert_one({"hash": photo_hash, "path": photo_name,
-                                   "date": now.strftime('%d-%m-%Y %H:%M:%S'), "isGallery": isGallery,
+                                   "date": now, "isGallery": isGallery,
                                    "galleryHidden": False, "description": description})
             else:
                 os.remove(f"static/news_photo/{photo_name}")

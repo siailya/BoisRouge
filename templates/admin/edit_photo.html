@@ -34,9 +34,9 @@
           </div>
 
           <img src='{{ url_for("static", filename="/news_photo/" + photo.path) }}' alt=""
-          style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail mt-auto"/>
+          style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail"/>
 
-          <div class="new-text text-start p-3">
+          <div class="new-text text-start mt-auto p-3">
             {% if photo.description|length > 140 %}
               {{ photo.description[:140] }}...
             {% else %}
@@ -45,7 +45,7 @@
           </div>
 
           <p class="text-end news-date mt-2">
-            {{ photo.date }}
+            {{ photo.date.strftime('%Y-%m-%d') }}
           </p>
         </a>
       </div>

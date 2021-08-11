@@ -84,7 +84,7 @@ def add_new():
                          "fr_text": new_form["fr_text"],
 
                          "photo_path": photo_name,
-                         "date": datetime.now().strftime('%d-%m-%Y'),
+                         "date": datetime.now(),
                          "num_id": num_id})
         return redirect("../admin/edit_new", 301)
     return render_template("admin/add_new.html", news_form=news_form)
@@ -104,7 +104,7 @@ def edit_one_new(id):
     if news_form.validate_on_submit():
         if "delete" in request.form:
             news.remove({"_id": ObjectId(id)})
-            return redirect("/edit_new", code=302)
+            return redirect("/admin/edit_new", code=302)
 
         photo = request.files["pictures"]
         if photo:
@@ -168,7 +168,7 @@ def add_photo():
 
 @app.route('/admin/edit_photo', methods=["GET", "POST"])
 def edit_photo():
-    photos = client[db_name]["photos"].find().sort("date", -1)
+    photos = client[db_name]["photos"].find({"isGallery": True}).sort("date", -1)
     return render_template("admin/edit_photo.html", photos=photos)
 
 
@@ -227,7 +227,7 @@ def index():
 @app.route("/news")
 @app.route("/news/<page>", methods=["GET"])
 def news(page=None):
-    NEWS_ON_PAGE = 10
+    NEWS_ON_PAGE = 6
 
     if (page is None) or (page == 1):
         page = 1
