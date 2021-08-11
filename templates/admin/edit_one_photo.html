@@ -3,7 +3,7 @@
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
     <p style="align-items: center; justify-content: center;">
-      <img src='{{ url_for("static", filename="/news_photo/" + photo["path"]) }}' alt=""
+      <img src='{{ url_for("static", filename="/photos/" + photo["path"]) }}' alt=""
            style="height: 30vh; display: flex; text-align: center; margin: auto"
            class="img-thumbnail mt-auto"/>
     </p>

@@ -8,12 +8,12 @@ db_name = "DataBase"
 
 
 def save_photo(photo, client, isGallery, description):
-    files = os.listdir("static/news_photo")
+    files = os.listdir("static/photos")
     photo_num = 1
     while True:
         if f"{photo_num}.png" not in files and f"{photo_num}.jpg" not in files:
             photo_name = str(photo_num) + photo.filename[-4:]
-            outpath_file = os.path.join(os.path.join(os.getcwd(), "static/news_photo"), photo_name)
+            outpath_file = os.path.join(os.path.join(os.getcwd(), "static/photos"), photo_name)
             photo.save(outpath_file)
 
             file_hash = hashlib.sha256()  # Create the hash object, can use something other than `.sha256()` if you wish
@@ -31,6 +31,6 @@ def save_photo(photo, client, isGallery, description):
                                    "date": now, "isGallery": isGallery,
                                    "galleryHidden": False, "description": description})
             else:
-                os.remove(f"static/news_photo/{photo_name}")
+                os.remove(f"static/photos/{photo_name}")
             return photos.find_one({"hash": photo_hash})["path"]
         photo_num += 1

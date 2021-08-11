@@ -11,7 +11,7 @@ from flask_babel import Babel
 from datetime import datetime
 
 BLOCK_SIZE = 65536
-UPLOAD_FOLDER = "news_photo"
+UPLOAD_FOLDER = "photos"
 
 app = Flask(__name__, static_folder="static")
 
