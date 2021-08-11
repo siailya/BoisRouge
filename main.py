@@ -172,6 +172,12 @@ def edit_photo():
     return render_template("admin/edit_photo.html", photos=photos)
 
 
+@app.route('/admin/edit_video', methods=["GET", "POST"])
+def edit_video():
+    # videos = client[db_name]["videos"].find().
+    return render_template("admin/edit_video.html")
+
+
 @app.route('/admin/edit_photo/<photo_id>', methods=["GET", "POST"])
 def edit_one_photo(photo_id):
     photo_form = PhotosForm()
