@@ -1,0 +1,17 @@
+.gallery-view{
+  min-height: 100vh;
+  padding-top: 150px;
+}
+
+.mode-select{
+  .nav-item button{
+    color: var(--green);
+    background: white;
+    border: var(--light-green) 2px solid;
+  }
+
+  .nav-item button.active{
+    color: white;
+    background: var(--light-green);
+  }
+}

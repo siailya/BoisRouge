@@ -1,0 +1,54 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/gallery.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Галерея | BoisRouge") }}{% endblock %}
+
+{% block gallery_active %}active{% endblock %}
+{% block gallery_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container gallery-view mb-5">
+        <main class="gallery-about text-center">
+            <h1 class="fw-bold">{{ _("Галерея BoisRouge") }}</h1>
+            <article>{{ _("Наши фото и видео-отчеты с места событий. Следите за нашей деятельностью!") }}</article>
+        </main>
+
+        <section>
+            <div class="mode-select">
+                <ul class="nav mt-4 justify-content-center nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item mx-1" role="presentation">
+                        <button class="rounded-pill nav-link {% if active != 'video' %}active{% endif %}"
+                                id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos"
+                                type="button" role="tab" aria-controls="home"
+                                aria-selected="true">{{ _("Фотогалерея") }}
+                        </button>
+                    </li>
+                    <li class="nav-item mx-1" role="presentation">
+                        <button class="rounded-pill nav-link {% if active == 'video' %}active{% endif %}"
+                                id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos"
+                                type="button" role="tab" aria-controls="profile"
+                                aria-selected="false" onclick="setModeVideo()">{{ _("Видеогалерея") }}
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade {% if active != 'video' %}show active{% endif %}" id="photos"
+                         role="tabpanel" aria-labelledby="photos-tab">
+
+                    </div>
+                    <div class="tab-pane fade {% if active == 'video' %}show active{% endif %}" id="videos"
+                         role="tabpanel" aria-labelledby="videos-tab">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/gallery.js') }}"></script>
+{% endblock %}

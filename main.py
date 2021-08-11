@@ -188,8 +188,8 @@ def edit_one_photo(photo_id):
             print(request.form, photo_id)
 
         photos.update_one({"_id": ObjectId(photo_id)},
-                        {"$set": {"description": p_form["description"],
-                                  "galleryHidden": galleryHidden}})
+                          {"$set": {"description": p_form["description"],
+                                    "galleryHidden": galleryHidden}})
         return redirect("/admin/edit_photo", code=302)
 
 
@@ -289,6 +289,16 @@ def new_item(nid):
     print(news_count)
 
     return render_template("client/news_item.html", news_item=locale_news_item, news_count=news_count)
+
+
+@app.route("/gallery", methods=["GET"])
+def photos_gallery(page=None):
+    photo_page = request.args.get("photoPage")
+    video_page = request.args.get("videoPage")
+    active = request.args.get("active")
+
+    photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False}, {"path": 1, "date": 1, "description": 1}))
+    return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page, active=active)
 
 
 @app.post("/api/footer_form")
