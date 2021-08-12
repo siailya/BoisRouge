@@ -157,10 +157,16 @@ def add_photo():
     photo_form = PhotosForm()
     if request.method == "POST":
         files = photo_form["files"].data
-        descriptions = request.form.getlist("description")
+        descriptions_ru = request.form.getlist("description_ru")
+        descriptions_en = request.form.getlist("description_en")
+        descriptions_zh = request.form.getlist("description_zh")
+        descriptions_de = request.form.getlist("description_de")
+        descriptions_vt = request.form.getlist("description_vt")
+        descriptions_fr = request.form.getlist("description_fr")
         for i in range(len(files)):
             print(files[i])
-            photo_name = save_photo(files[i], client, True, descriptions[i])
+            photo_name = save_photo(files[i], client, True, descriptions_ru[i], descriptions_en[i],
+                                    descriptions_zh[i], descriptions_de[i], descriptions_vt[i], descriptions_fr[i])
             print(photo_name)
         return redirect("../admin/edit_photo", 301)
     return render_template("admin/add_photo.html", photo_form=photo_form)
@@ -225,6 +231,41 @@ def edit_one_photo(photo_id):
 def add_product():
     print(request.args)
     return render_template("admin/add_product.html")
+
+
+@app.route('/admin/add_log', methods=["GET", "POST"])
+def add_log():
+    logs_form = LogsForm()
+    if logs_form.is_submitted():
+        photo_name = ""
+        photo = request.files["pictures"]
+        if photo:
+            photo_name = save_photo(photo, client, False, "")
+
+        logs = client[db_name]["logs"]
+        log_form = request.form
+        print(log_form)
+        # logs.insert_one({"ru_text": log_form["ru_text"],
+        #
+        #                  "en_text": log_form["en_text"],
+        #
+        #                  "zh_text": log_form["zh_text"],
+        #
+        #                  "de_text": log_form["de_text"],
+        #
+        #                  "vt_text": log_form["vt_text"],
+        #
+        #                  "fr_text": log_form["fr_text"],
+        #
+        #                  "photo_path": photo_name})
+        return redirect("../admin/edit_logs", 301)
+    return render_template("admin/add_log.html", logs_form=logs_form)
+
+
+@app.route('/admin/edit_logs', methods=["GET", "POST"])
+def edit_logs():
+    logs = client[db_name]["logs"].find()
+    return render_template("admin/edit_logs.html", logs=logs)
 
 
 @app.route('/admin/add_wood_type', methods=["GET", "POST"])

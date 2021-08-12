@@ -2,12 +2,12 @@ import os
 import hashlib
 import datetime
 
-
 BLOCK_SIZE = 65536
 db_name = "DataBase"
 
 
-def save_photo(photo, client, isGallery, description):
+def save_photo(photo, client, isGallery, description_ru, description_en, description_zh, description_de, description_vt,
+               description_fr):
     files = os.listdir("static/photos")
     photo_num = 1
     while True:
@@ -29,7 +29,11 @@ def save_photo(photo, client, isGallery, description):
                 now = datetime.datetime.now()
                 photos.insert_one({"hash": photo_hash, "path": photo_name,
                                    "date": now, "isGallery": isGallery,
-                                   "galleryHidden": False, "description": description})
+                                   "galleryHidden": False, "description_ru": description_ru,
+                                   "description_en": description_en,
+                                   "description_zh": description_zh, "description_de": description_de,
+                                   "description_vt": description_vt,
+                                   "description_fr": description_fr, })
             else:
                 os.remove(f"static/photos/{photo_name}")
             return photos.find_one({"hash": photo_hash})["path"]

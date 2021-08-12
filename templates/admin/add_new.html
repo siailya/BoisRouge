@@ -210,13 +210,11 @@
     </div>
 
     <div class="mb-3">
-      {#            <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" name="new_photos" style="width: 500px;" multiple/>#}
       {{ news_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
     </div>
 
     <div class="mb-3">
       {{ news_form.submit(class="btn btn-success") }}
-      {#            <button type="submit" class="btn btn-primary mb-2">Добавить</button>#}
         <a href="/admin/edit_new">
             <button class="btn btn-danger" type="button">Отменить</button>
         </a>

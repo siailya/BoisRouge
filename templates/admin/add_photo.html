@@ -5,7 +5,8 @@
   <form method="post" novalidate enctype="multipart/form-data">
     <div class="mb-3">
       {{ photo_form.files(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
-      <ul id="list"></ul>
+      <hr>
+      <ul id="list" style="list-style-type: none"></ul>
     </div>
     <div class="mb-3">
       {{ photo_form.submit(class="btn btn-success") }}
@@ -20,9 +21,31 @@
               var fr = new FileReader();
               fr.onload = (function (theFile) {
                   return function (e) {
-                      var li = document.createElement('li');
-                      li.innerHTML = "<img src='" + e.target.result + "' class='img-thumbnail mb-3' style='width: 30vh' />";
-                      li.innerHTML += "<input type='text' name='description'>"
+                      var li = document.createElement("li");
+                      var div_row = document.createElement("div");
+                      div_row.className = "row";
+                      var div_photo = document.createElement("div");
+                      div_photo.className = "col-12 col-lg-5 d-flex m-auto";
+                      div_photo.innerHTML = "<img src='" + e.target.result + "' class='img-thumbnail' style='width: 30vw' />";
+                      var div_labels = document.createElement("div");
+                      div_labels.className = "col-12 col-lg-2 d-flex flex-column justify-content-between";
+                      div_labels.innerHTML = "<p style='text-align: right'>Русское описание</p>"
+                      div_labels.innerHTML += "<p style='text-align: right'>Английское описание</p>"
+                      div_labels.innerHTML += "<p style='text-align: right'>Китайское описание</p>"
+                      div_labels.innerHTML += "<p style='text-align: right'>Немецкое описание</p>"
+                      div_labels.innerHTML += "<p style='text-align: right'>Вьетнамское описание</p>"
+                      div_labels.innerHTML += "<p style='text-align: right'>Французское описание</p>"
+                      var div_fields = document.createElement("div");
+                      div_fields.className = "col-12 col-lg-5 d-flex flex-column justify-content-between";
+                      div_fields.innerHTML = "<input type='text' name='description_ru' class='form-control mb-2'>"
+                      div_fields.innerHTML += "<input type='text' name='description_en' class='form-control mb-2'>"
+                      div_fields.innerHTML += "<input type='text' name='description_zh' class='form-control mb-2'>"
+                      div_fields.innerHTML += "<input type='text' name='description_de' class='form-control mb-2'>"
+                      div_fields.innerHTML += "<input type='text' name='description_vt' class='form-control mb-2'>"
+                      div_fields.innerHTML += "<input type='text' name='description_fr' class='form-control mb-2'>"
+                      div_row.append(div_photo, div_labels, div_fields)
+                      li.append(div_row)
+                      li.innerHTML += "<hr>"
                       document.getElementById('list').insertBefore(li, null);
                   };
               })(f);

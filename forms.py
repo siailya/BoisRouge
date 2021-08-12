@@ -53,6 +53,19 @@ class WoodTypeForm(FlaskForm):
     submit = SubmitField("Подтвердить")
 
 
+class LogsForm(FlaskForm):
+    ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание породы на русском языке")])
+    en_text = TextAreaField("Описание (en)", validators=[DataRequired("Введите описание породы на английском языке")])
+    de_text = TextAreaField("Описание (de)", validators=[DataRequired("Введите описание породы на немецком языке")])
+    zh_text = TextAreaField("Описание (zh)", validators=[DataRequired("Введите описание породы на китайском языке")])
+    vt_text = TextAreaField("Описание (vt)", validators=[DataRequired("Введите описание породы на вьетнамском языке")])
+    fr_text = TextAreaField("Описание (fr)", validators=[DataRequired("Введите описание породы на французском языке")])
+
+    pictures = FileField("Фотография")
+
+    submit = SubmitField("Подтвердить")
+
+
 class VideoForm(FlaskForm):
     url = StringField(validators=[DataRequired("Введите ссылку на видеоролик")])
 
