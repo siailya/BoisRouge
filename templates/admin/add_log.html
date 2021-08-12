@@ -5,6 +5,13 @@
     <div class="row">
       <h1 class="add-news-header">Добавить бревно</h1>
 
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="log_title" style="border-radius: 5px 0 0 5px">Название</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="log_title" name="log_title">
+      </div>
+
       <div>
         <label>
           Порода дерева
@@ -14,13 +21,6 @@
             <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
           {% endfor %}
         </select>
-      </div>
-
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_title" style="border-radius: 5px 0 0 5px">Название</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_title" name="log_title">
       </div>
 
       <div class="input-group mb-3">

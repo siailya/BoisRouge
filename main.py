@@ -276,6 +276,34 @@ def edit_logs():
     return render_template("admin/edit_logs.html", logs=logs)
 
 
+@app.route('/admin/edit_logs/<id>', methods=["GET", "POST"])
+def edit_one_log(id):
+    logs_form = LogsForm()
+    logs = client[db_name]["logs"]
+    wood_types = client[db_name]["wood_types"].find()
+    log = logs.find({"_id": ObjectId(id)})[0]
+    if logs_form.validate_on_submit():
+        if "delete" in request.form:
+            logs.remove({"_id": ObjectId(id)})
+            return redirect("/admin/edit_new", code=302)
+
+        log_form = request.form
+        logs.update_one({"_id": ObjectId(id)},
+                        {"$set": {"log_title": log_form["log_title"],
+                                  "type": log_form["type"],
+                                  "log_diameter": log_form["log_diameter"],
+                                  "log_length": log_form["log_length"],
+                                  "ru_text": log_form["ru_text"],
+                                  "en_text": log_form["en_text"],
+                                  "zh_text": log_form["zh_text"],
+                                  "de_text": log_form["de_text"],
+                                  "vt_text": log_form["vt_text"],
+                                  "fr_text": log_form["fr_text"]}})
+
+        return redirect("/admin/edit_new", code=302)
+    return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
+
+
 @app.route('/admin/add_wood_type', methods=["GET", "POST"])
 def add_wood_type():
     wood_type_form = WoodTypeForm()

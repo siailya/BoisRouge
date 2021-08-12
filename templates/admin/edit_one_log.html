@@ -1,0 +1,90 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="log_title" style="border-radius: 5px 0 0 5px">Название</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="log_title" name="log_title"
+             value="{{ log["log_title"] }}">
+    </div>
+
+
+    <div>
+      <label>
+        Порода дерева
+      </label>
+      <select name="type" class="form-select mb-3 me-3" style="width: 20vw">
+        {% for wood_type in wood_types %}
+          {% if wood_type.title == log["type"] %}
+            <option value="{{ wood_type.title }}" selected>{{ wood_type.title }}</option>
+          {% else %}
+            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+
+      </div>
+
+      <div class="mt-4 mb-2">Текущее фото:</div>
+      <div class="current-photo img-thumbnail col-12 col-lg-4 mb-3">
+        <img src="{{ url_for('static', filename='photos/' + log.photo_path) }}"
+             style="width: 100%;
+                  padding: 0;
+                  border: none;
+                  object-fit: cover;"
+             class="img-thumbnail mt-auto" alt=""/>
+      </div>
+
+      <div class="mb-3">
+        {{ logs_form.submit(class="btn btn-success btn-md mb-2") }}
+        <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
+          Удалить бревно
+        </button>
+        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Вы действительно хотите удалить бревно?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <button type="submit" class="btn btn-primary" name="delete">Да</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+{% endblock %}
