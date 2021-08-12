@@ -47,7 +47,7 @@
   max-height: 75vh;
   max-width: 90%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 768px) {
@@ -74,6 +74,10 @@
   background: rgba(0, 0, 0, 0.4);
   top: -150vh;
   z-index: 1001;
+}
+
+.video {
+  height: 25vh;
 }
 
 /*# sourceMappingURL=gallery.css.map */

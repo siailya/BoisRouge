@@ -1,5 +1,13 @@
-<div class="videos-view">
+<div class="videos-view mt-5">
     <div class="row">
-
+        {% for video in videos %}
+            <div class="col-12 col-md-6 col-lg-4 mt-2">
+                <iframe src="{{ video.url }}"
+                        class="w-100 video"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        {% endfor %}
     </div>
 </div>

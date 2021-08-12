@@ -1,5 +1,53 @@
 {% extends 'admin/admin.html' %}
 
 {% block content %}
-  Видео
+    <div class="d-flex">
+        <a href="{{ url_for('static', filename='img/instruction.png') }}" target="_blank" class="btn btn-success me-auto d-flex">
+            <span>Инструкция по добавлению</span>
+            <span class="material-icons-outlined ms-2">integration_instructions</span>
+        </a>
+        <button type="button" class="btn btn-success ms-auto d-flex" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+            <span>Добавить видео</span>
+            <span class="material-icons-outlined ms-2 my-auto">add</span>
+        </button>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавление видео</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post" novalidate enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <label for="">Ссылка на YouTube-видеоролик</label>
+                        {{ add_form.url(placeholder="https://youtube.com/...", class="form-control") }}
+                        {% if error %}
+                            <div class="invalid-feedback d-block">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+                        {{ add_form.submit(class="btn btn-success") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="videos row mt-5">
+        {% for video in videos %}
+            <div class="col-12 col-md-4">
+                <div class="video-card">
+                    <iframe class="w-100" src="{{ video.url }}" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

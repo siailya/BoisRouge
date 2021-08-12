@@ -51,3 +51,9 @@ class WoodTypeForm(FlaskForm):
     files = MultipleFileField("Фотографии")
 
     submit = SubmitField("Подтвердить")
+
+
+class VideoForm(FlaskForm):
+    url = StringField()
+
+    submit = SubmitField("Подтвердить")

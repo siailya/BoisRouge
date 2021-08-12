@@ -174,8 +174,23 @@ def edit_photo():
 
 @app.route('/admin/edit_video', methods=["GET", "POST"])
 def edit_video():
-    # videos = client[db_name]["videos"].find().
-    return render_template("admin/edit_video.html")
+    videos = client[db_name]["videos"].find().sort("date", pymongo.DESCENDING)
+    video_form = VideoForm()
+
+    if request.method == "POST":
+        url = video_form.url.data
+        if not url:
+            return render_template("admin/edit_video.html", add_form=video_form, error="Заполните поле для ссылки!",
+                                   videos=videos)
+        elif "youtu" not in url:
+            return render_template("admin/edit_video.html", add_form=video_form,
+                                   error="Введите ссылку на youtube-видеоролик", videos=videos)
+        else:
+            check = False if client[db_name]["videos"].count_documents({"url": url}) > 0 else True
+            if check:
+                client[db_name]["videos"].insert_one({"url": url, "date": datetime.now()})
+
+    return render_template("admin/edit_video.html", add_form=video_form, videos=videos)
 
 
 @app.route('/admin/edit_photo/<photo_id>', methods=["GET", "POST"])
@@ -341,12 +356,16 @@ def photos_gallery(page=None):
     photo_page = request.args.get("photoPage")
     video_page = request.args.get("videoPage")
     active = request.args.get("active")
+    photos, videos = [], []
 
-    photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False},
-                                                 {"path": 1, "date": 1, "description": 1}))
+    if active == "video":
+        videos = list(client[db_name]["videos"].find().sort("date", pymongo.DESCENDING))
+    else:
+        photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False},
+                                                     {"path": 1, "date": 1, "description": 1}))
 
     return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page,
-                           active=active)
+                           videos=videos, active=active)
 
 
 @app.post("/api/footer_form")

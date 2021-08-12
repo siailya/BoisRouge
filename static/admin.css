@@ -55,3 +55,7 @@ button.active {
     transform: scale(1.01);
     color: #235833;
 }
+
+.video-card iframe{
+    height: 25vh;
+}
