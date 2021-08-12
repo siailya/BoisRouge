@@ -9,12 +9,39 @@
     </p>
 
     <div class="mb-3">
-      <label class="form-label">Описание</label>
-      <textarea class="form-control" rows="3" name="description">{{ description }}</textarea>
+      <label class="form-label">Описание на русском</label>
+      <textarea class="form-control" rows="3" name="description_ru">{{ description_ru }}</textarea>
     </div>
 
+    <div class="mb-3">
+      <label class="form-label">Описание на английском</label>
+      <textarea class="form-control" rows="3" name="description_en">{{ description_en }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Описание на китайском</label>
+      <textarea class="form-control" rows="3" name="description_zh">{{ description_zh }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Описание на вьетнамском</label>
+      <textarea class="form-control" rows="3" name="description_vt">{{ description_vt }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Описание на немецком</label>
+      <textarea class="form-control" rows="3" name="description_de">{{ description_de }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Описание на французском</label>
+      <textarea class="form-control" rows="3" name="description_fr">{{ description_fr }}</textarea>
+    </div>
+
+
     {% if photo["galleryHidden"] == True %}
-      <input class="form-check-input" type="checkbox" name="galleryHidden" value="Видимая" id="galleryHiddenCheckbox" checked>
+      <input class="form-check-input" type="checkbox" name="galleryHidden" value="Видимая" id="galleryHiddenCheckbox"
+             checked>
     {% else %}
       <input class="form-check-input" type="checkbox" name="galleryHidden" value="Видимая" id="galleryHiddenCheckbox">
     {% endif %}

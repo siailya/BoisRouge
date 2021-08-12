@@ -37,10 +37,10 @@
           style="height: 30vh; padding: 0; border: none; object-fit: cover;" class="img-thumbnail"/>
 
           <div class="new-text text-start mt-auto p-3">
-            {% if photo.description|length > 140 %}
-              {{ photo.description[:140] }}...
+            {% if photo.description_ru|length > 140 %}
+              {{ photo.description_ru[:140] }}...
             {% else %}
-              {{ photo.description }}
+              {{ photo.description_ru }}
             {% endif %}
           </div>
 

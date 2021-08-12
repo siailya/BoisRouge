@@ -52,7 +52,7 @@ def add_new():
         photo_name = ""
         photo = request.files["pictures"]
         if photo:
-            photo_name = save_photo(photo, client, False, "")
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
 
         news = client[db_name]["news"]
         new_form = request.form
@@ -108,7 +108,7 @@ def edit_one_new(id):
 
         photo = request.files["pictures"]
         if photo:
-            photo_name = save_photo(photo, client, False, "")
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
         else:
             photo_name = news.find_one({"_id": ObjectId(id)})["photo_path"]
         news = client[db_name]["news"]
@@ -213,7 +213,9 @@ def edit_one_photo(photo_id):
     if request.method == "GET":
         photo = photos.find({"_id": ObjectId(photo_id)})[0]
         return render_template("admin/edit_one_photo.html", photo=photo, photo_form=photo_form,
-                               description=photo["description"])
+                               description_ru=photo["description_ru"], description_en=photo["description_en"],
+                               description_de=photo["description_de"], description_zh=photo["description_zh"],
+                               description_fr=photo["description_fr"], description_vt=photo["description_vt"])
     elif request.method == "POST":
         p_form = request.form
         galleryHidden = False
@@ -222,7 +224,12 @@ def edit_one_photo(photo_id):
             print(request.form, photo_id)
 
         photos.update_one({"_id": ObjectId(photo_id)},
-                          {"$set": {"description": p_form["description"],
+                          {"$set": {"description_ru": p_form["description_ru"],
+                                    "description_en": p_form["description_en"],
+                                    "description_zh": p_form["description_zh"],
+                                    "description_vt": p_form["description_vt"],
+                                    "description_de": p_form["description_de"],
+                                    "description_fr": p_form["description_fr"],
                                     "galleryHidden": galleryHidden}})
         return redirect("/admin/edit_photo", code=302)
 
@@ -240,7 +247,7 @@ def add_log():
         photo_name = ""
         photo = request.files["pictures"]
         if photo:
-            photo_name = save_photo(photo, client, False, "")
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
 
         logs = client[db_name]["logs"]
         log_form = request.form
@@ -278,7 +285,7 @@ def add_wood_type():
         wood_types = client[db_name]["wood_types"]
         wood_types.insert_one({"title": title,
                                "description": descriptions,
-                               "path": save_photo(files, client, False, "")})
+                               "path": save_photo(files, client, False, "", "", "", "", "", "")})
         return redirect("../admin/edit_wood_type", 301)
     return render_template("admin/add_wood_type.html", wood_type_form=wood_type_form)
 
