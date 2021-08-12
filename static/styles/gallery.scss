@@ -24,6 +24,8 @@
   color: #111111;
   text-decoration: none;
   height: 100%;
+  transition: all .3s ease;
+  cursor: pointer;
 
   img {
     object-fit: cover;
@@ -47,7 +49,8 @@
   transition: all .3s ease;
   overflow-y: auto;
   border-radius: 20px;
-  img{
+
+  img {
     max-height: 75vh;
     max-width: 90%;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -56,24 +59,25 @@
 }
 
 @media screen and (max-width: 768px) {
-  .photo-viewer{
+  .photo-viewer {
     width: 95%;
     left: 2.5%;
   }
 }
 
-.photo-open{
-  color: var(--light-green)!important;
-  a{
+.photo-open {
+  color: var(--light-green) !important;
+
+  a {
     color: inherit;
   }
 }
 
-.photo-description{
+.photo-description {
   font-size: 18px;
 }
 
-#photo-viewer-backdrop{
+#photo-viewer-backdrop {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -82,6 +86,6 @@
   z-index: 1001;
 }
 
-.video{
+.video {
   height: 25vh;
 }

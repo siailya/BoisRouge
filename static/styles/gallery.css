@@ -21,6 +21,8 @@
   color: #111111;
   text-decoration: none;
   height: 100%;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 .photo-card img {
   object-fit: cover;

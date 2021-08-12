@@ -54,6 +54,12 @@ class WoodTypeForm(FlaskForm):
 
 
 class VideoForm(FlaskForm):
-    url = StringField()
+    url = StringField(validators=[DataRequired("Введите ссылку на видеоролик")])
 
     submit = SubmitField("Подтвердить")
+
+    @staticmethod
+    def validate_url(form, field):
+        if "youtu" not in field.data:
+            raise ValidationError("Ведите ссылку на youtube-видеоролик!")
+

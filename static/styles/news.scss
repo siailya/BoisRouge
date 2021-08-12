@@ -1,9 +1,9 @@
-.news-view{
+.news-view {
   padding-top: 150px;
   min-height: 100vh;
 }
 
-.news-item{
+.news-item {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -11,24 +11,25 @@
   color: #111111;
   text-decoration: none;
   height: 100%;
+  transition: all .3s ease;
 }
 
-.news-text{
+.news-text {
   font-size: 14px;
 }
 
-.news-photo{
+.news-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.news-item:hover{
+.news-item:hover {
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
   transform: scale(1.01);
 }
 
-.news-item-overlay{
+.news-item-overlay {
   bottom: 0;
   height: 0;
   width: 100%;
@@ -37,75 +38,80 @@
   background: rgba(55, 133, 78, 0.8);
   overflow: hidden;
   color: white;
+  transition: all .3s ease;
 }
 
-.news-item-view{
+.news-item-view {
   padding-top: 150px;
   min-height: 100vh;
-  article{
+
+  article {
     font-size: 18px;
   }
 }
 
-.news-item-picture{
+.news-item-picture {
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all .3s ease;
 }
 
-.news-item-picture:hover{
+.news-item-picture:hover {
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
   transform: scale(1.01);
 }
 
-.prev-news, .next-news{
+.prev-news, .next-news {
   text-decoration: none;
   color: var(--green);
   cursor: pointer;
 }
 
-.see-other-card{
+.see-other-card {
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
   border-radius: 10px;
   transition: all .3s ease, color .1s ease;
   text-decoration: none;
   color: var(--text-color);
-  span{
+
+  span {
     color: var(--light-green);
     font-size: 48px;
   }
 }
 
-.see-other-header{
+.see-other-header {
   font-size: 24px;
 }
 
-.see-other-card:hover{
+.see-other-card:hover {
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
   transform: scale(1.01);
   background: var(--light-green);
   color: white;
-  span{
+
+  span {
     color: inherit;
   }
 }
 
-.news-date{
+.news-date {
   font-size: 12px;
 }
 
-.news-page{
+.news-page {
   padding: 4px 8px;
   text-decoration: none;
   color: #111111;
 }
 
-.news-prev, .news-next{
+.news-prev, .news-next {
   text-decoration: none;
   color: #111111;
 }
 
-.news-page.active-page{
+.news-page.active-page {
   border: 1px solid var(--green);
 }

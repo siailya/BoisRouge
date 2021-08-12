@@ -1,7 +1,7 @@
 from math import ceil
 
 import pymongo
-from flask import Flask, request, render_template, redirect, session, g
+from flask import Flask, request, render_template, redirect, session, g, jsonify
 from pymongo import MongoClient
 from flask_mongoengine import MongoEngine
 from forms import *
@@ -177,20 +177,27 @@ def edit_video():
     videos = client[db_name]["videos"].find().sort("date", pymongo.DESCENDING)
     video_form = VideoForm()
 
-    if request.method == "POST":
+    if video_form.validate_on_submit():
         url = video_form.url.data
-        if not url:
-            return render_template("admin/edit_video.html", add_form=video_form, error="Заполните поле для ссылки!",
-                                   videos=videos)
-        elif "youtu" not in url:
-            return render_template("admin/edit_video.html", add_form=video_form,
-                                   error="Введите ссылку на youtube-видеоролик", videos=videos)
-        else:
-            check = False if client[db_name]["videos"].count_documents({"url": url}) > 0 else True
-            if check:
-                client[db_name]["videos"].insert_one({"url": url, "date": datetime.now()})
+
+        check = False if client[db_name]["videos"].count_documents({"url": url}) > 0 else True
+        if check:
+            client[db_name]["videos"].insert_one({"url": url, "date": datetime.now()})
+
+        return redirect("/admin/edit_video")
 
     return render_template("admin/edit_video.html", add_form=video_form, videos=videos)
+
+
+@app.route("/admin/api/delete_video", methods=["GET", "POST"])
+def delete_video():
+    vid = request.json.get("vid")
+    print(vid)
+    print(list(client[db_name]["videos"].find({"_id": ObjectId(vid)})))
+    client[db_name]["videos"].delete_one({"_id": ObjectId(vid)})
+    print(list(client[db_name]["videos"].find({"_id": ObjectId(vid)})))
+
+    return jsonify({"status": "video deleted"})
 
 
 @app.route('/admin/edit_photo/<photo_id>', methods=["GET", "POST"])

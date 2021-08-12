@@ -2,7 +2,8 @@
 
 {% block content %}
     <div class="d-flex">
-        <a href="{{ url_for('static', filename='img/instruction.png') }}" target="_blank" class="btn btn-success me-auto d-flex">
+        <a href="{{ url_for('static', filename='img/instruction.png') }}" target="_blank"
+           class="btn btn-success me-auto d-flex">
             <span>Инструкция по добавлению</span>
             <span class="material-icons-outlined ms-2">integration_instructions</span>
         </a>
@@ -20,34 +21,53 @@
                     <h5 class="modal-title" id="exampleModalLabel">Добавление видео</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post" novalidate enctype="multipart/form-data">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="" method="post" novalidate enctype="multipart/form-data">
+                        {{ add_form.hidden_tag() }}
                         <label for="">Ссылка на YouTube-видеоролик</label>
                         {{ add_form.url(placeholder="https://youtube.com/...", class="form-control") }}
-                        {% if error %}
+                        {% if add_form.url.errors %}
                             <div class="invalid-feedback d-block">
-                                {{ error }}
+                                {{ add_form.url.errors[0] }}
                             </div>
                         {% endif %}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-                        {{ add_form.submit(class="btn btn-success") }}
-                    </div>
-                </form>
+                        {{ add_form.submit(class="btn btn-success mt-2") }}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="videos row mt-5">
         {% for video in videos %}
-            <div class="col-12 col-md-4">
-                <div class="video-card">
+            <div class="col-12 col-md-4 mt-3">
+                <div class="video-card text-center">
                     <iframe class="w-100" src="{{ video.url }}" title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
+                    <button type="button" onclick="postRemoveVideo('{{ video._id|string }}')" class="btn btn-danger">
+                        Удалить видео
+                    </button>
                 </div>
             </div>
         {% endfor %}
     </div>
+
+    <script>
+        function postRemoveVideo(vid) {
+            let xhr = new XMLHttpRequest()
+
+            xhr.open("POST", "http://localhost:5000/admin/api/delete_video")
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+            xhr.send(JSON.stringify({vid}))
+
+            xhr.onreadystatechange = () => {
+                location.reload()
+            }
+        }
+    </script>
 {% endblock %}
