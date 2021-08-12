@@ -243,6 +243,7 @@ def add_product():
 @app.route('/admin/add_log', methods=["GET", "POST"])
 def add_log():
     logs_form = LogsForm()
+    wood_types = client[db_name]["wood_types"].find()
     if logs_form.is_submitted():
         photo_name = ""
         photo = request.files["pictures"]
@@ -252,21 +253,21 @@ def add_log():
         logs = client[db_name]["logs"]
         log_form = request.form
         print(log_form)
-        # logs.insert_one({"ru_text": log_form["ru_text"],
-        #
-        #                  "en_text": log_form["en_text"],
-        #
-        #                  "zh_text": log_form["zh_text"],
-        #
-        #                  "de_text": log_form["de_text"],
-        #
-        #                  "vt_text": log_form["vt_text"],
-        #
-        #                  "fr_text": log_form["fr_text"],
-        #
-        #                  "photo_path": photo_name})
+        logs.insert_one(
+            {"log_title": log_form["log_title"],
+             "type": log_form["type"],
+             "log_diameter": log_form["log_diameter"],
+             "log_length": log_form["log_length"],
+             "ru_text": log_form["ru_text"],
+             "en_text": log_form["en_text"],
+             "zh_text": log_form["zh_text"],
+             "de_text": log_form["de_text"],
+             "vt_text": log_form["vt_text"],
+             "fr_text": log_form["fr_text"],
+
+             "photo_path": photo_name})
         return redirect("../admin/edit_logs", 301)
-    return render_template("admin/add_log.html", logs_form=logs_form)
+    return render_template("admin/add_log.html", logs_form=logs_form, wood_types=wood_types)
 
 
 @app.route('/admin/edit_logs', methods=["GET", "POST"])
