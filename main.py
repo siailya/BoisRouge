@@ -344,6 +344,7 @@ def photos_gallery(page=None):
 
     photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False},
                                                  {"path": 1, "date": 1, "description": 1}))
+
     return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page,
                            active=active)
 

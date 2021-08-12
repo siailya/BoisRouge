@@ -10,6 +10,18 @@
 {% block gallery_active_mobile %}active{% endblock %}
 
 {% block content %}
+    <div id="photo-viewer-backdrop">
+        <div class="photo-viewer p-3 d-flex flex-column" id="modal_viewer">
+            <div class="close-viewer ms-auto cursor-pointer" onclick="closePhotoViewer()"><span class="material-icons-outlined">close</span></div>
+            <img src="" alt="" id="photo_viewer_img" class="mx-auto">
+            <div class="photo-info mt-3 d-flex justify-content-between">
+                <div class="photo-open d-flex"><span class="material-icons-outlined me-2">open_in_new</span> <a href="" target="_blank" id="photo_viewer_open">{{_("Открыть")}}</a></div>
+                <div class="photo-date" id="photo_viewer_date"></div>
+            </div>
+            <div class="photo-description mt-3" id="photo_viewer_description_wrapper">{{ _("Описание фото: ") }}<p id="photo_viewer_description"></p></div>
+        </div>
+    </div>
+
     <div class="container gallery-view mb-5">
         <main class="gallery-about text-center">
             <h1 class="fw-bold">{{ _("Галерея BoisRouge") }}</h1>
@@ -23,27 +35,26 @@
                         <button class="rounded-pill nav-link {% if active != 'video' %}active{% endif %}"
                                 id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos"
                                 type="button" role="tab" aria-controls="home"
-                                aria-selected="true">{{ _("Фотогалерея") }}
+                                aria-selected="true" onclick="setGalleryMode('')"
+                        >
+                            {{ _("Фотогалерея") }}
                         </button>
                     </li>
                     <li class="nav-item mx-1" role="presentation">
                         <button class="rounded-pill nav-link {% if active == 'video' %}active{% endif %}"
                                 id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos"
                                 type="button" role="tab" aria-controls="profile"
-                                aria-selected="false" onclick="setModeVideo()">{{ _("Видеогалерея") }}
+                                aria-selected="false" onclick="setGalleryMode('video')"
+                        >
+                            {{ _("Видеогалерея") }}
                         </button>
                     </li>
                 </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade {% if active != 'video' %}show active{% endif %}" id="photos"
-                         role="tabpanel" aria-labelledby="photos-tab">
-
-                    </div>
-                    <div class="tab-pane fade {% if active == 'video' %}show active{% endif %}" id="videos"
-                         role="tabpanel" aria-labelledby="videos-tab">
-
-                    </div>
-                </div>
+                {% if active != 'video' %}
+                    {% include "client/gallery_photos.html" %}
+                {% else %}
+                    {% include "client/gallery_videos.html" %}
+                {% endif %}
             </div>
         </section>
     </div>

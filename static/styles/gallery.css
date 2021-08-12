@@ -13,4 +13,67 @@
   background: var(--light-green);
 }
 
+.photo-card {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  color: #111111;
+  text-decoration: none;
+  height: 100%;
+}
+.photo-card img {
+  object-fit: cover;
+}
+
+.photo-card:hover {
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.01);
+}
+
+.photo-viewer {
+  position: fixed;
+  width: 80%;
+  top: -400vh;
+  max-height: 90vh;
+  left: 10%;
+  background: white;
+  z-index: 1002;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  border-radius: 20px;
+}
+.photo-viewer img {
+  max-height: 75vh;
+  max-width: 90%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .photo-viewer {
+    width: 95%;
+    left: 2.5%;
+  }
+}
+.photo-open {
+  color: var(--light-green) !important;
+}
+.photo-open a {
+  color: inherit;
+}
+
+.photo-description {
+  font-size: 18px;
+}
+
+#photo-viewer-backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: -150vh;
+  z-index: 1001;
+}
+
 /*# sourceMappingURL=gallery.css.map */

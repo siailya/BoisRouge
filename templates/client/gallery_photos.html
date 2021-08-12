@@ -1,0 +1,11 @@
+<div class="photos-view mt-5">
+    <div class="row">
+        {% for photo in photos %}
+        <div class="col-6 col-md-4 col-lg-3 mt-2 px-1">
+            <div class="photo-card d-flex flex-column" onclick="openPhotoViewer('{{url_for('static', filename='photos/' + photo.path) }}', '{{ photo.description }}', '{{ photo.date }}')">
+                <img src="{{url_for('static', filename='photos/' + photo.path) }}" class="w-100 h-100" alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
