@@ -282,12 +282,13 @@ def edit_one_log(id):
     logs = client[db_name]["logs"]
     wood_types = client[db_name]["wood_types"].find()
     log = logs.find({"_id": ObjectId(id)})[0]
-    if logs_form.validate_on_submit():
+    if logs_form.is_submitted():
         if "delete" in request.form:
             logs.remove({"_id": ObjectId(id)})
-            return redirect("/admin/edit_new", code=302)
+            return redirect("/admin/edit_logs", code=302)
 
         log_form = request.form
+        print(log_form)
         logs.update_one({"_id": ObjectId(id)},
                         {"$set": {"log_title": log_form["log_title"],
                                   "type": log_form["type"],
@@ -300,7 +301,15 @@ def edit_one_log(id):
                                   "vt_text": log_form["vt_text"],
                                   "fr_text": log_form["fr_text"]}})
 
-        return redirect("/admin/edit_new", code=302)
+        return redirect("/admin/edit_logs", code=302)
+
+    logs_form.ru_text.data = log["ru_text"]
+    logs_form.en_text.data = log["en_text"]
+    logs_form.zh_text.data = log["zh_text"]
+    logs_form.de_text.data = log["de_text"]
+    logs_form.fr_text.data = log["fr_text"]
+    logs_form.vt_text.data = log["vt_text"]
+
     return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
 
 

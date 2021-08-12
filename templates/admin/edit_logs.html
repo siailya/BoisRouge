@@ -26,10 +26,10 @@
         >
 
           <div class="new-text text-start p-3">
-            {% if log.ru_text|length > 140 %}
-              {{ log.ru_text[:140] }}...
+            {% if log.log_title|length > 140 %}
+              {{ log.log_title[:140] }}...
             {% else %}
-              {{ log.ru_text }}
+              {{ log.log_title }}
             {% endif %}
           </div>
 
