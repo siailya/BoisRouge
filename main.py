@@ -313,6 +313,99 @@ def edit_one_log(id):
     return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
 
 
+
+
+
+
+
+
+
+
+
+@app.route('/admin/add_wood_board', methods=["GET", "POST"])
+def add_wood_board():
+    wood_board_form = WoodBoardForm()
+    wood_types = client[db_name]["wood_types"].find()
+    if wood_board_form.is_submitted():
+        photo_name = ""
+        photo = request.files["pictures"]
+        if photo:
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+
+        wood_boards = client[db_name]["wood_boards"]
+        wood_board_form_requested = request.form
+        print(wood_board_form_requested)
+        wood_boards.insert_one(
+            {"wood_board_title": wood_board_form_requested["wood_board_title"],
+
+             "wood_board_subcategory": wood_board_form_requested["wood_board_subcategory"],
+             "type": wood_board_form_requested["type"],
+             "wood_board_section": wood_board_form_requested["wood_board_section"],
+             "wood_board_length": wood_board_form_requested["wood_board_length"],
+             "wood_board_humidity": wood_board_form_requested["wood_board_humidity"],
+
+             "ru_text": wood_board_form_requested["ru_text"],
+             "en_text": wood_board_form_requested["en_text"],
+             "zh_text": wood_board_form_requested["zh_text"],
+             "de_text": wood_board_form_requested["de_text"],
+             "vt_text": wood_board_form_requested["vt_text"],
+             "fr_text": wood_board_form_requested["fr_text"],
+
+             "photo_path": photo_name})
+        return redirect("../admin/edit_wood_board", 301)
+    return render_template("admin/add_wood_board.html", wood_board_form=wood_board_form, wood_types=wood_types)
+
+
+@app.route('/admin/edit_wood_board', methods=["GET", "POST"])
+def edit_wood_board():
+    logs = client[db_name]["wood_boards"].find()
+    return render_template("admin/edit_wood_board.html", logs=logs)
+
+
+@app.route('/admin/edit_wood_board/<id>', methods=["GET", "POST"])
+def edit_one_wood_board(id):
+    logs_form = LogsForm()
+    logs = client[db_name]["logs"]
+    wood_types = client[db_name]["wood_types"].find()
+    log = logs.find({"_id": ObjectId(id)})[0]
+    if logs_form.is_submitted():
+        if "delete" in request.form:
+            logs.remove({"_id": ObjectId(id)})
+            return redirect("/admin/edit_logs", code=302)
+
+        log_form = request.form
+        print(log_form)
+        logs.update_one({"_id": ObjectId(id)},
+                        {"$set": {"log_title": log_form["log_title"],
+                                  "type": log_form["type"],
+                                  "log_diameter": log_form["log_diameter"],
+                                  "log_length": log_form["log_length"],
+                                  "ru_text": log_form["ru_text"],
+                                  "en_text": log_form["en_text"],
+                                  "zh_text": log_form["zh_text"],
+                                  "de_text": log_form["de_text"],
+                                  "vt_text": log_form["vt_text"],
+                                  "fr_text": log_form["fr_text"]}})
+
+        return redirect("/admin/edit_logs", code=302)
+
+    logs_form.ru_text.data = log["ru_text"]
+    logs_form.en_text.data = log["en_text"]
+    logs_form.zh_text.data = log["zh_text"]
+    logs_form.de_text.data = log["de_text"]
+    logs_form.fr_text.data = log["fr_text"]
+    logs_form.vt_text.data = log["vt_text"]
+
+    return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
+
+
+
+
+
+
+
+
+
 @app.route('/admin/add_wood_type', methods=["GET", "POST"])
 def add_wood_type():
     wood_type_form = WoodTypeForm()
