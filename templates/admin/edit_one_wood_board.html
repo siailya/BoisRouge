@@ -1,0 +1,172 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="wood_board_title" style="border-radius: 5px 0 0 5px">Название</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="wood_board_title" name="wood_board_title"
+             value="{{ wood_board["wood_board_title"] }}">
+    </div>
+
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="wood_board_subcategory"
+              style="border-radius: 5px 0 0 5px">Подкатегория</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="wood_board_subcategory" name="wood_board_subcategory"
+             value="{{ wood_board["wood_board_subcategory"] }}">
+    </div>
+
+    <div>
+      <label>
+        Порода дерева
+      </label>
+      <select name="type" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
+        {% for wood_type in wood_types %}
+          {% if wood_type.title == wood_board["type"] %}
+            <option value="{{ wood_type.title }}" selected>{{ wood_type.title }}</option>
+          {% else %}
+            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="wood_board_section" style="border-radius: 5px 0 0 5px">Сечение</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="wood_board_section" name="wood_board_section"
+             value="{{ wood_board["wood_board_section"] }}">
+    </div>
+
+    <div class=" input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="wood_board_length" style="border-radius: 5px 0 0 5px">Длина</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="wood_board_length" name="wood_board_length"
+             value="{{ wood_board["wood_board_length"] }}">
+    </div>
+
+    <div class=" input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="wood_board_humidity" style="border-radius: 5px 0 0 5px">Влажность</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="wood_board_humidity" name="wood_board_humidity"
+      value="{{ wood_board["wood_board_humidity"] }}">
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.ru_text.label }}</span>
+          {{ wood_board_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.ru_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.ru_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.en_text.label }}</span>
+          {{ wood_board_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.en_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.en_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.zh_text.label }}</span>
+          {{ wood_board_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.zh_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.zh_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.de_text.label }}</span>
+          {{ wood_board_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.de_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.de_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.vt_text.label }}</span>
+          {{ wood_board_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.vt_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.vt_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_board_form.fr_text.label }}</span>
+          {{ wood_board_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if wood_board_form.fr_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_board_form.fr_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 mb-2">Текущее фото:</div>
+    <div class="current-photo img-thumbnail col-12 col-lg-4 mb-3">
+      <img src="{{ url_for('static', filename='photos/' + wood_board.photo_path) }}"
+           style="width: 100%;
+                  padding: 0;
+                  border: none;
+                  object-fit: cover;"
+           class="img-thumbnail mt-auto" alt=""/>
+    </div>
+
+    <div class="mb-3">
+      {{ wood_board_form.submit(class="btn btn-success btn-md mb-2") }}
+      <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
+        Удалить доску
+      </button>
+      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Вы действительно хотите удалить доску?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+              <button type="submit" class="btn btn-primary" name="delete">Да</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}

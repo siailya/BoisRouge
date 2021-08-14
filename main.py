@@ -313,15 +313,6 @@ def edit_one_log(id):
     return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
 
 
-
-
-
-
-
-
-
-
-
 @app.route('/admin/add_wood_board', methods=["GET", "POST"])
 def add_wood_board():
     wood_board_form = WoodBoardForm()
@@ -358,52 +349,49 @@ def add_wood_board():
 
 @app.route('/admin/edit_wood_board', methods=["GET", "POST"])
 def edit_wood_board():
-    logs = client[db_name]["wood_boards"].find()
-    return render_template("admin/edit_wood_board.html", logs=logs)
+    wood_boards = client[db_name]["wood_boards"].find()
+    return render_template("admin/edit_wood_board.html", wood_boards=wood_boards)
 
 
 @app.route('/admin/edit_wood_board/<id>', methods=["GET", "POST"])
 def edit_one_wood_board(id):
-    logs_form = LogsForm()
-    logs = client[db_name]["logs"]
+    wood_board_form = WoodBoardForm()
+    wood_boards = client[db_name]["wood_boards"]
     wood_types = client[db_name]["wood_types"].find()
-    log = logs.find({"_id": ObjectId(id)})[0]
-    if logs_form.is_submitted():
+    wood_board = wood_boards.find({"_id": ObjectId(id)})[0]
+    if wood_board_form.is_submitted():
         if "delete" in request.form:
-            logs.remove({"_id": ObjectId(id)})
+            wood_boards.remove({"_id": ObjectId(id)})
             return redirect("/admin/edit_logs", code=302)
 
-        log_form = request.form
-        print(log_form)
-        logs.update_one({"_id": ObjectId(id)},
-                        {"$set": {"log_title": log_form["log_title"],
-                                  "type": log_form["type"],
-                                  "log_diameter": log_form["log_diameter"],
-                                  "log_length": log_form["log_length"],
-                                  "ru_text": log_form["ru_text"],
-                                  "en_text": log_form["en_text"],
-                                  "zh_text": log_form["zh_text"],
-                                  "de_text": log_form["de_text"],
-                                  "vt_text": log_form["vt_text"],
-                                  "fr_text": log_form["fr_text"]}})
+        wood_board_form_requested = request.form
+        wood_boards.update_one({"_id": ObjectId(id)},
+                               {"$set": {"wood_board_title": wood_board_form_requested["wood_board_title"],
 
-        return redirect("/admin/edit_logs", code=302)
+                                         "wood_board_subcategory": wood_board_form_requested["wood_board_subcategory"],
+                                         "type": wood_board_form_requested["type"],
+                                         "wood_board_section": wood_board_form_requested["wood_board_section"],
+                                         "wood_board_length": wood_board_form_requested["wood_board_length"],
+                                         "wood_board_humidity": wood_board_form_requested["wood_board_humidity"],
 
-    logs_form.ru_text.data = log["ru_text"]
-    logs_form.en_text.data = log["en_text"]
-    logs_form.zh_text.data = log["zh_text"]
-    logs_form.de_text.data = log["de_text"]
-    logs_form.fr_text.data = log["fr_text"]
-    logs_form.vt_text.data = log["vt_text"]
+                                         "ru_text": wood_board_form_requested["ru_text"],
+                                         "en_text": wood_board_form_requested["en_text"],
+                                         "zh_text": wood_board_form_requested["zh_text"],
+                                         "de_text": wood_board_form_requested["de_text"],
+                                         "vt_text": wood_board_form_requested["vt_text"],
+                                         "fr_text": wood_board_form_requested["fr_text"], }})
 
-    return render_template("admin/edit_one_log.html", logs_form=logs_form, log=log, wood_types=wood_types)
+        return redirect("/admin/edit_wood_board", code=302)
 
+    wood_board_form.ru_text.data = wood_board["ru_text"]
+    wood_board_form.en_text.data = wood_board["en_text"]
+    wood_board_form.zh_text.data = wood_board["zh_text"]
+    wood_board_form.de_text.data = wood_board["de_text"]
+    wood_board_form.fr_text.data = wood_board["fr_text"]
+    wood_board_form.vt_text.data = wood_board["vt_text"]
 
-
-
-
-
-
+    return render_template("admin/edit_one_wood_board.html", wood_board_form=wood_board_form, wood_board=wood_board,
+                           wood_types=wood_types)
 
 
 @app.route('/admin/add_wood_type', methods=["GET", "POST"])
