@@ -1,0 +1,142 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+    <p style="align-items: center; justify-content: center;">
+      <img src='{{ url_for("static", filename="/photos/" + product["path"]) }}' alt=""
+           style="height: 30vh; display: flex; text-align: center; margin: auto"
+           class="img-thumbnail mt-auto"/>
+    </p>
+
+    <div>
+      <label class="form-label">Название</label>
+      <input type="text" name="title" class="form-control mb-3" value="{{ product["title"] }}">
+    </div>
+
+
+    <div>
+      <label class="form-label">
+        Порода дерева
+      </label>
+      <select name="type" class="form-select mb-3 me-3" style="width: 20vw">
+        {% for wood_type in wood_types %}
+          {% if wood_type.title == product["wood_type"] %}
+            <option value="{{ wood_type.title }}" selected>{{ wood_type.title }}</option>
+          {% else %}
+            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.ru_text.label }}</span>
+          {{ product_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.ru_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.ru_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.en_text.label }}</span>
+          {{ product_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.en_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.en_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.zh_text.label }}</span>
+          {{ product_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.zh_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.zh_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.de_text.label }}</span>
+          {{ product_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.de_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.de_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.vt_text.label }}</span>
+          {{ product_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.vt_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.vt_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.fr_text.label }}</span>
+          {{ product_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if product_form.fr_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.fr_text.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if product["visible"] == True %}
+      <input class="form-check-input" type="checkbox" name="visible" value="Видимая" id="visible"
+             checked>
+    {% else %}
+      <input class="form-check-input" type="checkbox" name="visible" value="Видимая" id="visible">
+    {% endif %}
+    <label class="form-check-label mb-3" for="visible">
+      Показывать на странице
+    </label>
+
+
+    <div class="mb-3">
+      {{ product_form.submit(class="btn btn-success btn-md mb-2") }}
+      <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
+        Удалить изделие
+      </button>
+      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Вы действительно хотите удалить изделие?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+              <button type="submit" class="btn btn-primary" name="delete">Да</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}

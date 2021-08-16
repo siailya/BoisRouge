@@ -221,7 +221,6 @@ def edit_one_photo(photo_id):
         galleryHidden = False
         if "galleryHidden" in p_form:
             galleryHidden = True
-            print(request.form, photo_id)
 
         photos.update_one({"_id": ObjectId(photo_id)},
                           {"$set": {"description_ru": p_form["description_ru"],
@@ -232,12 +231,6 @@ def edit_one_photo(photo_id):
                                     "description_fr": p_form["description_fr"],
                                     "galleryHidden": galleryHidden}})
         return redirect("/admin/edit_photo", code=302)
-
-
-@app.route('/admin/add_product', methods=["GET", "POST"])
-def add_product():
-    print(request.args)
-    return render_template("admin/add_product.html")
 
 
 @app.route('/admin/add_log', methods=["GET", "POST"])
@@ -431,6 +424,74 @@ def edit_one_wood_type(photo_id):
                               {"$set": {"title": t_form["title"],
                                         "description": t_form["description"]}})
         return redirect("/admin/edit_wood_type", code=302)
+
+
+@app.route('/admin/add_product', methods=["GET", "POST"])
+def add_product():
+    product_form = ProductForm()
+    if request.method == "POST":
+        title = request.form.get("title")
+        descriptions = request.form.get("description")
+        files = product_form["files"].data
+        products = client[db_name]["products"]
+        product_form_requested = request.form
+        products.insert_one({"title": title,
+                             "ru_text": product_form_requested["ru_text"],
+                             "en_text": product_form_requested["en_text"],
+                             "zh_text": product_form_requested["zh_text"],
+                             "de_text": product_form_requested["de_text"],
+                             "vt_text": product_form_requested["vt_text"],
+                             "fr_text": product_form_requested["fr_text"],
+                             "wood_type": product_form_requested.get("wood_type"),
+                             "visible": True,
+                             "path": save_photo(files, client, False, "", "", "", "", "", "")})
+        return redirect("../admin/edit_product", 301)
+    wood_types = client[db_name]["wood_types"].find()
+    return render_template("admin/add_product.html", product_form=product_form, wood_types=wood_types)
+
+
+@app.route('/admin/edit_product', methods=["GET", "POST"])
+def edit_product():
+    products = client[db_name]["products"].find()
+    return render_template("admin/edit_product.html", products=products)
+
+
+@app.route('/admin/edit_product/<id>', methods=["GET", "POST"])
+def edit_one_product(id):
+    product_form = ProductForm()
+    products = client[db_name]["products"]
+    if request.method == "GET":
+        product = products.find({"_id": ObjectId(id)})[0]
+        wood_types = client[db_name]["wood_types"].find()
+
+        product_form.ru_text.data = product["ru_text"]
+        product_form.en_text.data = product["en_text"]
+        product_form.zh_text.data = product["zh_text"]
+        product_form.de_text.data = product["de_text"]
+        product_form.fr_text.data = product["fr_text"]
+        product_form.vt_text.data = product["vt_text"]
+
+        return render_template("admin/edit_one_product.html", product=product, product_form=product_form,
+                               wood_types=wood_types)
+    elif request.method == "POST":
+        p_form = request.form
+        if "delete" in p_form:
+            products.remove({"_id": ObjectId(id)})
+        else:
+            visible = False
+            if "visible" in p_form:
+                visible = True
+            products.update_one({"_id": ObjectId(id)},
+                                {"$set": {"title": p_form["title"],
+                                          "ru_text": p_form["ru_text"],
+                                          "en_text": p_form["en_text"],
+                                          "zh_text": p_form["zh_text"],
+                                          "de_text": p_form["de_text"],
+                                          "vt_text": p_form["vt_text"],
+                                          "fr_text": p_form["fr_text"],
+                                          "visible": visible,
+                                          "wood_type": p_form["type"]}})
+        return redirect("/admin/edit_product", code=302)
 
 
 @app.route('/admin/contacts', methods=["GET", "POST"])

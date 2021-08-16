@@ -48,7 +48,7 @@ class WoodTypeForm(FlaskForm):
 
     description = TextAreaField("Описание", validators=[DataRequired("Введите описание")])
 
-    files = MultipleFileField("Фотографии")
+    files = FileField("Фотографии")
 
     submit = SubmitField("Подтвердить")
 
@@ -93,3 +93,21 @@ class VideoForm(FlaskForm):
         if "youtu" not in field.data:
             raise ValidationError("Ведите ссылку на youtube-видеоролик!")
 
+
+class ProductForm(FlaskForm):
+    title = StringField("Название", validators=[DataRequired("Введите название породы")])
+
+    ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание изделия на русском языке")])
+    en_text = TextAreaField("Описание (en)",
+                            validators=[DataRequired("Введите описание изделия на английском языке")])
+    de_text = TextAreaField("Описание (de)", validators=[DataRequired("Введите описание изделия на немецком языке")])
+    zh_text = TextAreaField("Описание (zh)",
+                            validators=[DataRequired("Введите описание изделия на китайском языке")])
+    vt_text = TextAreaField("Описание (vt)",
+                            validators=[DataRequired("Введите описание изделия на вьетнамском языке")])
+    fr_text = TextAreaField("Описание (fr)",
+                            validators=[DataRequired("Введите описание изделия на французском языке")])
+
+    files = FileField("Фотографии")
+
+    submit = SubmitField("Подтвердить")

@@ -1,30 +1,120 @@
 {% extends 'admin/admin.html' %}
 
 {% block content %}
-<h1 class="display-6">Добавить продукт</h1>
-<form>
-  <div class="input-group mb-3">
-    <span class="input-group-text">Название</span>
-    <input type="text" class="form-control">
-  </div>
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8" style="display: inline-block; vertical-align: top;">
+        <h1 class="add-news-header mb-3 text-center">Добавить изделие</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ product_form.title.label }}</span>
+          {{ product_form.title(class="form-control") }}
+          {% if product_form.title.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.title.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
 
-  <div class="input-group mb-3">
-    <span class="input-group-text">Другое поле</span>
-    <input type="text" class="form-control">
-  </div>
+        <div>
+          <label>
+            Порода дерева
+          </label>
+          <select name="wood_type" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
+            {% for wood_type in wood_types %}
+              <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
 
-  <div class="form-outline mb-3">
-    <span class="input-group-text" style="border-radius: 5px 5px 0 0; border-bottom: none">Описание</span>
-    <textarea class="form-control" rows="6" style="border-radius: 0 0 5px 5px"></textarea>
-  </div>
+        <div class="row">
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.ru_text.label }}</span>
+              {{ product_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.ru_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.ru_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.en_text.label }}</span>
+              {{ product_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.en_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.en_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.zh_text.label }}</span>
+              {{ product_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.zh_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.zh_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.de_text.label }}</span>
+              {{ product_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.de_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.de_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.vt_text.label }}</span>
+              {{ product_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.vt_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.vt_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ product_form.fr_text.label }}</span>
+              {{ product_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if product_form.fr_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ product_form.fr_text.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
 
-  <div class="mb-3">
-    <input class="form-control" type="file" accept="image/png, image/gif, image/jpeg" multiple/>
-    <ul id="photo_list"></ul>
-  </div>
+      </div>
+    </div>
 
-  <div class="mb-3">
-    <button type="submit" class="btn btn-primary mb-2">Добавить</button>
-  </div>
-</form>
+    <div class="row flex-column align-items-center">
+      <div class="mb-3 col-12 col-lg-8">
+        {{ product_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+      </div>
+
+      <div class="mb-3 col-12 col-lg-8">
+        {{ product_form.submit(class="btn btn-success") }}
+        <a href="/admin/edit_product">
+          <button class="btn btn-danger" type="button">Отменить</button>
+        </a>
+      </div>
+    </div>
+  </form>
 {% endblock %}
