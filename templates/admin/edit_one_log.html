@@ -3,6 +3,19 @@
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
 
+    <p class="h5" style="text-align: center">Текущее фото</p>
+    <p style="align-items: center; justify-content: center;">
+      <img src='{{ url_for("static", filename="/photos/" + log["photo_path"]) }}' alt=""
+           style="height: 40vh; display: flex; text-align: center; margin: auto"
+           class="img-thumbnail mt-auto"/>
+    </p>
+
+    <div class="mb-3 col-12 col-lg-8" style="text-align: center; display: flex; margin: auto">
+      {{ logs_form.pictures(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+    </div>
+
+    <hr>
+
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="log_title" style="border-radius: 5px 0 0 5px">Название</span>
@@ -31,124 +44,116 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="log_diameter" style="border-radius: 5px 0 0 5px">Диаметр</span>
       </div>
-      <input type="text" class="form-control" aria-describedby="log_diameter" name="log_diameter" value="{{ log["log_diameter"] }}">
+      <input type="text" class="form-control" aria-describedby="log_diameter" name="log_diameter"
+             value="{{ log["log_diameter"] }}">
     </div>
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="log_length" style="border-radius: 5px 0 0 5px">Длина</span>
       </div>
-      <input type="text" class="form-control" aria-describedby="log_length" name="log_length" value="{{ log["log_length"] }}">
+      <input type="text" class="form-control" aria-describedby="log_length" name="log_length"
+             value="{{ log["log_length"] }}">
     </div>
 
 
     <div class="row">
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.ru_text.label }}</span>
-            {{ logs_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.ru_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.ru_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.ru_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.ru_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.ru_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.en_text.label }}</span>
-            {{ logs_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.en_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.en_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.en_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.en_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.en_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.zh_text.label }}</span>
-            {{ logs_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.zh_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.zh_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.zh_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.zh_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.zh_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.de_text.label }}</span>
-            {{ logs_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.de_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.de_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.de_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.de_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.de_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.vt_text.label }}</span>
-            {{ logs_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.vt_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.vt_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.vt_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.vt_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.vt_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
-        <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
-          <div class="form-outline mb-3">
+      </div>
+      <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+        <div class="form-outline mb-3">
                   <span class="input-group-text"
                         style="border-radius: 5px 5px 0 0; border-bottom: none">{{ logs_form.fr_text.label }}</span>
-            {{ logs_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
-            {% if logs_form.fr_text.errors %}
-              <div class="invalid-feedback d-block">
-                {{ logs_form.fr_text.errors[0] }}
-              </div>
-            {% endif %}
-          </div>
+          {{ logs_form.fr_text(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+          {% if logs_form.fr_text.errors %}
+            <div class="invalid-feedback d-block">
+              {{ logs_form.fr_text.errors[0] }}
+            </div>
+          {% endif %}
         </div>
       </div>
+    </div>
 
-      <div class="mt-4 mb-2">Текущее фото:</div>
-      <div class="current-photo img-thumbnail col-12 col-lg-4 mb-3">
-        <img src="{{ url_for('static', filename='photos/' + log.photo_path) }}"
-             style="width: 100%;
-                  padding: 0;
-                  border: none;
-                  object-fit: cover;"
-             class="img-thumbnail mt-auto" alt=""/>
-      </div>
-
-      <div class="mb-3">
-        {{ logs_form.submit(class="btn btn-success btn-md mb-2") }}
-        <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
-          Удалить бревно
-        </button>
-        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                Вы действительно хотите удалить бревно?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
-                <button type="submit" class="btn btn-primary" name="delete">Да</button>
-              </div>
+    <div class="mb-3">
+      {{ logs_form.submit(class="btn btn-success btn-md mb-2") }}
+      <button type="button" class="btn btn-danger btn-md mb-2" data-bs-toggle="modal" data-bs-target="#delete">
+        Удалить бревно
+      </button>
+      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLabel">Подтверждение действия</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Вы действительно хотите удалить бревно?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+              <button type="submit" class="btn btn-primary" name="delete">Да</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 {% endblock %}

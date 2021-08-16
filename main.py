@@ -280,6 +280,11 @@ def edit_one_log(id):
             logs.remove({"_id": ObjectId(id)})
             return redirect("/admin/edit_logs", code=302)
 
+        photo_name = log["photo_path"]
+        photo = request.files["pictures"]
+        if photo:
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+
         log_form = request.form
         print(log_form)
         logs.update_one({"_id": ObjectId(id)},
@@ -292,7 +297,9 @@ def edit_one_log(id):
                                   "zh_text": log_form["zh_text"],
                                   "de_text": log_form["de_text"],
                                   "vt_text": log_form["vt_text"],
-                                  "fr_text": log_form["fr_text"]}})
+                                  "fr_text": log_form["fr_text"],
+
+                                  "photo_path": photo_name}})
 
         return redirect("/admin/edit_logs", code=302)
 
@@ -357,6 +364,11 @@ def edit_one_wood_board(id):
             wood_boards.remove({"_id": ObjectId(id)})
             return redirect("/admin/edit_logs", code=302)
 
+        photo_name = wood_board["photo_path"]
+        photo = request.files["pictures"]
+        if photo:
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+
         wood_board_form_requested = request.form
         wood_boards.update_one({"_id": ObjectId(id)},
                                {"$set": {"wood_board_title": wood_board_form_requested["wood_board_title"],
@@ -372,7 +384,9 @@ def edit_one_wood_board(id):
                                          "zh_text": wood_board_form_requested["zh_text"],
                                          "de_text": wood_board_form_requested["de_text"],
                                          "vt_text": wood_board_form_requested["vt_text"],
-                                         "fr_text": wood_board_form_requested["fr_text"], }})
+                                         "fr_text": wood_board_form_requested["fr_text"],
+
+                                         "photo_path": photo_name}})
 
         return redirect("/admin/edit_wood_board", code=302)
 
@@ -412,17 +426,23 @@ def edit_wood_type():
 def edit_one_wood_type(photo_id):
     wood_type_form = WoodTypeForm()
     wood_types = client[db_name]["wood_types"]
+    wood_type = wood_types.find({"_id": ObjectId(photo_id)})[0]
     if request.method == "GET":
-        wood_type = wood_types.find({"_id": ObjectId(photo_id)})[0]
         return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)
     elif request.method == "POST":
         t_form = request.form
         if "delete" in t_form:
             wood_types.remove({"_id": ObjectId(photo_id)})
             return redirect("/admin/edit_wood_type", code=302)
+
+        photo_name = wood_type["path"]
+        photo = request.files["files"]
+        if photo:
+            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
         wood_types.update_one({"_id": ObjectId(photo_id)},
                               {"$set": {"title": t_form["title"],
-                                        "description": t_form["description"]}})
+                                        "description": t_form["description"],
+                                        "path": photo_name}})
         return redirect("/admin/edit_wood_type", code=302)
 
 
@@ -431,7 +451,6 @@ def add_product():
     product_form = ProductForm()
     if request.method == "POST":
         title = request.form.get("title")
-        descriptions = request.form.get("description")
         files = product_form["files"].data
         products = client[db_name]["products"]
         product_form_requested = request.form
@@ -460,8 +479,8 @@ def edit_product():
 def edit_one_product(id):
     product_form = ProductForm()
     products = client[db_name]["products"]
+    product = products.find({"_id": ObjectId(id)})[0]
     if request.method == "GET":
-        product = products.find({"_id": ObjectId(id)})[0]
         wood_types = client[db_name]["wood_types"].find()
 
         product_form.ru_text.data = product["ru_text"]
@@ -477,7 +496,12 @@ def edit_one_product(id):
         p_form = request.form
         if "delete" in p_form:
             products.remove({"_id": ObjectId(id)})
+
         else:
+            photo_name = product["path"]
+            photo = request.files["files"]
+            if photo:
+                photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
             visible = False
             if "visible" in p_form:
                 visible = True
@@ -490,6 +514,7 @@ def edit_one_product(id):
                                           "vt_text": p_form["vt_text"],
                                           "fr_text": p_form["fr_text"],
                                           "visible": visible,
+                                          "path": photo_name,
                                           "wood_type": p_form["type"]}})
         return redirect("/admin/edit_product", code=302)
 

@@ -2,11 +2,18 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    <p class="h5" style="text-align: center">Текущее фото</p>
     <p style="align-items: center; justify-content: center;">
       <img src='{{ url_for("static", filename="/photos/" + product["path"]) }}' alt=""
-           style="height: 30vh; display: flex; text-align: center; margin: auto"
+           style="height: 40vh; display: flex; text-align: center; margin: auto"
            class="img-thumbnail mt-auto"/>
     </p>
+
+    <div class="mb-3 col-12 col-lg-8" style="text-align: center; display: flex; margin: auto">
+      {{ product_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+    </div>
+
+  <hr>
 
     <div>
       <label class="form-label">Название</label>

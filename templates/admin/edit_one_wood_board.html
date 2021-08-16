@@ -2,6 +2,18 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    <p class="h5" style="text-align: center">Текущее фото</p>
+    <p style="align-items: center; justify-content: center;">
+      <img src='{{ url_for("static", filename="/photos/" + wood_board["photo_path"]) }}' alt=""
+           style="height: 40vh; display: flex; text-align: center; margin: auto"
+           class="img-thumbnail mt-auto"/>
+    </p>
+
+    <div class="mb-3 col-12 col-lg-8" style="text-align: center; display: flex; margin: auto">
+      {{ wood_board_form.pictures(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+    </div>
+
+    <hr>
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -57,7 +69,7 @@
         <span class="input-group-text" id="wood_board_humidity" style="border-radius: 5px 0 0 5px">Влажность</span>
       </div>
       <input type="text" class="form-control" aria-describedby="wood_board_humidity" name="wood_board_humidity"
-      value="{{ wood_board["wood_board_humidity"] }}">
+             value="{{ wood_board["wood_board_humidity"] }}">
     </div>
 
     <div class="row">
@@ -133,16 +145,6 @@
           {% endif %}
         </div>
       </div>
-    </div>
-
-    <div class="mt-4 mb-2">Текущее фото:</div>
-    <div class="current-photo img-thumbnail col-12 col-lg-4 mb-3">
-      <img src="{{ url_for('static', filename='photos/' + wood_board.photo_path) }}"
-           style="width: 100%;
-                  padding: 0;
-                  border: none;
-                  object-fit: cover;"
-           class="img-thumbnail mt-auto" alt=""/>
     </div>
 
     <div class="mb-3">
