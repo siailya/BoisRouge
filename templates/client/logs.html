@@ -1,0 +1,28 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/products.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Породы древесины | BoisRouge") }}{% endblock %}
+
+{% block services_active %}active{% endblock %}
+{% block services_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container species-view mb-5">
+        <main class="gallery-about text-center">
+            <h1 class="fw-bold">{{ _("Породы дерева") }}</h1>
+            <article>{{ _("Мы предлагаем изделия и пиломатериалы из пород древесины, присутствующих только в определенных условиях. Все породы имеют уникальные свойства - запах, текстура и цвет, которые отличают их от других пород.") }}</article>
+        </main>
+
+        <section class="mt-5">
+            <div class="row justify-content-center">
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/services.js') }}"></script>
+{% endblock %}

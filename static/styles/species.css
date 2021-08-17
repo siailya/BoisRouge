@@ -1,0 +1,50 @@
+.species-view {
+  padding-top: 150px;
+  min-height: 100vh;
+}
+
+.specie-card {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 500;
+  border-radius: 500px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.specie-card .specie-name {
+  color: white;
+  padding-top: calc(38%);
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  font-size: inherit;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.specie-card .specie-name span {
+  font-size: 32px;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.specie-name:hover span {
+  height: 32px;
+}
+
+@supports not (aspect-ratio: 1) {
+  .specie-card {
+    column-count: 1;
+  }
+
+  .specie-card::before {
+    content: "";
+    float: left;
+    padding-bottom: calc(100% / (100 / 100));
+  }
+}
+
+/*# sourceMappingURL=species.css.map */

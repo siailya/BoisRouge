@@ -1,0 +1,24 @@
+.contacts-view {
+  min-height: 100vh;
+  padding-top: 150px;
+}
+
+.map {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.contact .icon {
+  aspect-ratio: 1;
+}
+.contact .icon span {
+  font-size: 24px;
+  color: white;
+  border-radius: 50px;
+  background: var(--light-green);
+  padding: 10px;
+}
+.contact .content {
+  font-size: 24px;
+}
+
+/*# sourceMappingURL=contacts.css.map */

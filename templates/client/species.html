@@ -1,0 +1,39 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/species.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Породы древесины | BoisRouge") }}{% endblock %}
+
+{% block services_active %}active{% endblock %}
+{% block services_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container species-view mb-5">
+        <main class="gallery-about text-center">
+            <h1 class="fw-bold">{{ _("Породы дерева") }}</h1>
+            <article>{{ _("Мы предлагаем изделия и пиломатериалы из пород древесины, присутствующих только в определенных условиях. Все породы имеют уникальные свойства - запах, текстура и цвет, которые отличают их от других пород.") }}</article>
+        </main>
+
+        <section class="mt-5">
+            <div class="row justify-content-center">
+                {% for sp in species %}
+                    <div class="col-9 col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <a href="/species/{{ sp.latin_name }}" class="specie-card text-center d-flex" id="specie-card-0"
+                             style="background: url('{{ url_for('static', filename='photos/' + sp.path) }}') center no-repeat; background-size: cover">
+                            <div class="m-auto specie-name">
+                                <div class=" my-auto">{{ sp.title }}</div>
+                                <span class="material-icons-outlined my-auto">chevron_right</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/services.js') }}"></script>
+{% endblock %}

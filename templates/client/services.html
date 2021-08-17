@@ -1,0 +1,56 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/services.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Услуги | BoisRouge") }}{% endblock %}
+
+{% block services_active %}active{% endblock %}
+{% block services_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container services-view mb-5">
+        <main class="gallery-about text-center">
+            <h1 class="fw-bold">{{ _("Наши услуги") }}</h1>
+            <article>{{ _("BoisRouge - одна из крупнейших африканских вертикально-интегрированных лесопромышленных компаний. Наше оборудование включает в себя лесозаготовительные машины, современные ленточные пилорамы для обработки бревен, сушильные камеры с компьютерным управлением и другие обрабатывающие мощности. Все это позволяет нам выпускать продукцию высочайшего качества.") }}</article>
+        </main>
+
+        <section class="mt-5">
+            <div class="row justify-content-center">
+                <div class="col-10 col-sm-6 col-lg-4">
+                    <div class="service-card" id="serviceCard-0">
+                        <div class="service-title mt-auto">
+                            {{ _("Породы древесины") }}
+                        </div>
+                        <div class="service-description mb-auto" id="service-description-0">
+                            {{ _("Множество пород с разными характеристиками") }}
+                        </div>
+                        <a href="/species" class="service-more mx-auto d-flex cursor-pointer">
+                            {{ _("Узнать больше") }}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-10 col-sm-6 col-lg-4 mt-3 mt-sm-0">
+                    <div class="service-card" id="serviceCard-1">
+                        <div class="service-title mt-auto">
+                            {{ _("Наша продукция") }}
+                        </div>
+                        <div class="service-description mb-auto" id="service-description-1">
+                            {{ _("Пиломатериалы и готовая продукция с разными характеристиками") }}
+                        </div>
+                        <a href="/products" class="service-more mx-auto d-flex cursor-pointer">
+                            {{ _("Узнать больше") }}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/services.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/contacts.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Контакты | BoisRouge") }}{% endblock %}
+
+{% block contacts_active %}active{% endblock %}
+{% block contacts_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container contacts-view mb-5">
+        <main class="gallery-about text-center">
+            <h1 class="fw-bold">{{ _("Наши контакты") }}</h1>
+{#            <article>{{ _("Все способы") }}</article>#}
+        </main>
+
+        <section>
+            <div class="row mt-4">
+                <div class="col-12 col-lg-6 text-center">
+                    <h3>{{_("Свяжитесь с нами")}}</h3>
+                    {% for ct in contacts %}
+                        <div class="contact d-flex mb-3">
+                            <div class="icon me-3">
+                                {% if ct.type == "phone" %}
+                                    <span class="material-icons-outlined">call</span>
+                                {% elif ct.type == "e-mail" %}
+                                    <span class="material-icons-outlined">email</span>
+                                {% else %}
+                                    <span class="material-icons-outlined">chat</span>
+                                {% endif %}
+                            </div>
+                            <span class="content my-auto">
+                                {{ ct.value }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-12 col-lg-6 text-center">
+                    <h3>{{_("Посетите нас")}}</h3>
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A5b5508c1ac31bd7153fa244658bb2cfeef4ac36fbe0720efeb088d96da652dde&amp;source=constructor" width="100%" height="400" class="rounded-2 map" frameborder="0"></iframe>
+                </div>
+            </div>
+
+            <h2 class="text-center mt-4">Или оставьте свои контакты</h2>
+            <form action="" class="mt-3">
+                <div class="row">
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Имя")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Фамилия")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Номер телефона")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-4 mt-3">
+                        <label>{{_("Почта")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                    <div class="col-12 col-lg-8 mt-3">
+                        <label>{{_("Дополнительная информация")}}</label>
+                        <input type="text" class="w-100">
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="submit-button">{{_("Отправить")}}</button>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/contacts.js') }}"></script>
+{% endblock %}

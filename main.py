@@ -590,7 +590,7 @@ def edit_one_product(id):
 
 @app.route('/admin/contacts', methods=["GET", "POST"])
 @login_required
-def contacts():
+def admin_contacts():
     contact_form = ContactsForm()
     contacts = client[db_name]["contacts"]
     if request.method == "POST":
@@ -696,6 +696,34 @@ def photos_gallery(page=None):
 
     return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page,
                            videos=videos, active=active)
+
+
+@app.route("/contacts", methods=["GET"])
+def contacts():
+    contacts_list = list(client[db_name]["contacts"].find())
+
+    return render_template("client/contacts.html", contacts=contacts_list)
+
+
+@app.route("/services", methods=["GET"])
+def services():
+    return render_template("client/services.html")
+
+
+@app.route("/species", methods=["GET"])
+def species():
+    species_list = list(client[db_name]["wood_types"].find())
+    return render_template("client/species.html", species=species_list)
+
+
+@app.route("/products", methods=["GET"])
+def products():
+    return render_template("client/products.html")
+
+
+@app.route("/logs", methods=["GET"])
+def logs():
+    return render_template("client/logs.html")
 
 
 @app.post("/api/footer_form")

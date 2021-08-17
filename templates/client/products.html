@@ -1,0 +1,56 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/services.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Продукция | BoisRouge") }}{% endblock %}
+
+{% block services_active %}active{% endblock %}
+{% block services_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="products-view container mb-5">
+        <main class="text-center">
+            <h1 class="fw-bold">{{ _("Продукция BoisRouge") }}</h1>
+            <article>{{ _("Наша компания готова предложить как бревна и пиломатериалы, прошедшие сушку, так и готовую продукцию после первичной обработки.") }}</article>
+        </main>
+
+        <section class="mt-5">
+            <div class="row justify-content-center">
+                <div class="col-10 col-sm-6 col-lg-4">
+                    <div class="product-card" id="productCard-0">
+                        <div class="product-title mt-auto">
+                            {{ _("Бревна") }}
+                        </div>
+                        <div class="product-description mb-auto" id="product-description-0">
+                            {{ _("Круглый лес множества пород древесины") }}
+                        </div>
+                        <a href="/logs" class="product-more mx-auto d-flex cursor-pointer">
+                            {{ _("Узнать больше") }}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+                 <div class="col-10 col-sm-6 col-lg-4 mt-3 mt-sm-0">
+                    <div class="product-card" id="productCard-1">
+                        <div class="product-title mt-auto">
+                            {{ _("Изделия") }}
+                        </div>
+                        <div class="product-description mb-auto" id="product-description-1">
+                            {{ _("Готовая продукция собственного производства") }}
+                        </div>
+                        <a href="/woodwork" class="product-more mx-auto d-flex cursor-pointer">
+                            {{ _("Узнать больше") }}
+                            <i class="material-icons-outlined ms-1 my-auto">chevron_right</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/products.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,97 @@
+.services-view, .products-view {
+  min-height: 100vh;
+  padding-top: 150px;
+}
+
+.service-card, .product-card {
+  aspect-ratio: 1 / 1;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  filter: grayscale(1);
+  text-align: center;
+  transition: all .3s ease;
+
+  .service-title, .product-title {
+    color: white;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .service-description, .product-description {
+    color: white;
+    height: 0;
+    overflow: hidden;
+    transition: all .3s ease;
+  }
+
+  a {
+    color: white;
+  }
+}
+
+.service-more, .product-more {
+  padding: 0;
+  transition: all .3s ease;
+
+  i {
+    width: 0;
+    overflow: hidden;
+    transition: all .3s ease;
+  }
+}
+
+.service-more:hover, .product-more:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-color);
+}
+
+.service-more.more, .product-more.more {
+  border: 1px white solid;
+  padding: 8px 12px;
+  border-radius: 5px;
+
+  i {
+    width: 24px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .service-title, .product-title {
+    font-size: 30px !important;
+  }
+}
+
+@supports not (aspect-ratio: 1) {
+  .service-card, .product-card {
+    column-count: 1;
+  }
+
+  .service-card::before, .product-card::before {
+    content: "";
+    float: left;
+    padding-bottom: calc(100% / (100 / 100));
+  }
+}
+
+#serviceCard-0 {
+  background: url("../img/species.png") no-repeat;
+  background-size: cover;
+}
+
+#serviceCard-1 {
+  background: url("../img/products.png") no-repeat;
+  background-size: cover;
+}
+
+#productCard-0 {
+  background: url("../img/products/logs.jpg") no-repeat;
+  background-size: cover;
+}
+
+#productCard-1 {
+  background: url("../img/products/sawn.jpg") no-repeat;
+  background-size: cover;
+}
