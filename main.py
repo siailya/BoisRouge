@@ -1,14 +1,17 @@
 from math import ceil
 
+import flask_login
 import pymongo
-from flask import Flask, request, render_template, redirect, session, g, jsonify
+from flask import Flask, request, render_template, redirect, jsonify, session, flash, url_for
+from flask_login import login_required, LoginManager, login_user, current_user, UserMixin
 from pymongo import MongoClient
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mongoengine import MongoEngine
 from forms import *
 from bson.objectid import ObjectId
 from processing import *
 from flask_babel import Babel
-from datetime import datetime
+from datetime import datetime, timedelta
 
 BLOCK_SIZE = 65536
 UPLOAD_FOLDER = "photos"
@@ -21,9 +24,53 @@ db_name = "DataBase"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["SECRET_KEY"] = "86F27F78E9AA221425B98B46F337A"
 app.config["LANGUAGES"] = ['en', 'ru', "zh"]
+app.permanent_session_lifetime = timedelta(days=1)
 
 babel = Babel(app)
 db = MongoEngine(app)
+
+login = LoginManager(app)
+login.login_view = 'login'
+login.init_app(app)
+
+
+class User(UserMixin):
+    def __init__(self, username, password, id):
+        self.password_hash = generate_password_hash(password)
+        self.username = username
+        self.id = id
+
+    def get_username(self):
+        return self.username
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @login.user_loader
+    def load_user(username):
+        return User("login", "piska", 1)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("edit_new"))
+    form = UserForm()
+    if form.is_submitted():
+        name = form.username.data
+        password = form.password.data
+        user_db_count = client[db_name]["users"].count_documents({"username": name})
+        if user_db_count:
+            user_db = client[db_name]["users"].find({"username": name})[0]
+            user = User(user_db["username"], user_db["password"], 1)
+            user.password_hash = user_db["password"]
+
+            if user is not None and user.check_password(password):
+                login_user(user)
+                return redirect("admin/edit_new")
+        flash('Invalid username or password')
+        return redirect(url_for('login'))
+    return render_template('admin/login.html', title='Sign In', form=form)
 
 
 @babel.localeselector
@@ -40,14 +87,17 @@ def get_locale():
 
 
 @app.route('/admin', methods=["GET", "POST"])
+@login_required
 def admin_index():
     # return render_template("admin/admin.html")
     return render_template("admin/shortcuts.html")
 
 
 @app.route('/admin/add_new', methods=["GET", "POST"])
+@login_required
 def add_new():
     news_form = NewsForm()
+    print(flask_login.current_user)
     if news_form.validate_on_submit():
         photo_name = ""
         photo = request.files["pictures"]
@@ -91,12 +141,14 @@ def add_new():
 
 
 @app.route('/admin/edit_new', methods=["GET", "POST"])
+@login_required
 def edit_new():
     news = client[db_name]["news"].find().sort("num_id", -1)
     return render_template("admin/edit_new.html", news=news)
 
 
 @app.route('/admin/edit_new/<id>', methods=["GET", "POST"])
+@login_required
 def edit_one_new(id):
     news_form = NewsForm()
     news = client[db_name]["news"]
@@ -153,6 +205,7 @@ def edit_one_new(id):
 
 
 @app.route('/admin/add_photo', methods=["GET", "POST"])
+@login_required
 def add_photo():
     photo_form = PhotosForm()
     if request.method == "POST":
@@ -173,12 +226,14 @@ def add_photo():
 
 
 @app.route('/admin/edit_photo', methods=["GET", "POST"])
+@login_required
 def edit_photo():
     photos = client[db_name]["photos"].find({"isGallery": True}).sort("date", -1)
     return render_template("admin/edit_photo.html", photos=photos)
 
 
 @app.route('/admin/edit_video', methods=["GET", "POST"])
+@login_required
 def edit_video():
     videos = client[db_name]["videos"].find().sort("date", pymongo.DESCENDING)
     video_form = VideoForm()
@@ -196,6 +251,7 @@ def edit_video():
 
 
 @app.route("/admin/api/delete_video", methods=["GET", "POST"])
+@login_required
 def delete_video():
     vid = request.json.get("vid")
     print(vid)
@@ -207,6 +263,7 @@ def delete_video():
 
 
 @app.route('/admin/edit_photo/<photo_id>', methods=["GET", "POST"])
+@login_required
 def edit_one_photo(photo_id):
     photo_form = PhotosForm()
     photos = client[db_name]["photos"]
@@ -234,6 +291,7 @@ def edit_one_photo(photo_id):
 
 
 @app.route('/admin/add_log', methods=["GET", "POST"])
+@login_required
 def add_log():
     logs_form = LogsForm()
     wood_types = client[db_name]["wood_types"].find()
@@ -264,12 +322,14 @@ def add_log():
 
 
 @app.route('/admin/edit_logs', methods=["GET", "POST"])
+@login_required
 def edit_logs():
     logs = client[db_name]["logs"].find()
     return render_template("admin/edit_logs.html", logs=logs)
 
 
 @app.route('/admin/edit_logs/<id>', methods=["GET", "POST"])
+@login_required
 def edit_one_log(id):
     logs_form = LogsForm()
     logs = client[db_name]["logs"]
@@ -314,6 +374,7 @@ def edit_one_log(id):
 
 
 @app.route('/admin/add_wood_board', methods=["GET", "POST"])
+@login_required
 def add_wood_board():
     wood_board_form = WoodBoardForm()
     wood_types = client[db_name]["wood_types"].find()
@@ -348,12 +409,14 @@ def add_wood_board():
 
 
 @app.route('/admin/edit_wood_board', methods=["GET", "POST"])
+@login_required
 def edit_wood_board():
     wood_boards = client[db_name]["wood_boards"].find()
     return render_template("admin/edit_wood_board.html", wood_boards=wood_boards)
 
 
 @app.route('/admin/edit_wood_board/<id>', methods=["GET", "POST"])
+@login_required
 def edit_one_wood_board(id):
     wood_board_form = WoodBoardForm()
     wood_boards = client[db_name]["wood_boards"]
@@ -402,6 +465,7 @@ def edit_one_wood_board(id):
 
 
 @app.route('/admin/add_wood_type', methods=["GET", "POST"])
+@login_required
 def add_wood_type():
     wood_type_form = WoodTypeForm()
     if request.method == "POST":
@@ -417,12 +481,14 @@ def add_wood_type():
 
 
 @app.route('/admin/edit_wood_type', methods=["GET", "POST"])
+@login_required
 def edit_wood_type():
     wood_types = client[db_name]["wood_types"].find()
     return render_template("admin/edit_wood_type.html", wood_types=wood_types)
 
 
 @app.route('/admin/edit_wood_type/<photo_id>', methods=["GET", "POST"])
+@login_required
 def edit_one_wood_type(photo_id):
     wood_type_form = WoodTypeForm()
     wood_types = client[db_name]["wood_types"]
@@ -447,6 +513,7 @@ def edit_one_wood_type(photo_id):
 
 
 @app.route('/admin/add_product', methods=["GET", "POST"])
+@login_required
 def add_product():
     product_form = ProductForm()
     if request.method == "POST":
@@ -470,12 +537,14 @@ def add_product():
 
 
 @app.route('/admin/edit_product', methods=["GET", "POST"])
+@login_required
 def edit_product():
     products = client[db_name]["products"].find()
     return render_template("admin/edit_product.html", products=products)
 
 
 @app.route('/admin/edit_product/<id>', methods=["GET", "POST"])
+@login_required
 def edit_one_product(id):
     product_form = ProductForm()
     products = client[db_name]["products"]
@@ -520,6 +589,7 @@ def edit_one_product(id):
 
 
 @app.route('/admin/contacts', methods=["GET", "POST"])
+@login_required
 def contacts():
     contact_form = ContactsForm()
     contacts = client[db_name]["contacts"]
