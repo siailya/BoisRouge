@@ -468,10 +468,10 @@ def edit_one_wood_board(id):
 @login_required
 def add_wood_type():
     wood_type_form = WoodTypeForm()
-    if request.method == "POST":
+    if wood_type_form.validate_on_submit():
         title = request.form.get("title")
         descriptions = request.form.get("description")
-        files = wood_type_form["files"].data[0]
+        files = wood_type_form["files"].data
         wood_types = client[db_name]["wood_types"]
         wood_types.insert_one({"title": title,
                                "description": descriptions,
@@ -516,7 +516,7 @@ def edit_one_wood_type(photo_id):
 @login_required
 def add_product():
     product_form = ProductForm()
-    if request.method == "POST":
+    if product_form.validate_on_submit():
         title = request.form.get("title")
         files = product_form["files"].data
         products = client[db_name]["products"]
@@ -561,13 +561,15 @@ def edit_one_product(id):
 
         return render_template("admin/edit_one_product.html", product=product, product_form=product_form,
                                wood_types=wood_types)
-    elif request.method == "POST":
+    elif product_form.validate_on_submit():
         p_form = request.form
         if "delete" in p_form:
             products.remove({"_id": ObjectId(id)})
 
         else:
-            photo_name = product["path"]
+            photo_name = ""
+            if product["path"] and (".jpg" in product["path"] or ".png" in product["path"]):
+                photo_name = product["path"]
             photo = request.files["files"]
             if photo:
                 photo_name = save_photo(photo, client, False, "", "", "", "", "", "")

@@ -2,6 +2,7 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ wood_type_form.csrf_token }}
     <div class="row justify-content-center">
       <div class="col-12 col-lg-8" style="display: inline-block; vertical-align: top;">
         <h1 class="add-news-header mb-3 text-center">Добавить породу древесины</h1>
@@ -28,16 +29,16 @@
     </div>
 
     <div class="row flex-column align-items-center">
-        <div class="mb-3 col-12 col-lg-8">
-          {{ wood_type_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
-        </div>
+      <div class="mb-3 col-12 col-lg-8">
+        {{ wood_type_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+      </div>
 
-        <div class="mb-3 col-12 col-lg-8">
-          {{ wood_type_form.submit(class="btn btn-success") }}
-          <a href="/admin/edit_wood_type">
-            <button class="btn btn-danger" type="button">Отменить</button>
-          </a>
-        </div>
+      <div class="mb-3 col-12 col-lg-8">
+        {{ wood_type_form.submit(class="btn btn-success") }}
+        <a href="/admin/edit_wood_type">
+          <button class="btn btn-danger" type="button">Отменить</button>
+        </a>
+      </div>
     </div>
   </form>
 {% endblock %}

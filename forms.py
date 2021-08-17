@@ -45,7 +45,7 @@ class PhotosForm(FlaskForm):
 
 
 class WoodTypeForm(FlaskForm):
-    title = StringField("Название ", validators=[DataRequired("Введите название породы")])
+    title = StringField("Название", validators=[DataRequired("Введите название породы")])
 
     description = TextAreaField("Описание", validators=[DataRequired("Введите описание")])
 

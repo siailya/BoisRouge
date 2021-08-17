@@ -2,6 +2,7 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ product_form.csrf_token }}
     <div class="row justify-content-center">
       <div class="col-12 col-lg-8" style="display: inline-block; vertical-align: top;">
         <h1 class="add-news-header mb-3 text-center">Добавить изделие</h1>

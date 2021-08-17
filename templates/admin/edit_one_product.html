@@ -2,6 +2,7 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ product_form.csrf_token }}
     <p class="h5" style="text-align: center">Текущее фото</p>
     <p style="align-items: center; justify-content: center;">
       <img src='{{ url_for("static", filename="/photos/" + product["path"]) }}' alt=""
@@ -13,7 +14,7 @@
       {{ product_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
     </div>
 
-  <hr>
+    <hr>
 
     <div>
       <label class="form-label">Название</label>
