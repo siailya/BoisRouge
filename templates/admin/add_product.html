@@ -27,6 +27,36 @@
           </select>
         </div>
 
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ product_form.length.label }}</span>
+          {{ product_form.length(class="form-control") }}
+          {% if product_form.length.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.length.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ product_form.width.label }}</span>
+          {{ product_form.width(class="form-control") }}
+          {% if product_form.width.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.width.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">{{ product_form.height.label }}</span>
+          {{ product_form.height(class="form-control") }}
+          {% if product_form.height.errors %}
+            <div class="invalid-feedback d-block">
+              {{ product_form.height.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
         <div class="row">
           <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
             <div class="form-outline mb-3">

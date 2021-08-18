@@ -1,7 +1,7 @@
 {% extends 'admin/admin.html' %}
 
 {% block content %}
-  <form action="" method="post" novalidate enctype="multipart/form-data">
+  <form action="" method="post" novalidate enctype="multipart/form-data" name="wood_type_form">
     {{ wood_type_form.csrf_token }}
     <div class="row justify-content-center">
       <div class="col-12 col-lg-8" style="display: inline-block; vertical-align: top;">
@@ -30,7 +30,8 @@
 
     <div class="row flex-column align-items-center">
       <div class="mb-3 col-12 col-lg-8">
-        {{ wood_type_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+        <input required accept="image/png, image/gif, image/jpeg" class="form-control w-100" id="files" name="files"
+               type="file">
       </div>
 
       <div class="mb-3 col-12 col-lg-8">
@@ -41,4 +42,19 @@
       </div>
     </div>
   </form>
+
+  <script>
+      $("wood_type_form").submit(function (e) {
+          var ref = $(this).find("[required]");
+          $(ref).each(function () {
+              if ($(this).val() == '') {
+                  alert("Required field should not be blank.");
+                  $(this).focus();
+                  e.preventDefault();
+                  return false;
+              }
+          });
+          return true;
+      });
+  </script>
 {% endblock %}

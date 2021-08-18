@@ -25,8 +25,8 @@ def save_photo(photo, client, isGallery, description_ru, description_en, descrip
 
             photo_hash = file_hash.hexdigest()
             photos = client[db_name]["photos"]
+            now = datetime.datetime.now()
             if photos.count_documents({"hash": photo_hash}) == 0:
-                now = datetime.datetime.now()
                 photos.insert_one({"hash": photo_hash, "path": photo_name,
                                    "date": now, "isGallery": isGallery,
                                    "galleryHidden": False, "description_ru": description_ru,
@@ -36,5 +36,14 @@ def save_photo(photo, client, isGallery, description_ru, description_en, descrip
                                    "description_fr": description_fr, })
             else:
                 os.remove(f"static/photos/{photo_name}")
+                photo_name = photos.find_one({"hash": photo_hash})["path"]
+                photos.update_one({"_id": photos.find_one({"hash": photo_hash})["_id"]},
+                                  {"$set": {"hash": photo_hash, "path": photo_name,
+                                            "date": now, "isGallery": isGallery,
+                                            "galleryHidden": False, "description_ru": description_ru,
+                                            "description_en": description_en,
+                                            "description_zh": description_zh, "description_de": description_de,
+                                            "description_vt": description_vt,
+                                            "description_fr": description_fr, }})
             return photos.find_one({"hash": photo_hash})["path"]
         photo_num += 1

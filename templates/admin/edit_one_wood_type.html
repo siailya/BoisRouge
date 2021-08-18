@@ -2,6 +2,7 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ wood_type_form.csrf_token }}
     <p class="h5" style="text-align: center">Текущее фото</p>
     <p style="align-items: center; justify-content: center;">
       <img src='{{ url_for("static", filename="/photos/" + wood_type["path"]) }}' alt=""
@@ -11,16 +12,31 @@
 
     <div class="mb-3 col-12 col-lg-8" style="text-align: center; display: flex; margin: auto">
       {{ wood_type_form.files(class="form-control w-100", accept="image/png, image/gif, image/jpeg") }}
+      {% if wood_type_form.files.errors %}
+        <div class="invalid-feedback d-block">
+          {{ wood_type_form.files.errors[0] }}
+        </div>
+      {% endif %}
     </div>
 
-  <hr>
+    <hr>
 
     <label class="form-label">Название</label>
-    <input type="text" name="title" class="form-control" value="{{ wood_type["title"] }}">
+    {{ wood_type_form.title(class="form-control", value=wood_type["title"]) }}
+    {% if wood_type_form.title.errors %}
+      <div class="invalid-feedback d-block">
+        {{ wood_type_form.title.errors[0] }}
+      </div>
+    {% endif %}
 
     <div class="mb-3">
       <label class="form-label">Описание</label>
-      <textarea class="form-control" rows="3" name="description">{{ wood_type["description"] }}</textarea>
+      {{ wood_type_form.description(class="form-control", rows="3", style="border-radius: 0 0 5px 5px") }}
+      {% if wood_type_form.description.errors %}
+        <div class="invalid-feedback d-block">
+          {{ wood_type_form.description.errors[0] }}
+        </div>
+      {% endif %}
     </div>
 
 

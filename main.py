@@ -309,6 +309,8 @@ def add_log():
              "type": log_form["type"],
              "log_diameter": log_form["log_diameter"],
              "log_length": log_form["log_length"],
+             "log_density_ah": log_form["log_density_ah"],
+             "log_density_roll": log_form["log_density_roll"],
              "ru_text": log_form["ru_text"],
              "en_text": log_form["en_text"],
              "zh_text": log_form["zh_text"],
@@ -352,6 +354,8 @@ def edit_one_log(id):
                                   "type": log_form["type"],
                                   "log_diameter": log_form["log_diameter"],
                                   "log_length": log_form["log_length"],
+                                  "log_density_ah": log_form["log_density_ah"],
+                                  "log_density_roll": log_form["log_density_roll"],
                                   "ru_text": log_form["ru_text"],
                                   "en_text": log_form["en_text"],
                                   "zh_text": log_form["zh_text"],
@@ -494,9 +498,12 @@ def edit_one_wood_type(photo_id):
     wood_types = client[db_name]["wood_types"]
     wood_type = wood_types.find({"_id": ObjectId(photo_id)})[0]
     if request.method == "GET":
+        wood_type_form.description.data = wood_type["description"]
+        wood_type_form.files.data = wood_type["path"]
         return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)
-    elif request.method == "POST":
+    elif wood_type_form.validate_on_submit():
         t_form = request.form
+
         if "delete" in t_form:
             wood_types.remove({"_id": ObjectId(photo_id)})
             return redirect("/admin/edit_wood_type", code=302)
@@ -518,10 +525,21 @@ def add_product():
     product_form = ProductForm()
     if product_form.validate_on_submit():
         title = request.form.get("title")
+        length = request.form.get("length")
+        width = request.form.get("width")
+        height = request.form.get("height")
         files = product_form["files"].data
         products = client[db_name]["products"]
+
+        article = 1
+        if products.find().count() != 0:
+            article = products.find().sort("article", -1)[0]["article"] + 1
+
         product_form_requested = request.form
         products.insert_one({"title": title,
+                             "length": length,
+                             "width": width,
+                             "height": height,
                              "ru_text": product_form_requested["ru_text"],
                              "en_text": product_form_requested["en_text"],
                              "zh_text": product_form_requested["zh_text"],
@@ -530,6 +548,7 @@ def add_product():
                              "fr_text": product_form_requested["fr_text"],
                              "wood_type": product_form_requested.get("wood_type"),
                              "visible": True,
+                             "article": article,
                              "path": save_photo(files, client, False, "", "", "", "", "", "")})
         return redirect("../admin/edit_product", 301)
     wood_types = client[db_name]["wood_types"].find()
@@ -562,6 +581,7 @@ def edit_one_product(id):
         return render_template("admin/edit_one_product.html", product=product, product_form=product_form,
                                wood_types=wood_types)
     elif product_form.validate_on_submit():
+        print(13)
         p_form = request.form
         if "delete" in p_form:
             products.remove({"_id": ObjectId(id)})
@@ -578,6 +598,9 @@ def edit_one_product(id):
                 visible = True
             products.update_one({"_id": ObjectId(id)},
                                 {"$set": {"title": p_form["title"],
+                                          "length": p_form["length"],
+                                          "width": p_form["width"],
+                                          "height": p_form["height"],
                                           "ru_text": p_form["ru_text"],
                                           "en_text": p_form["en_text"],
                                           "zh_text": p_form["zh_text"],

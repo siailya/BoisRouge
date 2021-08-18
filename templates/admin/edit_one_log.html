@@ -56,6 +56,22 @@
              value="{{ log["log_length"] }}">
     </div>
 
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="log_density_ah" style="border-radius: 5px 0 0 5px">Плотность при атмосферной влажности</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="log_density_ah" name="log_density_ah"
+             value="{{ log["log_density_ah"] }}">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="log_density_roll" style="border-radius: 5px 0 0 5px">Плотность древесины при валке</span>
+      </div>
+      <input type="text" class="form-control" aria-describedby="log_density_roll" name="log_density_roll"
+             value="{{ log["log_density_roll"] }}">
+    </div>
+
 
     <div class="row">
       <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
