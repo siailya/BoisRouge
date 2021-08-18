@@ -17,6 +17,16 @@
         </div>
 
         <div class="input-group mb-3">
+          <span class="input-group-text">{{ wood_type_form.latin_title.label }}</span>
+          {{ wood_type_form.latin_title(class="form-control") }}
+          {% if wood_type_form.latin_title.errors %}
+            <div class="invalid-feedback d-block">
+              {{ wood_type_form.latin_title.errors[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
           <span class="input-group-text">{{ wood_type_form.description.label }}</span>
           {{ wood_type_form.description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
           {% if wood_type_form.description.errors %}

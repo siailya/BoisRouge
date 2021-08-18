@@ -1,0 +1,27 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/errors.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Не найдено | BoisRouge") }}{% endblock %}
+
+{% block content %}
+    <div class="container error-view mb-5">
+        <main class="text-center">
+            <span class="error-code">{{ code }}</span>
+            {% if code == 404 %}
+                <h2>{{_("Кажется, ничего не нашлось...")}}</h2>
+                <h3 class="code-name">Not Found</h3>
+            {% elif code == 500%}
+                <h2>{{_("Упс, произошла ошибка на сервере...")}}</h2>
+                <h3 class="code-name">Internal Server Error</h3>
+            {% endif %}
+            <a href="/">{{_("Вернуться на главную")}}</a>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/services.js') }}"></script>
+{% endblock %}

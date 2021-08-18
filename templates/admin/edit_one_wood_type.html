@@ -29,6 +29,9 @@
       </div>
     {% endif %}
 
+    <label class="form-label">Название</label>
+    {{ wood_type_form.latin_title(class="form-control", readonly=True, value=wood_type["latin_title"]) }}
+
     <div class="mb-3">
       <label class="form-label">Описание</label>
       {{ wood_type_form.description(class="form-control", rows="3", style="border-radius: 0 0 5px 5px") }}

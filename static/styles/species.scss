@@ -39,8 +39,8 @@
   }
 }
 
-.specie-name:hover span{
-    height: 32px;
+.specie-name:hover span {
+  height: 32px;
 }
 
 @supports not (aspect-ratio: 1) {
@@ -53,4 +53,45 @@
     float: left;
     padding-bottom: calc(100% / (100 / 100));
   }
+}
+
+.specie-photo {
+  border-radius: 10px;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  max-height: 25vh;
+  transition: all .3s ease;
+  overflow: hidden;
+  width: 50%;
+  img{
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.specie-photo:hover {
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.01);
+}
+
+.specie-description{
+  font-size: 18px;
+}
+
+.specie-card-sm{
+  font-size: 20px;
+  width: 50%;
+}
+
+@media screen and (max-width: 992px){
+  .specie-card-sm{
+    width: 100%;
+  }
+
+  .specie-photo{
+    width: 100%;
+  }
+}
+
+.invalid-feedback{
+  font-size: 12px;
 }

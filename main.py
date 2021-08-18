@@ -474,13 +474,18 @@ def add_wood_type():
     wood_type_form = WoodTypeForm()
     if wood_type_form.validate_on_submit():
         title = request.form.get("title")
-        descriptions = request.form.get("description")
-        files = wood_type_form["files"].data
-        wood_types = client[db_name]["wood_types"]
-        wood_types.insert_one({"title": title,
-                               "description": descriptions,
-                               "path": save_photo(files, client, False, "", "", "", "", "", "")})
-        return redirect("../admin/edit_wood_type", 301)
+        latin_title = request.form.get("latin_title").lower()
+        if client[db_name]["wood_types"].count_documents({"latin_title": latin_title}) <= 0:
+            descriptions = request.form.get("description")
+            files = wood_type_form["files"].data
+            wood_types = client[db_name]["wood_types"]
+            wood_types.insert_one({"title": title,
+                                   "latin_title": latin_title,
+                                   "description": descriptions,
+                                   "path": save_photo(files, client, False, "", "", "", "", "", "")})
+            return redirect("../admin/edit_wood_type", 301)
+        else:
+            wood_type_form.latin_title.errors = ["Порода с таким латинским названием уже существует!"]
     return render_template("admin/add_wood_type.html", wood_type_form=wood_type_form)
 
 
@@ -497,11 +502,8 @@ def edit_one_wood_type(photo_id):
     wood_type_form = WoodTypeForm()
     wood_types = client[db_name]["wood_types"]
     wood_type = wood_types.find({"_id": ObjectId(photo_id)})[0]
-    if request.method == "GET":
-        wood_type_form.description.data = wood_type["description"]
-        wood_type_form.files.data = wood_type["path"]
-        return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)
-    elif wood_type_form.validate_on_submit():
+
+    if wood_type_form.validate_on_submit():
         t_form = request.form
 
         if "delete" in t_form:
@@ -517,6 +519,11 @@ def edit_one_wood_type(photo_id):
                                         "description": t_form["description"],
                                         "path": photo_name}})
         return redirect("/admin/edit_wood_type", code=302)
+
+    wood_type_form.description.data = wood_type["description"]
+    wood_type_form.files.data = wood_type["path"]
+
+    return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)
 
 
 @app.route('/admin/add_product', methods=["GET", "POST"])
@@ -712,15 +719,16 @@ def photos_gallery(page=None):
     video_page = request.args.get("videoPage")
     active = request.args.get("active")
     photos, videos = [], []
+    locale = get_locale().lower()
 
     if active == "video":
         videos = list(client[db_name]["videos"].find().sort("date", pymongo.DESCENDING))
     else:
         photos = list(client[db_name]["photos"].find({"isGallery": True, "galleryHidden": False},
-                                                     {"path": 1, "date": 1, "description": 1}))
-
+                                                     {"path": 1, "date": 1, "description_" + locale: 1}))
+        print(photos)
     return render_template("client/gallery.html", photos=photos, photo_page=photo_page, video_page=video_page,
-                           videos=videos, active=active)
+                           videos=videos, active=active, locale=locale)
 
 
 @app.route("/contacts", methods=["GET"])
@@ -741,6 +749,15 @@ def species():
     return render_template("client/species.html", species=species_list)
 
 
+@app.route("/species/<specie_name>", methods=["GET"])
+def species_item(specie_name):
+    print(specie_name)
+    specie = client[db_name]["wood_types"].find_one({"latin_title": specie_name})
+    species_list = list(client[db_name]["wood_types"].find({"latin_title": {"$ne": specie_name}}).limit(3))
+
+    return render_template("client/specie_item.html", specie=specie, species_list=species_list)
+
+
 @app.route("/products", methods=["GET"])
 def products():
     return render_template("client/products.html")
@@ -756,6 +773,18 @@ def footer_form():
     name, email = request.json.values()
     print(name, email)
     return "123"
+
+
+@app.errorhandler(404)
+def not_found(err):
+    print(err)
+    return render_template("client/error.html", code=404), 404
+
+
+@app.errorhandler(500)
+def not_found(err):
+    print(err)
+    return render_template("client/error.html", code=500), 500
 
 
 app.run(debug=True)

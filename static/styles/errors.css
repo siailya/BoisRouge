@@ -1,0 +1,30 @@
+.error-view {
+  padding-top: 150px;
+  min-height: 100vh;
+}
+
+.error-code {
+  font-size: 20vh;
+  font-weight: 500;
+  color: var(--light-green);
+  animation: blink infinite 4s;
+  transition: all 0.3s ease;
+}
+
+.code-name {
+  color: var(--light-green);
+}
+
+@keyframes blink {
+  0%, 10%, 20%, 35%, 40%, 55% {
+    opacity: 0;
+  }
+  5%, 15%, 25%, 37%, 47% {
+    opacity: 1;
+  }
+}
+a {
+  color: var(--green);
+}
+
+/*# sourceMappingURL=errors.css.map */

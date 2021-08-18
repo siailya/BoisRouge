@@ -20,7 +20,7 @@
             <div class="row justify-content-center">
                 {% for sp in species %}
                     <div class="col-9 col-sm-6 col-md-4 col-lg-3 mt-3">
-                        <a href="/species/{{ sp.latin_name }}" class="specie-card text-center d-flex" id="specie-card-0"
+                        <a href="/species/{{ sp.latin_title }}" class="specie-card text-center d-flex" id="specie-card-0"
                              style="background: url('{{ url_for('static', filename='photos/' + sp.path) }}') center no-repeat; background-size: cover">
                             <div class="m-auto specie-name">
                                 <div class=" my-auto">{{ sp.title }}</div>

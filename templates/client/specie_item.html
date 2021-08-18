@@ -1,0 +1,91 @@
+{% extends "client/base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/species.css') }}">
+{% endblock %}
+
+{% block title %}{{ _("Породы древесины | BoisRouge") }}{% endblock %}
+
+{% block services_active %}active{% endblock %}
+{% block services_active_mobile %}active{% endblock %}
+
+{% block content %}
+    <div class="container species-view mb-5">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-9">
+                <main class="">
+                    <h1 class="fw-bold">{{ specie.title }}</h1>
+                </main>
+
+                <section class="mt-5 d-flex flex-column">
+                    <a href="{{ url_for('static', filename='photos/' + specie.path) }}" target="_blank"
+                       class="mx-auto specie-photo">
+                        <img src="{{ url_for('static', filename='photos/' + specie.path) }}" class="" alt="">
+                    </a>
+
+                    <div class="specie-description mt-4">
+                        {{ specie.description }}
+                    </div>
+                </section>
+
+                <section class="request-form mt-5">
+                    <h3>{{ _("Свяжитесь с нами по поводу") }} <span
+                            style="color: var(--light-green)">{{ specie.title }}</span></h3>
+                    <form onsubmit="return false">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 mt-3">
+                                <label for="">{{ _("Ваше имя") }}*</label>
+                                <input id="request_name" type="text" class="w-100">
+                                <div id="request_name_invalid" style="height: 0" class="overflow-hidden invalid-feedback d-block">{{_("Укажите Ваше имя")}}</div>
+                            </div>
+                            <div class="col-12 col-lg-6 mt-3">
+                                <label for="">{{ _("Ваш email") }}*</label>
+                                <input id="request_email" type="email" class="w-100">
+                                <div id="request_email_invalid" style="height: 0" class="overflow-hidden invalid-feedback d-block">{{_("Укажите Ваш email")}}</div>
+                            </div>
+                            <div class="col-12 col-lg-6 mt-3">
+                                <label for="">{{ _("Ваш телефон") }}*</label>
+                                <input id="request_phone" type="tel" class="w-100">
+                                <div id="request_phone_invalid" style="height: 0" class="overflow-hidden invalid-feedback d-block">{{_("Укажите Ваш номер телефона")}}</div>
+                            </div>
+                            <div class="col-12 col-lg-6 mt-3">
+                                <label for="">{{ _("Где Вы находитесь") }}</label>
+                                <input id="request_location" type="text" class="w-100">
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label>{{ _("Уточните вопрос") }}</label>
+                                <input id="request_subject" class="w-100"/>
+                            </div>
+                            <div class="col-12 d-flex mt-3">
+                                <button class="green-button mx-auto" type="button" onclick="sendRequestForm()">{{ _("Отправить") }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="col-12 col-lg-4 col-xl-3 d-flex flex-column mt-4 mt-lg-0">
+                <h3 class="text-center mb-3">{{ _("Другие породы") }}</h3>
+                <div class="row justify-content-center">
+                    {% for sp in species_list %}
+                        <div class="col-6 col-md-4 col-lg-12">
+                            <a class="specie-card mb-3 mx-auto specie-card-sm text-center d-flex"
+                               href="/species/{{ sp.latin_title }}"
+                               style="background: url('{{ url_for('static', filename='photos/' + sp.path) }}') center no-repeat;
+                                       background-size: cover"
+                            >
+                                <div class="m-auto specie-name">
+                                    <div class=" my-auto">{{ sp.title }}</div>
+                                    <span class="material-icons-outlined my-auto">chevron_right</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/species.js') }}"></script>
+{% endblock %}

@@ -47,6 +47,8 @@ class PhotosForm(FlaskForm):
 class WoodTypeForm(FlaskForm):
     title = StringField("Название", validators=[DataRequired("Введите название породы")])
 
+    latin_title = StringField("Название на латинице", validators=[DataRequired("Введите название на латинице")])
+
     description = TextAreaField("Описание", validators=[DataRequired("Введите описание")])
 
     files = FileField("Фотографии")
