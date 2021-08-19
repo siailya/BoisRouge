@@ -2,54 +2,67 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ logs_form.csrf_token }}
     <div class="row">
       <h1 class="add-news-header">Добавить бревно</h1>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_title" style="border-radius: 5px 0 0 5px">Название</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_title" name="log_title">
+        <span class="input-group-text">{{ logs_form.log_title.label }}</span>
+        {{ logs_form.log_title(class="form-control") }}
+        {% if logs_form.log_title.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.log_title.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div>
         <label>
           Порода дерева
         </label>
-        <select name="type" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
-          {% for wood_type in wood_types %}
-            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
-          {% endfor %}
-        </select>
+        {{ logs_form.type(class="form-select form-select-lg mb-3 me-3", style="width: 20vw") }}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_diameter" style="border-radius: 5px 0 0 5px">Диаметр</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_diameter" name="log_diameter">
+        <span class="input-group-text">{{ logs_form.log_diameter.label }}</span>
+        {{ logs_form.log_diameter(class="form-control") }}
+        {% if logs_form.log_diameter.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.log_diameter.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_length" style="border-radius: 5px 0 0 5px">Длина</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_length" name="log_length">
+        <span class="input-group-text">{{ logs_form.log_length.label }}</span>
+        {{ logs_form.log_length(class="form-control") }}
+        {% if logs_form.log_length.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.log_length.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_density_ah" style="border-radius: 5px 0 0 5px">Плотность при атмосферной влажности</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_density_ah" name="log_density_ah">
+        <span class="input-group-text">{{ logs_form.log_density_ah.label }}</span>
+        {{ logs_form.log_density_ah(class="form-control") }}
+        {% if logs_form.log_density_ah.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.log_density_ah.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="log_density_roll" style="border-radius: 5px 0 0 5px">Плотность древесины при валке</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="log_density_roll" name="log_density_roll">
+        <span class="input-group-text">{{ logs_form.log_density_roll.label }}</span>
+        {{ logs_form.log_density_roll(class="form-control") }}
+        {% if logs_form.log_density_roll.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.log_density_roll.errors[0] }}
+          </div>
+        {% endif %}
       </div>
+
 
       <div class="row">
         <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
@@ -128,6 +141,11 @@
 
       <div class="mb-3">
         {{ logs_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+        {% if logs_form.pictures.errors %}
+          <div class="invalid-feedback d-block">
+            {{ logs_form.pictures.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">

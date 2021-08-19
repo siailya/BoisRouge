@@ -293,12 +293,22 @@ def edit_one_photo(photo_id):
 @login_required
 def add_log():
     logs_form = LogsForm()
+
     wood_types = client[db_name]["wood_types"].find()
-    if logs_form.is_submitted():
-        photo_name = ""
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    logs_form.type.choices = wood_type_titles
+
+    if logs_form.validate_on_submit():
         photo = request.files["pictures"]
-        if photo:
-            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+
+        if not photo:
+            logs_form.pictures.errors.append("Добавьте фотографию")
+            return render_template("admin/add_log.html", logs_form=logs_form, wood_types=wood_types)
+
+        photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
 
         logs = client[db_name]["logs"]
         log_form = request.form
@@ -332,11 +342,18 @@ def edit_logs():
 @app.route('/admin/edit_logs/<id>', methods=["GET", "POST"])
 @login_required
 def edit_one_log(id):
-    logs_form = LogsForm()
     logs = client[db_name]["logs"]
-    wood_types = client[db_name]["wood_types"].find()
     log = logs.find({"_id": ObjectId(id)})[0]
-    if logs_form.is_submitted():
+    logs_form = LogsForm(type=log["type"])
+
+    wood_types = client[db_name]["wood_types"].find()
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    logs_form.type.choices = wood_type_titles
+
+    if logs_form.validate_on_submit():
         if "delete" in request.form:
             logs.remove({"_id": ObjectId(id)})
             return redirect("/admin/edit_logs", code=302)
@@ -386,7 +403,7 @@ def add_wood_board():
     for wood_type in range(wood_types.count()):
         wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
 
-    wood_board_form.wood_type.choices = wood_type_titles
+    wood_board_form.type.choices = wood_type_titles
 
     if wood_board_form.validate_on_submit():
         photo = wood_board_form["pictures"].data
@@ -401,10 +418,10 @@ def add_wood_board():
         wood_board_form_requested = request.form
         print(wood_board_form_requested)
         wood_boards.insert_one(
-            {"wood_board_title": wood_board_form_requested["title"],
+            {"title": wood_board_form_requested["title"],
 
              "wood_board_subcategory": wood_board_form_requested["wood_board_subcategory"],
-             "type": wood_board_form_requested["wood_type"],
+             "type": wood_board_form_requested["type"],
              "wood_board_section": wood_board_form_requested["wood_board_section"],
              "wood_board_length": wood_board_form_requested["wood_board_length"],
              "wood_board_humidity": wood_board_form_requested["wood_board_humidity"],
@@ -432,11 +449,19 @@ def edit_wood_board():
 @app.route('/admin/edit_wood_board/<id>', methods=["GET", "POST"])
 @login_required
 def edit_one_wood_board(id):
-    wood_board_form = WoodBoardForm()
     wood_boards = client[db_name]["wood_boards"]
-    wood_types = client[db_name]["wood_types"].find()
+
     wood_board = wood_boards.find({"_id": ObjectId(id)})[0]
-    if wood_board_form.is_submitted():
+    wood_board_form = WoodBoardForm(type=wood_board["type"])
+
+    wood_types = client[db_name]["wood_types"].find()
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    wood_board_form.type.choices = wood_type_titles
+
+    if wood_board_form.validate_on_submit():
         if "delete" in request.form:
             wood_boards.remove({"_id": ObjectId(id)})
             return redirect("/admin/edit_wood_board", code=302)
@@ -448,7 +473,7 @@ def edit_one_wood_board(id):
 
         wood_board_form_requested = request.form
         wood_boards.update_one({"_id": ObjectId(id)},
-                               {"$set": {"wood_board_title": wood_board_form_requested["wood_board_title"],
+                               {"$set": {"title": wood_board_form_requested["title"],
 
                                          "wood_board_subcategory": wood_board_form_requested["wood_board_subcategory"],
                                          "type": wood_board_form_requested["type"],

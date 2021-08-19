@@ -68,6 +68,15 @@ class WoodTypeForm(FlaskForm):
 
 
 class LogsForm(FlaskForm):
+    log_title = StringField("Название", validators=[DataRequired("Введите название")])
+    type = SelectField("Порода дерева", validators=[DataRequired("Введите породу дерева")])
+    log_diameter = StringField("Диаметр", validators=[DataRequired("Введите диаметр")])
+    log_length = StringField("Длина", validators=[DataRequired("Введите длину")])
+    log_density_ah = StringField("Плотность при атмосферной влажности",
+                                 validators=[DataRequired("Введите плотность при атмосферной влажности")])
+    log_density_roll = StringField("Плотность древесины при валке",
+                                   validators=[DataRequired("Введите плотность при валке")])
+
     ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание породы на русском языке")])
     en_text = TextAreaField("Описание (en)", validators=[DataRequired("Введите описание породы на английском языке")])
     de_text = TextAreaField("Описание (de)", validators=[DataRequired("Введите описание породы на немецком языке")])
@@ -88,7 +97,7 @@ class WoodBoardForm(FlaskForm):
     wood_board_subcategory = StringField("Подкатегория",
                                          validators=[DataRequired("Введите подкатегорию")])
 
-    wood_type = SelectField("Порода дерева")
+    type = SelectField("Порода дерева")
 
     ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание доски на русском языке")])
     en_text = TextAreaField("Описание (en)",
