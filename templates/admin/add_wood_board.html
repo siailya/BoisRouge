@@ -2,53 +2,66 @@
 
 {% block content %}
   <form action="" method="post" novalidate enctype="multipart/form-data">
+    {{ wood_board_form.csrf_token }}
     <div class="row">
       <h1 class="add-news-header">Добавить доску</h1>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="wood_board_title" style="border-radius: 5px 0 0 5px">Название</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="wood_board_title" name="wood_board_title">
+        <span class="input-group-text">{{ wood_board_form.title.label }}</span>
+        {{ wood_board_form.title(class="form-control") }}
+        {% if wood_board_form.title.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.title.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="wood_board_subcategory" style="border-radius: 5px 0 0 5px">Подкатегория</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="wood_board_subcategory" name="wood_board_subcategory">
+        <span class="input-group-text">{{ wood_board_form.wood_board_subcategory.label }}</span>
+        {{ wood_board_form.wood_board_subcategory(class="form-control") }}
+        {% if wood_board_form.wood_board_subcategory.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.wood_board_subcategory.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div>
         <label>
           Порода дерева
         </label>
-        <select name="type" class="form-select form-select-lg mb-3 me-3" style="width: 20vw">
-          {% for wood_type in wood_types %}
-            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
-          {% endfor %}
-        </select>
+        {{ wood_board_form.wood_type(class="form-select form-select-lg mb-3 me-3", style="width: 20vw") }}
+      </div>
+
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">{{ wood_board_form.wood_board_section.label }}</span>
+        {{ wood_board_form.wood_board_section(class="form-control") }}
+        {% if wood_board_form.wood_board_section.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.wood_board_section.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="wood_board_section" style="border-radius: 5px 0 0 5px">Сечение</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="wood_board_section" name="wood_board_section">
+        <span class="input-group-text">{{ wood_board_form.wood_board_length.label }}</span>
+        {{ wood_board_form.wood_board_length(class="form-control") }}
+        {% if wood_board_form.wood_board_length.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.wood_board_length.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="wood_board_length" style="border-radius: 5px 0 0 5px">Длина</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="wood_board_length" name="wood_board_length">
-      </div>
-
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="wood_board_humidity" style="border-radius: 5px 0 0 5px">Влажность</span>
-        </div>
-        <input type="text" class="form-control" aria-describedby="wood_board_humidity" name="wood_board_humidity">
+        <span class="input-group-text">{{ wood_board_form.wood_board_humidity.label }}</span>
+        {{ wood_board_form.wood_board_humidity(class="form-control") }}
+        {% if wood_board_form.wood_board_humidity.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.wood_board_humidity.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="row">
@@ -128,6 +141,11 @@
 
       <div class="mb-3">
         {{ wood_board_form.pictures(class="form-control", accept="image/png, image/gif, image/jpeg", style="width: 500px") }}
+        {% if wood_board_form.pictures.errors %}
+          <div class="invalid-feedback d-block">
+            {{ wood_board_form.pictures.errors[0] }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">

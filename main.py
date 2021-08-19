@@ -89,7 +89,6 @@ def get_locale():
 @app.route('/admin', methods=["GET", "POST"])
 @login_required
 def admin_index():
-    # return render_template("admin/admin.html")
     return render_template("admin/shortcuts.html")
 
 
@@ -290,7 +289,7 @@ def edit_one_photo(photo_id):
         return redirect("/admin/edit_photo", code=302)
 
 
-@app.route('/admin/add_log', methods=["GET", "POST"])
+@app.route("/admin/add_log", methods=["GET", "POST"])
 @login_required
 def add_log():
     logs_form = LogsForm()
@@ -381,21 +380,31 @@ def edit_one_log(id):
 @login_required
 def add_wood_board():
     wood_board_form = WoodBoardForm()
+
     wood_types = client[db_name]["wood_types"].find()
-    if wood_board_form.is_submitted():
-        photo_name = ""
-        photo = request.files["pictures"]
-        if photo:
-            photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    wood_board_form.wood_type.choices = wood_type_titles
+
+    if wood_board_form.validate_on_submit():
+        photo = wood_board_form["pictures"].data
+
+        if not photo:
+            wood_board_form.pictures.errors.append("Добавьте фотографию")
+            return render_template("admin/add_wood_board.html", wood_board_form=wood_board_form, wood_types=wood_types)
+
+        photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
 
         wood_boards = client[db_name]["wood_boards"]
         wood_board_form_requested = request.form
         print(wood_board_form_requested)
         wood_boards.insert_one(
-            {"wood_board_title": wood_board_form_requested["wood_board_title"],
+            {"wood_board_title": wood_board_form_requested["title"],
 
              "wood_board_subcategory": wood_board_form_requested["wood_board_subcategory"],
-             "type": wood_board_form_requested["type"],
+             "type": wood_board_form_requested["wood_type"],
              "wood_board_section": wood_board_form_requested["wood_board_section"],
              "wood_board_length": wood_board_form_requested["wood_board_length"],
              "wood_board_humidity": wood_board_form_requested["wood_board_humidity"],
@@ -409,7 +418,8 @@ def add_wood_board():
 
              "photo_path": photo_name})
         return redirect("../admin/edit_wood_board", 301)
-    return render_template("admin/add_wood_board.html", wood_board_form=wood_board_form, wood_types=wood_types)
+    return render_template("admin/add_wood_board.html", wood_board_form=wood_board_form,
+                           wood_type_titles=wood_type_titles)
 
 
 @app.route('/admin/edit_wood_board', methods=["GET", "POST"])
@@ -429,7 +439,7 @@ def edit_one_wood_board(id):
     if wood_board_form.is_submitted():
         if "delete" in request.form:
             wood_boards.remove({"_id": ObjectId(id)})
-            return redirect("/admin/edit_logs", code=302)
+            return redirect("/admin/edit_wood_board", code=302)
 
         photo_name = wood_board["photo_path"]
         photo = request.files["pictures"]
@@ -476,12 +486,25 @@ def add_wood_type():
         title = request.form.get("title")
         latin_title = request.form.get("latin_title").lower()
         if client[db_name]["wood_types"].count_documents({"latin_title": latin_title}) <= 0:
-            descriptions = request.form.get("description")
+            ru_description = request.form.get("ru_description")
+            en_description = request.form.get("en_description")
+            zh_description = request.form.get("zh_description")
+            de_description = request.form.get("de_description")
+            fr_description = request.form.get("fr_description")
+            vt_description = request.form.get("vt_description")
             files = wood_type_form["files"].data
+            if not files:
+                wood_type_form.files.errors.append("Добавьте фотографию")
+                return render_template("admin/add_wood_type.html", wood_type_form=wood_type_form)
             wood_types = client[db_name]["wood_types"]
             wood_types.insert_one({"title": title,
                                    "latin_title": latin_title,
-                                   "description": descriptions,
+                                   "ru_description": ru_description,
+                                   "en_description": en_description,
+                                   "zh_description": zh_description,
+                                   "de_description": de_description,
+                                   "fr_description": fr_description,
+                                   "vt_description": vt_description,
                                    "path": save_photo(files, client, False, "", "", "", "", "", "")})
             return redirect("../admin/edit_wood_type", 301)
         else:
@@ -516,11 +539,22 @@ def edit_one_wood_type(photo_id):
             photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
         wood_types.update_one({"_id": ObjectId(photo_id)},
                               {"$set": {"title": t_form["title"],
-                                        "description": t_form["description"],
+                                        "ru_description": t_form["ru_description"],
+                                        "en_description": t_form["en_description"],
+                                        "zh_description": t_form["zh_description"],
+                                        "de_description": t_form["de_description"],
+                                        "fr_description": t_form["fr_description"],
+                                        "vt_description": t_form["vt_description"],
                                         "path": photo_name}})
         return redirect("/admin/edit_wood_type", code=302)
 
-    wood_type_form.description.data = wood_type["description"]
+    wood_type_form.ru_description.data = wood_type["ru_description"]
+    wood_type_form.en_description.data = wood_type["en_description"]
+    wood_type_form.zh_description.data = wood_type["zh_description"]
+    wood_type_form.de_description.data = wood_type["de_description"]
+    wood_type_form.fr_description.data = wood_type["fr_description"]
+    wood_type_form.vt_description.data = wood_type["vt_description"]
+
     wood_type_form.files.data = wood_type["path"]
 
     return render_template("admin/edit_one_wood_type.html", wood_type=wood_type, wood_type_form=wood_type_form)

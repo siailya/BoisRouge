@@ -29,18 +29,83 @@
       </div>
     {% endif %}
 
-    <label class="form-label">Название</label>
-    {{ wood_type_form.latin_title(class="form-control", readonly=True, value=wood_type["latin_title"]) }}
+    <label class="form-label">Название на латинице</label>
+    {{ wood_type_form.latin_title(class="form-control mb-3", readonly=True, value=wood_type["latin_title"]) }}
 
-    <div class="mb-3">
-      <label class="form-label">Описание</label>
-      {{ wood_type_form.description(class="form-control", rows="3", style="border-radius: 0 0 5px 5px") }}
-      {% if wood_type_form.description.errors %}
-        <div class="invalid-feedback d-block">
-          {{ wood_type_form.description.errors[0] }}
+    <div class="row">
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.ru_description.label }}</span>
+              {{ wood_type_form.ru_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.ru_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.ru_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.en_description.label }}</span>
+              {{ wood_type_form.en_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.en_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.en_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.zh_description.label }}</span>
+              {{ wood_type_form.zh_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.zh_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.zh_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.de_description.label }}</span>
+              {{ wood_type_form.de_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.de_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.de_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.vt_description.label }}</span>
+              {{ wood_type_form.vt_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.vt_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.vt_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-lg-6" style="display: inline-block; vertical-align: top;">
+            <div class="form-outline mb-3">
+                  <span class="input-group-text"
+                        style="border-radius: 5px 5px 0 0; border-bottom: none">{{ wood_type_form.fr_description.label }}</span>
+              {{ wood_type_form.fr_description(class="form-control", rows="6", style="border-radius: 0 0 5px 5px") }}
+              {% if wood_type_form.fr_description.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ wood_type_form.fr_description.errors[0] }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
         </div>
-      {% endif %}
-    </div>
 
 
     <div class="mb-3">

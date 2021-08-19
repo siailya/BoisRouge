@@ -49,7 +49,18 @@ class WoodTypeForm(FlaskForm):
 
     latin_title = StringField("Название на латинице", validators=[DataRequired("Введите название на латинице")])
 
-    description = TextAreaField("Описание", validators=[DataRequired("Введите описание")])
+    ru_description = TextAreaField("Описание (ru)",
+                                   validators=[DataRequired("Введите описание изделия на русском языке")])
+    en_description = TextAreaField("Описание (en)",
+                                   validators=[DataRequired("Введите описание изделия на английском языке")])
+    de_description = TextAreaField("Описание (de)",
+                                   validators=[DataRequired("Введите описание изделия на немецком языке")])
+    zh_description = TextAreaField("Описание (zh)",
+                                   validators=[DataRequired("Введите описание изделия на китайском языке")])
+    vt_description = TextAreaField("Описание (vt)",
+                                   validators=[DataRequired("Введите описание изделия на вьетнамском языке")])
+    fr_description = TextAreaField("Описание (fr)",
+                                   validators=[DataRequired("Введите описание изделия на французском языке")])
 
     files = FileField("Фотографии")
 
@@ -70,6 +81,15 @@ class LogsForm(FlaskForm):
 
 
 class WoodBoardForm(FlaskForm):
+    title = StringField("Название", validators=[DataRequired("Введите название")])
+    wood_board_section = StringField("Сечение", validators=[DataRequired("Введите сечение доски")])
+    wood_board_length = StringField("Длина", validators=[DataRequired("Введите длину доски")])
+    wood_board_humidity = StringField("Влажность", validators=[DataRequired("Введите влажность доски")])
+    wood_board_subcategory = StringField("Подкатегория",
+                                         validators=[DataRequired("Введите подкатегорию")])
+
+    wood_type = SelectField("Порода дерева")
+
     ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание доски на русском языке")])
     en_text = TextAreaField("Описание (en)",
                             validators=[DataRequired("Введите описание доски на английском языке")])
