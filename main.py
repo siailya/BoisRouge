@@ -589,13 +589,26 @@ def edit_one_wood_type(photo_id):
 @login_required
 def add_product():
     product_form = ProductForm()
+
+    wood_types = client[db_name]["wood_types"].find()
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    product_form.type.choices = wood_type_titles
+
     if product_form.validate_on_submit():
         title = request.form.get("title")
         length = request.form.get("length")
         width = request.form.get("width")
         height = request.form.get("height")
+
         files = product_form["files"].data
         products = client[db_name]["products"]
+
+        if not files:
+            product_form.files.errors.append("Добавьте фотографию")
+            return render_template("admin/add_product.html", product_form=product_form)
 
         article = 1
         if products.find().count() != 0:
@@ -612,13 +625,12 @@ def add_product():
                              "de_text": product_form_requested["de_text"],
                              "vt_text": product_form_requested["vt_text"],
                              "fr_text": product_form_requested["fr_text"],
-                             "wood_type": product_form_requested.get("wood_type"),
+                             "type": product_form_requested["type"],
                              "visible": True,
                              "article": article,
                              "path": save_photo(files, client, False, "", "", "", "", "", "")})
         return redirect("../admin/edit_product", 301)
-    wood_types = client[db_name]["wood_types"].find()
-    return render_template("admin/add_product.html", product_form=product_form, wood_types=wood_types)
+    return render_template("admin/add_product.html", product_form=product_form)
 
 
 @app.route('/admin/edit_product', methods=["GET", "POST"])
@@ -631,34 +643,37 @@ def edit_product():
 @app.route('/admin/edit_product/<id>', methods=["GET", "POST"])
 @login_required
 def edit_one_product(id):
-    product_form = ProductForm()
     products = client[db_name]["products"]
     product = products.find({"_id": ObjectId(id)})[0]
-    if request.method == "GET":
-        wood_types = client[db_name]["wood_types"].find()
+    product_form = ProductForm(type=product["type"])
+    wood_types = client[db_name]["wood_types"].find()
 
+    wood_type_titles = []
+    for wood_type in range(wood_types.count()):
+        wood_type_titles.append((wood_types[wood_type]["title"], wood_types[wood_type]["title"]))
+
+    product_form.type.choices = wood_type_titles
+
+    if request.method == "GET":
         product_form.ru_text.data = product["ru_text"]
         product_form.en_text.data = product["en_text"]
         product_form.zh_text.data = product["zh_text"]
         product_form.de_text.data = product["de_text"]
         product_form.fr_text.data = product["fr_text"]
         product_form.vt_text.data = product["vt_text"]
+        return render_template("admin/edit_one_product.html", product=product, product_form=product_form)
 
-        return render_template("admin/edit_one_product.html", product=product, product_form=product_form,
-                               wood_types=wood_types)
     elif product_form.validate_on_submit():
-        print(13)
         p_form = request.form
         if "delete" in p_form:
             products.remove({"_id": ObjectId(id)})
 
         else:
-            photo_name = ""
-            if product["path"] and (".jpg" in product["path"] or ".png" in product["path"]):
-                photo_name = product["path"]
+            photo_name = product["path"]
             photo = request.files["files"]
             if photo:
                 photo_name = save_photo(photo, client, False, "", "", "", "", "", "")
+
             visible = False
             if "visible" in p_form:
                 visible = True
@@ -667,6 +682,7 @@ def edit_one_product(id):
                                           "length": p_form["length"],
                                           "width": p_form["width"],
                                           "height": p_form["height"],
+                                          "type": p_form["type"],
                                           "ru_text": p_form["ru_text"],
                                           "en_text": p_form["en_text"],
                                           "zh_text": p_form["zh_text"],

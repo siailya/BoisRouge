@@ -133,6 +133,8 @@ class ProductForm(FlaskForm):
     width = StringField("Ширина", validators=[DataRequired("Введите ширину")])
     height = StringField("Высота", validators=[DataRequired("Введите высоту")])
 
+    type = SelectField("Порода дерева", coerce=str)
+
     ru_text = TextAreaField("Описание (ru)", validators=[DataRequired("Введите описание изделия на русском языке")])
     en_text = TextAreaField("Описание (en)",
                             validators=[DataRequired("Введите описание изделия на английском языке")])

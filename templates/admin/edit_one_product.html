@@ -16,25 +16,21 @@
 
     <hr>
 
-    <div>
-      <label class="form-label">Название</label>
-      <input type="text" name="title" class="form-control mb-3" value="{{ product["title"] }}">
+    <div class="input-group mb-3">
+      <span class="input-group-text">{{ product_form.title.label }}</span>
+      {{ product_form.title(class="form-control", value=product["title"]) }}
+      {% if product_form.title.errors %}
+        <div class="invalid-feedback d-block">
+          {{ product_form.title.errors[0] }}
+        </div>
+      {% endif %}
     </div>
 
-
     <div>
-      <label class="form-label">
+      <label>
         Порода дерева
       </label>
-      <select name="type" class="form-select mb-3 me-3" style="width: 20vw">
-        {% for wood_type in wood_types %}
-          {% if wood_type.title == product["wood_type"] %}
-            <option value="{{ wood_type.title }}" selected>{{ wood_type.title }}</option>
-          {% else %}
-            <option value="{{ wood_type.title }}">{{ wood_type.title }}</option>
-          {% endif %}
-        {% endfor %}
-      </select>
+      {{ product_form.type(class="form-select form-select-lg mb-3 me-3", style="width: 20vw") }}
     </div>
 
     <div class="input-group mb-3">
